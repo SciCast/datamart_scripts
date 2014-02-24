@@ -4,3 +4,5 @@
 *.csv
 *.dot
 *history
+/datamart_testing/submitRequest.py~
+/datamart_testing/api_key

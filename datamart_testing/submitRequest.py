@@ -15,7 +15,7 @@ def validate(date_text):
         return False
 
 #person_url: http://test.scicast.org:8200/person/?format=json&api_key=
-api="INSERT_API_KEY"
+api = open('api_key', 'r').readline().strip('\n')
 url="http://test.scicast.org:8200/"
 urlEnd="/?format=json&api_key="+api
 start = True

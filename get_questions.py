@@ -61,26 +61,35 @@ def get_links(json_Qs, dot=False, labels=False):
 
     '''
     if not dot:
-        s = 'Parent, Child\n'
         sep = ', '
+        s = 'Parent, Child\n'
     else:
+        sep = ' -> '
         s = '''# SciCast Link Diagram
-        # %s
+# %s
 digraph {
 
-# LEGEND:
-#    Live Questions:    default style, with label
-#    Resolved Qs   :    [style=dotted, color=gray];
-#    Invalid Qs    :    [shape=Mdiamond, style=dashed, color=gray]
-#    TBD: Resolved Arcs:    [style=dotted, color=gray]
-#    TBD: Proposed Arcs:  	[style=dashed, color=blue]
-#
-
-# Default Node Style
+graph [label="SciCast Link Structure\n\n", labelloc=top, fontsize=40];
+rankdir=LR; 
+ranksep=.3;
 node [style=filled, fillcolor="cornsilk:purple3", color=transparent];
 
+subgraph LEGEND {
+	 label="Legend";
+	 labelloc=top;
+	 rankdir=LR;
+	 style=solid;
+	 nodesep=0.02;
+	 Live;
+	 Resolved [style=dotted, color=gray];
+	 Invalid [shape=Mdiamond, style=dashed, color=gray];
+	 Live -> Resolved [style=invis];
+	 Resolved -> Invalid [style=invis];
+	 #    TBD: Resolved Arcs:    [style=dotted, color=gray]
+	 #    TBD: Proposed Arcs:  	[style=dashed, color=blue]
+	 }
+
 ''' % time.asctime()
-        sep = ' -> '
         
     for q in json_Qs:
         try:
@@ -112,36 +121,36 @@ def get_shortnames(json_Qs, dot=False, linksonly=True):
         for q in json_Qs:
             links = q['relationships']
             if len(links) > 0:
-                has_links[q['id']] = True
+                has_links[q['question_id']] = True
                 for link in links:
                     has_links[link['destination_question_id']] = True
 
     s = ''
     for q in json_Qs:
-        if linksonly and not has_links[q['id']]:
+        if linksonly and not has_links[q['question_id']]:
             continue
         sname = q['short_name'].encode('ascii','replace').replace('"','')
         try:
-            roles = q['roles'].encode('ascii','replace')
+            roles = q['groups'].encode('ascii','replace')
         except AttributeError:
             roles = ''
         if dot:
             label = '%s\\n%s\\n(%s)' % (sname[:15], sname[15:], roles)
-            s += '%s [' % q['id']
+            s += '%s [' % q['question_id']
             if 'Invalid' in roles:
                 s += 'shape=Mdiamond, style=dashed, color=gray, '
-            elif q['settled_at'] != None:
+            elif q['resolution_at'] != None:
                 s += 'style=dotted, color=gray, '
             s += 'label="%s"]\n' % label
         else:
-            s += "%s,%s,%s\n" % (q['id'], sname, roles)
+            s += "%s,%s,%s\n" % (q['question_id'], sname, roles)
     return s
 
 def get_registrations(payload):
     pass
     
 if __name__ == '__main__':
-    if len(sys.argv) < 1:
+    if len(sys.argv) < 2:
         print "Usage: %s api_key" % (sys.argv[0])
         sys.exit(1)
 
@@ -150,8 +159,8 @@ if __name__ == '__main__':
 
     # Get question data and write link files
     json_data = get_questions(payload)
-    settled = [x for x in json_data if x['settled_value'] != None]
-    invalid = [x for x in json_data if 'Invalid' in x['roles']]
+    settled = [x for x in json_data if x['resolution_index'] != None]
+    invalid = [x for x in json_data if 'Invalid' in x['groups']]
     print "# Total Questions   : %4d" % (len(json_data))
     print "# Resolved Questions: %4d" % (len(settled))
     print "# Invalid Questions : %4d" % (len(invalid))

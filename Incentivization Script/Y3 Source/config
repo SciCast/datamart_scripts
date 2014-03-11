@@ -73,3 +73,7 @@ high_percent:95
 #NOTE: high/low_percent overrides this setting
 
 #percent_range:5
+
+#ignore: comma,separated,list; used to tell which user groups, usernames, id's, etc. to ignore
+#can parse over any field name returned
+#ignore:internal

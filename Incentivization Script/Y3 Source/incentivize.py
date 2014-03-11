@@ -117,6 +117,10 @@ def main():
     #Compile everything into a Database object
     database = incentivedb(options, users, trades, comments, startDate, endDate)
 
+    #Calculate our accumulation for the time period (if necessary)
+    database.getAccumulation()
+
+    winners = database.calculateWinners()
 
 
 if __name__ == '__main__': #driver function

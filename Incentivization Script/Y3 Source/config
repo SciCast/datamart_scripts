@@ -1,0 +1,75 @@
+#####################################################
+# Incentivization Script Configuration
+#
+# Lines that start with a # are comments and are ignored
+
+# blank lines are also ignored
+# keys and values are structured as follows:
+# ^key:value$
+# where ^ is line_start and $ is line_end (\n)
+# default values are contained below
+# spaces will be trimmed
+#
+# To make a change, simply change the value to whatever
+# you wish out of the allowed values
+######################################################
+
+#url: string; URL from which the request will take place
+#This shouldn't need to be changed, it's mostly for debugging
+#NOTE: only the hostname, not the http:// part
+url:test.scicast.org
+
+#port: string; port number for the datamart request.
+#will be added to URL
+port:8200
+
+#Accumulation: boolean; determines whether the activity
+#from previous runs will be counted
+
+accumulate:false
+
+#winners: int; number of winners
+
+winners:25
+
+#activity: string; the activity type which will be counted
+#current activity types accepted: trades, comments
+
+activity:trades
+
+#debug: boolean; more verbose output, extra files created
+#for debugging and verification
+
+debug:false
+
+#db: string; output filename. Output file is stored in the
+#current directory as $db.json
+
+db:database
+
+#out_csv: boolean; if true, will write the output file as a
+#.csv as well. Filename is $db.csv by default
+
+out_csv:true
+
+#out_file: string; OPTIONAL. If exists, will change the CSV
+#output filename to $out_file.csv
+
+#out_file:database
+
+#low_percent: int; lower bound (percentile) to clip off data
+
+low_percent:5
+
+#high_percent: int; higher bound (percentile) to clip off data
+
+high_percent:95
+
+#percent_range: int; Used to determine clipping if you don't want
+#to use high/low percent granularity.
+#EG: percent_range:10 would mean clipping at 10%/90%
+#percent_range:30 would mean clipping at 30%/70%
+#percent range:60 would mean clipping at 40%/60%
+#NOTE: high/low_percent overrides this setting
+
+#percent_range:5

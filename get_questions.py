@@ -19,6 +19,7 @@ import requests
 import sys
 import time
 from numpy import zeros
+import textwrap
 
 def validate(payload):
     '''Perform some basic checks on the query string, ie 'payload'.
@@ -110,12 +111,13 @@ subgraph LEGEND {
 def get_shortnames(json_Qs, dot=False, linksonly=True):
     '''Return a list of IDs and ShortNames and Roles
     
-    @param dot -- Set True to use dot notation -- id [label="Shortname"] -- rather than csv.
+    @param dot -- Set True to use dot notation rather than csv
+                  Dot notation: id [label="id: Shortname"]
     @param linksonly -- Omit nodes without links
 
     '''
 
-    # If linksonly, we have to preparse to find which questions are linked to others
+    # Determine which questions are linked to others
     if linksonly:
         has_links = zeros(len(json_Qs)+1, 'bool')
         for q in json_Qs:
@@ -126,6 +128,8 @@ def get_shortnames(json_Qs, dot=False, linksonly=True):
                     has_links[link['destination_question_id']] = True
 
     s = ''
+    wrapper = textwrap.TextWrapper()
+    wrapper.width = 17
     for q in json_Qs:
         if linksonly and not has_links[q['question_id']]:
             continue
@@ -135,13 +139,13 @@ def get_shortnames(json_Qs, dot=False, linksonly=True):
         except AttributeError:
             roles = ''
         if dot:
-            label = '%s\\n%s\\n(%s)' % (sname[:15], sname[15:], roles)
-            s += '%s [' % q['question_id']
+            label = '%s: %s (%s)' % (q['question_id'], sname, roles)
+            s += '%s [ label="%s"' % (q['question_id'], wrapper.fill(label))
             if 'Invalid' in roles:
-                s += 'shape=Mdiamond, style=dashed, color=gray, '
+                s += ', shape=Mdiamond, style=dashed, color=gray '
             elif q['resolution_at'] != None:
-                s += 'style=dotted, color=gray, '
-            s += 'label="%s"]\n' % label
+                s += ',style=dotted, color=gray '
+            s += ']\n'
         else:
             s += "%s,%s,%s\n" % (q['question_id'], sname, roles)
     return s

@@ -17,7 +17,7 @@
 #url: string; URL from which the request will take place
 #This shouldn't need to be changed, it's mostly for debugging
 #NOTE: only the hostname, not the http:// part
-url:test.scicast.org
+url:datamart.scicast.org
 
 #port: string; port number for the datamart request.
 #will be added to URL
@@ -57,13 +57,15 @@ out_csv:true
 
 #out_file:database
 
+####TODO#####
+#Implement high/low percentile bounds
 #low_percent: int; lower bound (percentile) to clip off data
 
-low_percent:5
+#low_percent:5
 
 #high_percent: int; higher bound (percentile) to clip off data
 
-high_percent:95
+#high_percent:95
 
 #percent_range: int; Used to determine clipping if you don't want
 #to use high/low percent granularity.
@@ -76,4 +78,4 @@ high_percent:95
 
 #ignore: comma,separated,list; used to tell which user groups, usernames, id's, etc. to ignore
 #can parse over any field name returned
-#ignore:internal
+ignore:internal

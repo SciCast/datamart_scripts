@@ -1,7 +1,20 @@
 # -*- coding: UTF-8 -*-
 
-import json, random
+import json, random, math
 from collections import OrderedDict
+
+class WeightedRandomizer:
+    def __init__ (self, weights):
+        self.__max = .0
+        self.__weights = []
+        for value, weight in weights.items ():
+            self.__max += weight
+            self.__weights.append ( (self.__max, value) )
+
+    def random (self):
+        r = random.random () * self.__max
+        for ceil, value in self.__weights:
+            if ceil > r: return value
 
 class IncentiveDB():
     def __init__(self, opt, users, trades, comments, start = None, end = None):
@@ -37,8 +50,9 @@ class IncentiveDB():
         for user in self.users:
             skip = False
             for key, value in user.iteritems():
-                if value in self.ignore:
-                    skip = True
+                for item in self.ignore:
+                    if item in value:
+                        skip = True
             if skip:
                 continue
             user_id = str(user["user_id"])
@@ -71,9 +85,21 @@ class IncentiveDB():
                     counter += 1
         return counter
 
+    def getUsername(self,user_id):
+        for user in self.users:
+            if user["user_id"] == user_id:
+                return user["username"]
+        return "User not found: "+user_id
+
     def calculateWinners(self):
-        #winners = random.sample(winList, sample_size)
-        hat = {}
+
+        '''
+        TODO Goal: For each user whose activity is >5th percentile and <95th percentile
+        add to hat <activity> times
+
+        if activity < 5th percentile:
+        if activity >= 1, add to hat 5th percentile times
+        *REQUIRES VERIFICATION*
 
         #get our percentiles for cutoff
         highpercent = 100
@@ -95,6 +121,25 @@ class IncentiveDB():
         numUsers = len(sorted_activity)
         highPercentile = numUsers * (highpercent/100)
         max_tix = max(sorted_activity[highPercentile],)
+        '''
+
+        #winners = random.sample(winList, sample_size)
+        #winners calculated by 1+log(activity,2) = shares in hat
+        hat = {}
+        winners = {}
+        allUsers = self.activity
+        for user, activeList in allUsers.iteritems():
+            if activeList[self.activityType] > 0:
+                entries = 1+log(activeList[self.activityType], 2)
+                hat[user] = entries
+        randomizer = WeightedRandomizer(hat)
+        while len(winners) <= self.numwinners:
+            win = randomizer.random()
+            if winners[win]:
+                winners[win] += 1
+            else:
+                winners[win] = 1
+        self.winners = winners
 
         return self.winners
 

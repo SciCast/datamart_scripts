@@ -122,6 +122,13 @@ def main():
 
     winners = database.calculateWinners()
 
+    winList = []
+
+    for user,winNum in winners.iteritems():
+        winList.append(database.getUsername(user))
+
+    print winList
+
 
 if __name__ == '__main__': #driver function
     main()

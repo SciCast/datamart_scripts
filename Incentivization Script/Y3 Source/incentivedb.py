@@ -24,6 +24,7 @@ class IncentiveDB():
         self.opt = opt
         self.accumulate = True if opt["accumulate"] == "true" else False
         self.previous = self.getPrevious(opt)
+        self.prevwinners = self.getPreviousWinners(opt)
         self.numwinners = opt["winners"]
         self.debug = opt["debug"]
         self.ignore = opt["ignore"].split(',')
@@ -38,6 +39,17 @@ class IncentiveDB():
 
     def getPrevious(self,opt):
         filename = opt["db"]+".json"
+        if os.path.isfile(filename):
+            json_data = open(filename)
+            data = json.load(json_data)
+            json_data.close()
+            print type(data)
+        else:
+            data = None
+        return data
+
+    def getPreviousWinners(self,opt):
+        filename = opt["prev"]+".json"
         if os.path.isfile(filename):
             json_data = open(filename)
             data = json.load(json_data)
@@ -92,6 +104,24 @@ class IncentiveDB():
         return counter
 
     def printDatabase(self):
+        self.previous = self.activity
+        for key, value in self.previous.iteritems():
+            print str(key in self.winners)+" "+str(key)
+            if key in self.winners and self.accumulate:
+                print "Found: "+str(key)+" "+self.activitytype
+                value[self.activitytype] = 0
+        try:
+            js = open(self.opt["db"]+".json",'w')
+            json.dump(self.previous, js, sort_keys=True, indent=4)
+            js.close()
+            return True
+        except ValueError:
+            print "Error"
+
+    def printPrevious(self):
+        ###TODO###
+        #create functionality like above to print previous winners in winner log
+
         self.previous = self.activity
         for key, value in self.previous.iteritems():
             print str(key in self.winners)+" "+str(key)

@@ -143,11 +143,13 @@ def main(argv):
 
     #Now we have the winners, let's work on our outputs
     if database.printDatabase():
-        print "Previous db saved as "+options["db"]
+        print "Previous db saved as "+options["db"]+".json"
 
-
-    print winners
-    print winList
+    #Keep track of the winners
+    if database.printPrevious():
+        print "Previous winners saved as "+options["prev"]+".json"
+    #print winners
+    #print winList
 
 
 if __name__ == '__main__': #driver function

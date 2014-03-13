@@ -52,6 +52,11 @@ db:database
 
 out_csv:true
 
+#prev: string; previous_winners filename. Output file is stored in the
+#current directory as $prev.json
+
+prev:prev_winners
+
 #out_file: string; OPTIONAL. If exists, will change the CSV
 #output filename to $out_file.csv
 

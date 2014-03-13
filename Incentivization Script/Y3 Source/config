@@ -17,7 +17,7 @@
 #url: string; URL from which the request will take place
 #This shouldn't need to be changed, it's mostly for debugging
 #NOTE: only the hostname, not the http:// part
-url:datamart.scicast.org
+url:test.scicast.org
 
 #port: string; port number for the datamart request.
 #will be added to URL
@@ -26,7 +26,7 @@ port:8200
 #Accumulation: boolean; determines whether the activity
 #from previous runs will be counted
 
-accumulate:false
+accumulate:true
 
 #winners: int; number of winners
 

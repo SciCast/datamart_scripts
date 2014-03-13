@@ -1,6 +1,6 @@
 # -*- coding: UTF-8 -*-
 
-import json, random, math
+import json, random, math, os, sys
 from collections import OrderedDict
 
 class WeightedRandomizer:
@@ -22,7 +22,7 @@ class IncentiveDB():
         self.trades = trades
         self.comments = comments
         self.opt = opt
-        self.accumulate = True if opt["accumulation"] == "true" else False
+        self.accumulate = True if opt["accumulate"] == "true" else False
         self.previous = self.getPrevious(opt)
         self.numwinners = opt["winners"]
         self.debug = opt["debug"]
@@ -32,34 +32,41 @@ class IncentiveDB():
         self.startdate = start
         self.enddate = end
         self.winners = {}
+        self.previousTrade = None
+        self.hat = {}
 
 
     def getPrevious(self,opt):
-        filename = opt["db"]
+        filename = opt["db"]+".json"
         if os.path.isfile(filename):
             json_data = open(filename)
             data = json.load(json_data)
             json_data.close()
+            print type(data)
         else:
             data = None
         return data
 
     def getAccumulation(self):
-        if self.previous is not None:
-            self.activity = self.previous
+        if self.previous is not None and self.accumulate:
+            print type(self.previous)
+            self.activity = dict((int(k), v) for k,v in self.previous.iteritems())
         for user in self.users:
             skip = False
             for key, value in user.iteritems():
                 for item in self.ignore:
-                    if item in value:
+                    if str(value).lower().find(str(item).lower()) != -1:
+                        print "Skipped: "+value
                         skip = True
             if skip:
                 continue
-            user_id = str(user["user_id"])
+            user_id = user["user_id"]
+            #print self.activity
             if user_id in self.activity:
                 self.activity[user_id][self.activitytype] += self.countActivity(user_id)
             else:
-                self.activity[user_id][self.activitytype] = self.countActivity(user_id)
+                #print type(user_id)
+                self.activity[user_id] = {self.activitytype:self.countActivity(user_id)}
                 if self.activitytype == "trades":
                     self.activity[user_id]["comments"] = 0
                 else:
@@ -68,22 +75,36 @@ class IncentiveDB():
     def countActivity(self, user_id):
         counter = 0
         if self.activitytype == "trades":
-            previousTrade = None
             for trade in self.trades:
                 if trade["user_id"] == user_id:
-                    if previousTrade is not None:
+                    if self.previousTrade is None:
                         counter += 1
                     else:
-                        if previousTrade["user_id"] != user_id:
+                        if self.previousTrade["user_id"] != user_id:
                             counter += 1
-                            previousTrade = trade
+                            self.previousTrade = trade
                         else:
-                            previousTrade = trade
+                            self.previousTrade = trade
         elif self.activitytype == "comments":
             for comment in self.comments:
                 if comment["user_id"] == user_id:
                     counter += 1
         return counter
+
+    def printDatabase(self):
+        self.previous = self.activity
+        for key, value in self.previous.iteritems():
+            print str(key in self.winners)+" "+str(key)
+            if key in self.winners and self.accumulate:
+                print "Found: "+str(key)+" "+self.activitytype
+                value[self.activitytype] = 0
+        try:
+            js = open(self.opt["db"]+".json",'w')
+            json.dump(self.previous, js, sort_keys=True, indent=4)
+            js.close()
+            return True
+        except ValueError:
+            print "Error"
 
     def getUsername(self,user_id):
         for user in self.users:
@@ -129,17 +150,21 @@ class IncentiveDB():
         winners = {}
         allUsers = self.activity
         for user, activeList in allUsers.iteritems():
-            if activeList[self.activityType] > 0:
-                entries = 1+log(activeList[self.activityType], 2)
-                hat[user] = entries
+            if activeList[self.activitytype] > 0:
+                entries = 1+math.log(activeList[self.activitytype], 2)
+                hat[user] = math.ceil(entries)
+        if len(hat) < int(self.numwinners):
+            print "Not enough people to win"
+            print hat
+            sys.exit(1)
         randomizer = WeightedRandomizer(hat)
-        while len(winners) <= self.numwinners:
+        while len(winners) < int(self.numwinners):
             win = randomizer.random()
-            if winners[win]:
+            if win in winners:
                 winners[win] += 1
             else:
                 winners[win] = 1
+        self.hat = hat
         self.winners = winners
-
         return self.winners
 

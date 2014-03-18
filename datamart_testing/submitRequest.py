@@ -14,9 +14,9 @@ def validate(date_text):
     except ValueError:
         return False
 
-#person_url: http://test.scicast.org:8200/person/?format=json&api_key=
+#person_url: http://scicast.org:8200/person/?format=json&api_key=
 api = open('api_key', 'r').readline().strip('\n')
-url="http://test.scicast.org:8200/"
+url="http://scicast.org:8200/"
 urlEnd="/?format=json&api_key="+api
 start = True
 startdate = datetime.datetime.now()
@@ -141,14 +141,14 @@ if __name__ == '__main__':
             print "New key found: "+removeNonAscii(str(key))
             keys.append(removeNonAscii(str(key)))
             keyCounter += 1
-            if keyCounter > 22:
+            if keyCounter > 23:
               sys.exit("Too many keys!")
           if value is not None:
             if removeNonAscii(str(key)) == "question_text" or  removeNonAscii(str(key)) == "name" or  removeNonAscii(str(key)) == "short_name":
               if not isinstance(value, unicode) and not isinstance(value, str):
                 sys.exit("Bad value for "+removeNonAscii(str(value))+" "+str(type(value)))
             if removeNonAscii(str(key)) == "categories" or removeNonAscii(str(key)) == "choices" or removeNonAscii(str(key)) == "keywords":
-              if not isinstance(value, unicode) and not isinstance(value, str):
+              if not isinstance(value, unicode) and not isinstance(value, str) and not isinstance(value, list):
                 sys.exit("Bad value for "+removeNonAscii(str(value))+" "+str(type(value)))
             #TODO: Date threshold mapping
       remove = []

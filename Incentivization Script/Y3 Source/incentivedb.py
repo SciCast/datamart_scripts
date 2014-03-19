@@ -181,7 +181,7 @@ class IncentiveDB():
         allUsers = self.activity
         for user, activeList in allUsers.iteritems():
             if activeList[self.activitytype] > 0:
-                entries = 1+math.log(activeList[self.activitytype], 2)
+                entries = activeList[self.activitytype]
                 hat[user] = math.ceil(entries)
         if len(hat) < int(self.numwinners):
             print "Not enough people to win"

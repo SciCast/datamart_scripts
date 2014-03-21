@@ -52,15 +52,30 @@ db:database
 
 out_csv:true
 
-#prev: string; previous_winners filename. Output file is stored in the
+#winlog: string; winner log filename. Output file is stored in the
 #current directory as $prev.json
 
-prev:prev_winners
+winlog:prev_winners
 
 #out_file: string; OPTIONAL. If exists, will change the CSV
 #output filename to $out_file.csv
 
 #out_file:database
+
+#dupes:bool; "true" or "false". If true, activities will win
+#(IE users can win multiple times per session). If false, users
+#will win (a user can only win once per session)
+
+dupes:true
+
+#output_dir:string; folder where files will be stored
+
+output_dir:outputs
+
+#internals:string; folder name where internal database files will
+#be stored
+
+internals:util
 
 ####TODO#####
 #Implement high/low percentile bounds

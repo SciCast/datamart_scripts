@@ -143,12 +143,27 @@ def main(argv):
 
     #Now we have the winners, let's work on our outputs
     if database.printDatabase():
-        print "Previous db saved as "+options["db"]+".json"
+        print "Previous db saved as "+options["db"]+".json in folder "+options["internals"]
 
     #Keep track of the winners
-    if database.printPrevious():
-        print "Previous winners saved as "+options["prev"]+".json"
+    f = None
+    try:
+        f = open(options["winlog"]+".json")
+    except IOError:
+        print 'No win log file'
+    if database.printWinLog(f):
+        print "Winner log saved as "+options["winlog"]+".json in folder "+options["internals"]
+
+    #For readability, print previous winners and winner log as CSV files
+    if options["outcsv"].lower() == "true":
+        if database.printcsv():
+            print "CSV files saved in "+options["output_dir"]
+
     #print winners
+
+    test = 0
+
+
     #print winList
 
 

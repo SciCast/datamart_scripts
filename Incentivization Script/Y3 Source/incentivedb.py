@@ -1,6 +1,6 @@
 # -*- coding: UTF-8 -*-
 
-import json, random, math, os, sys
+import json, random, math, os, sys, datetime, csv
 from collections import OrderedDict
 
 class WeightedRandomizer:
@@ -35,6 +35,7 @@ class IncentiveDB():
         self.winners = {}
         self.previousTrade = None
         self.hat = {}
+        self.winlog = {}
 
 
     def getPrevious(self,opt):
@@ -105,36 +106,69 @@ class IncentiveDB():
 
     def printDatabase(self):
         self.previous = self.activity
+        folder = self.opt["internals"]
+        if not os.path.exists(folder):
+            os.makedirs(folder)
         for key, value in self.previous.iteritems():
             print str(key in self.winners)+" "+str(key)
             if key in self.winners and self.accumulate:
                 print "Found: "+str(key)+" "+self.activitytype
                 value[self.activitytype] = 0
         try:
-            js = open(self.opt["db"]+".json",'w')
+            js = open(folder+"/"+self.opt["db"]+".json",'w')
             json.dump(self.previous, js, sort_keys=True, indent=4)
             js.close()
             return True
         except ValueError:
             print "Error"
 
-    def printPrevious(self):
-        ###TODO###
-        #create functionality like above to print previous winners in winner log
-
-        self.previous = self.activity
-        for key, value in self.previous.iteritems():
-            print str(key in self.winners)+" "+str(key)
-            if key in self.winners and self.accumulate:
-                print "Found: "+str(key)+" "+self.activitytype
-                value[self.activitytype] = 0
+    def printWinLog(self,file_handle):
+        prev_winners = {}
+        today = datetime.datetime.now()
+        today_str = today.strftime("%Y-%m-%d")
+        folder = self.opt["internals"]
+        if not os.path.exists(folder):
+            os.makedirs(folder)
+        if file_handle is not None:
+            data = json.load(file_handle)
+            file_handle.close()
+            prev_winners = data
+            for key,val in self.winners.iteritems():
+                if key in prev_winners:
+                    prev_winners[key][today_str] = self.winners[key][self.activitytype]
+                else:
+                    prev_winners[key] = {today_str:self.winners[key][self.activitytype]}
+        else:
+            prev_winners = {}
+            for key,val in self.winners.iteritems():
+                prev_winners[key] = {today_str:self.winners[key][self.activitytype]}
+        self.winlog = prev_winners
         try:
-            js = open(self.opt["db"]+".json",'w')
-            json.dump(self.previous, js, sort_keys=True, indent=4)
+            js = open(folder+"/"+self.opt["winlog"]+".json",'w')
+            json.dump(self.winlog, js, sort_keys=True, indent=4)
             js.close()
             return True
         except ValueError:
             print "Error"
+
+    def printcsv(self):
+        folder = self.opt["output_dir"]
+        if not os.path.exists(folder):
+            os.makedirs(folder)
+        #listWriter = csv.DictWriter(open('/Users/broberts/Desktop/Sum_CSP1_output.csv', 'wb'), fieldnames=itemDict[itemDict.keys()[0]].keys(), delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
+
+        #print the "prevusers" database. Database is used for storing accumulation. This is mostly for debugging
+        #or verification
+        prevwriter = csv.DictWriter(open(folder+"/"+self.opt["db"]+".csv", 'wb'), fieldnames=['username', 'activity_levels'], delimiter=',', quotechar='"', quoting=csv.QUOTE_NONNUMERIC)
+        for uid,activity in self.previous.iteritems():
+            name = self.getUsername(uid)
+            prevwriter.writerow({'username':name, 'activity_levels':activity})
+
+        #print the winner log
+        winlogwriter = csv.DictWriter(open(folder+"/"+self.opt["winlog"]+".csv", 'wb'), fieldnames=['username', 'win_dates'], delimiter=',', quotechar='"', quoting=csv.QUOTE_NONNUMERIC)
+        for uid,dates in self.winlog.iteritems():
+            name = self.getUsername(uid)
+            winlogwriter.writerow({'username':name, 'win_dates':dates})
 
     def getUsername(self,user_id):
         for user in self.users:

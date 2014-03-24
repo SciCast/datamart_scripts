@@ -1,10 +1,12 @@
+# -*- coding: UTF-8 -*-
+
 '''
 Created on Jan 13, 2014
 
-
 @author: ssmith
+Used to test datamart, both sanity and information verification checks
 '''
-import requests, csv, json, sys, datetime, re
+import requests, csv, json, sys, datetime, re, modules, getopt
 
 def removeNonAscii(s): return ''.join([i if ord(i) < 128 else ' ' for i in s])
 def validate(date_text):
@@ -15,17 +17,82 @@ def validate(date_text):
         return False
 
 #person_url: http://scicast.org:8200/person/?format=json&api_key=
-api = open('api_key', 'r').readline().strip('\n')
-url="http://scicast.org:8200/"
-urlEnd="/?format=json&api_key="+api
 start = True
 startdate = datetime.datetime.now()
 enddate = datetime.datetime.now()
 aggregate = False
 aggregateLevel = ""
+test_type = ""
 filename = ""
+test_list = ["comment","person","leaderboard","question","question_history","trade_history"]
 
-if __name__ == '__main__':
+def formatDate(dateString):
+    if dateString is not None:
+        try:
+            retval = datetime.datetime.strptime(dateString, "%m-%d-%Y")
+        except ValueError:
+            try:
+                retval = datetime.datetime.strptime(dateString, "%m/%d/%Y")
+            except ValueError:
+                try:
+                    retval = datetime.datetime.strptime(dateString, "%Y-%m-%d")
+                except ValueError:
+                    raise ValueError("Incorrect date format for "+str(dateString)+". Should be one of YYYY-MM-DD, MM/DD/YYYY, MM-DD-YYYY")
+        return retval
+    else:
+        return None
+
+def main():
+    """
+    Main driver for program
+    usage: submitRequest.py -h [-s, --startdate] <startdate> [-e, --enddate] <enddate>] [-a, --aggregate] <aggregate_level> [-t, --test] <test type>
+    If no params, will run all tests with no arguments
+    """
+    try:
+      opts, args = getopt.getopt(sys.argv,"ht:s:e:a:",["test=","startdate=","enddate=","aggregate="])
+    except getopt.GetoptError:
+        #If no arguments, run script assuming startdate == yesterday
+        print 'No arguments detected; usage: submitRequest.py -h [-s, --startdate] <startdate> [-e, --enddate] <enddate>] [-a, --aggregate] <aggregate_level> [-t, --test] <test type>'
+        sys.exit()
+    #print opts
+    for opt, arg in opts:
+        if opt == '-h': #Help documentation
+            print 'submitRequest.py -h [-s, --startdate] <startdate> [-e, --enddate] <enddate>] [-a, --aggregate] <aggregate_level> [-t, --test] <test type>'
+            sys.exit()
+        elif opt in ("-s", "--startdate"):
+            startstring = arg
+        elif opt in ("-e", "--enddate"):
+            endstring = arg
+        elif opt in ("-a", "--aggregate"):
+            aggregate_level = arg
+        elif opt in ("-t", "--test"):
+            test_type = arg.lower().strip()
+
+    #convert strings into datetime objects
+    if startstring:
+        startDate = formatDate(startstring)
+
+    if endstring:
+        endDate = formatDate(endstring)
+    else:
+        if startstring:
+            endDate = startDate
+
+    if test_type and test_type not in test_list:
+        print "Test type not recognized. Test must match one of the following:"
+        for test in test_type:
+            print "- "+test
+        sys.exit()
+
+    elif test_type and test_type in test_list:
+        test = test_list.index(test_type)
+
+    else:
+        test = -1
+
+    testSuite = modules.suite(test, startdate, enddate, aggregate_level)
+
+def hideTemporarily():
   if len(sys.argv) < 2:
     sys.exit("Usage: python submitRequest.py type_of_request [start date, end date, aggregate level]")
   else:
@@ -216,3 +283,6 @@ if __name__ == '__main__':
       else:
         sys.exit("File too large for sanity check, please verify manually.")
       print "Question history passed sanity check"
+
+if __name__ == '__main__':
+    main()

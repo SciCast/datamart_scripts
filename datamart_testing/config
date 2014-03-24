@@ -1,0 +1,24 @@
+#####################################################
+# Datamart Testing Script
+#
+# Lines that start with a # are comments and are ignored
+
+# blank lines are also ignored
+# keys and values are structured as follows:
+# ^key:value$
+# where ^ is line_start and $ is line_end (\n)
+# default values are contained below
+# spaces will be trimmed
+#
+# To make a change, simply change the value to whatever
+# you wish out of the allowed values
+######################################################
+
+#url: string; URL from which the request will take place
+#This shouldn't need to be changed, it's mostly for debugging
+#NOTE: only the hostname, not the http:// part
+url:scicast.org
+
+#port: string; port number for the datamart request.
+#will be added to URL
+port:8200

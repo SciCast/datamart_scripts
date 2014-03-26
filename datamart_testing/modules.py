@@ -148,4 +148,3 @@ class suite():
                     if not isinstance(object["comment_text"], unicode):
                         print "comment_text not unicode: "+str(object)
                         sys.exit()
-                        

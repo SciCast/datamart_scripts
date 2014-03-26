@@ -57,6 +57,11 @@ out_csv:true
 
 winlog:prev_winners
 
+#newwinners: string; winners for current run filename. Output file is stored in the
+#current directory as $prev.json
+
+newwinners:winners
+
 #out_file: string; OPTIONAL. If exists, will change the CSV
 #output filename to $out_file.csv
 

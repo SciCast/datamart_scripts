@@ -241,18 +241,16 @@ class IncentiveDB():
 
         #print the "prevusers" database. Database is used for storing accumulation. This is mostly for debugging
         #or verification
-        prevwriter = csv.DictWriter(open(folder+"/"+self.opt["db"]+".csv", 'wb'), fieldnames=['username', 'activity_levels'], delimiter=',', quotechar='"', quoting=csv.QUOTE_NONNUMERIC)
+        prevwriter = csv.DictWriter(open(folder+"/"+self.opt["db"]+".csv.txt", 'wb'), fieldnames=['user_id', 'activity_levels'], delimiter=',', quotechar='"', quoting=csv.QUOTE_NONNUMERIC)
         prevwriter.writeheader()
         for uid,activity in self.previous.iteritems():
-            name = self.getUsername(uid)
-            prevwriter.writerow({'username':name, 'activity_levels':activity})
+            prevwriter.writerow({'user_id':uid, 'activity_levels':activity})
 
         #print the winner log
-        winlogwriter = csv.DictWriter(open(folder+"/"+self.opt["winlog"]+".csv", 'wb'), fieldnames=['username', 'win_dates'], delimiter=',', quotechar='"', quoting=csv.QUOTE_NONNUMERIC)
+        winlogwriter = csv.DictWriter(open(folder+"/"+self.opt["winlog"]+".csv.txt", 'wb'), fieldnames=['user_id', 'win_dates'], delimiter=',', quotechar='"', quoting=csv.QUOTE_NONNUMERIC)
         winlogwriter.writeheader()
         for uid,dates in self.winlog.iteritems():
-            name = self.getUsername(uid)
-            winlogwriter.writerow({'username':name, 'win_dates':dates})
+            winlogwriter.writerow({'user_id':uid, 'win_dates':dates})
 
     def getUsername(self,user_id):
         '''

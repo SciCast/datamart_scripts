@@ -206,20 +206,10 @@ def main(argv):
     finalWinList = []
     winners = database.winners
     for user,winNum in winners.iteritems():
-        '''if wincounter >= 25:
-            break
-        if options["dupes"] == "true":
-             wincounter += winNum
-        else:
-            wincounter += 1'''
         finalWinList.append(user)
     wincounter = 0
-    winwriter = csv.DictWriter(open(options["output_dir"]+"/"+options["newwinners"]+".csv", 'wb'), fieldnames=['user_id', 'num_wins'], delimiter=',', quotechar='"', quoting=csv.QUOTE_NONNUMERIC)
+    winwriter = csv.DictWriter(open(options["output_dir"]+"/"+options["newwinners"]+".csv.txt", 'wb'), fieldnames=['user_id', 'num_wins'], delimiter=',', quotechar='"', quoting=csv.QUOTE_NONNUMERIC)
     for person in finalWinList:
-        '''if options["dupes"] == "true":
-            numwins = winners[person]
-        else:
-            numwins = 1'''
         numwins = winners[person]
         wincounter += numwins
         winwriter.writerow({'user_id':person, 'num_wins':numwins})

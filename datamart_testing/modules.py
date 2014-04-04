@@ -106,7 +106,7 @@ class suite():
         ["comment","person","leaderboard","question","question_history","trade_history"]
 
         @type test: integer
-        @param test: test suite to run. If no argument, it will run whateve ris set as self.test
+        @param test: test suite to run. If no argument, it will run whatever is set as self.test
         @return:
         """
         testUrl = ""
@@ -122,29 +122,193 @@ class suite():
                 testUrl = "person/leaderboard"
             else:
                 testUrl = testName
-            if self.startdate is None or self.enddate is None and testUrl == "person/leaderboard":
-                print "Leaderboard requests require start/enddate arguments"
-                sys.exit()
+            if self.startdate is None or self.enddate is None:
+                if testUrl == "person/leaderboard":
+                    print "Leaderboard requests require start/enddate arguments"
+                    sys.exit()
             url += testUrl+"?format=json&api_key="+self.api
             if self.startdate is not None and self.enddate is not None:
-                url += "&start_date="+self.formatDate(self.startdate)+"&end_date="+self.formatDate(self.enddate)
+                url += "&start_date="+self.formatDate(self.startdate)+"&end_date="+\
+                       self.formatDate(self.enddate)
             objectData = self.getData(url)
-            if test == 0:
+            if test == 0: #comment sanity test
+                #{"down_votes": 0, "up_votes": 0, "trade_id": null, "comment_text": "Current depth is already 1.5\", with a cold front coming in next week.", "user_id": 36, "is_alert": false, "created_at": "2013-12-04T10:45:46", "comment_id": 4, "parent_comment_id": null, "question_id": 51}
                 first = objectData[0]
                 numKeys = len(first.keys())
                 for object in objectData:
                     if len(object.keys()) != numKeys:
                         print "Too many keys for "+str(object)
-                        sys.exit()
+                        return False
                     if not isinstance(object["down_votes"], int):
                         print "downvote not integer: "+str(object)
-                        sys.exit()
+                        return False
                     if not isinstance(object["up_votes"], int):
                         print "upvote not integer: "+str(object)
-                        sys.exit()
-                    if not isinstance(object["trade_id"], int):
-                        print "trade_id not integer: "+str(object)
-                        sys.exit()
+                        return False
+                    if not isinstance(object["trade_id"], int) and object["trade_id"] is not None:
+                        print "trade_id not integer or None: "+str(object)
+                        return False
                     if not isinstance(object["comment_text"], unicode):
                         print "comment_text not unicode: "+str(object)
-                        sys.exit()
+                        return False
+                    if not isinstance(object["created_at"], datetime.datetime) \
+                            and not isinstance(object["created_at"], unicode):
+                        print "created_at not datetime or unicode: "+str(object)
+                        return False
+                    if not isinstance(object["parent_comment_id"], int) and object["parent_comment_id"] \
+                            is not None:
+                        print "parent_comment_id not integer or None: "+str(object)
+                        return False
+                    if not isinstance(object["question_id"], int):
+                        print "question_id not integer: "+str(object)
+                        return False
+                    if not isinstance(object["is_alert"], bool) and not isinstance(object["is_alert"], int) \
+                            and not isinstance(object["is_alert"], unicode):
+                        print "is_alert not valid: "+str(object)
+                        return False
+                return True
+            elif test == 1: #person sanity test
+                #{"username": "daggre_admin", "interests": null, "user_id": 1, "created_at": "2013-11-17T10:37:23", "is_active": true, "default_trade_preference": null, "about_me": null, "referral_id": null, "groups": "QuestionAdmin,Study 2.1A,Admin,User,SuperAdmin,UserAdmin,Internal,BadgesAdmin,RolesAdmin", "num_trades": 30, "opt_out_email": null}
+                first = objectData[0]
+                numKeys = len(first.keys())
+                for object in objectData:
+                    if len(object.keys()) != numKeys:
+                        print "Too many keys for "+str(object)
+                        return False
+                    if not isinstance(object["user_id"], int):
+                        print "user_id not integer: "+str(object)
+                        return False
+                    if not isinstance(object["num_trades"], int):
+                        print "num_trades not integer: "+str(object)
+                        return False
+                    if not isinstance(object["referral_id"], unicode) and object["referral_id"] is not None:
+                        print "referral_id not unicode or None: "+str(object)
+                        return False
+                    if not isinstance(object["username"], unicode):
+                        print "username not unicode: "+str(object)
+                        return False
+                    if not isinstance(object["groups"], unicode):
+                        print "groups not unicode: "+str(object)
+                        return False
+                    if not isinstance(object["opt_out_email"], int) and object["opt_out_email"] is not None:
+                        print "opt_out_email not integer or None: "+str(object)
+                        return False
+                    if not isinstance(object["interests"], unicode) and object["interests"] is not None:
+                        print "interests not unicode or None: "+str(object)
+                        return False
+                    if not isinstance(object["default_trade_preference"], int) \
+                            and object["default_trade_preference"] is not None:
+                        print "default_trade_preference not int: "+str(object)
+                        return False
+                    if not isinstance(object["created_at"], datetime.datetime) \
+                            and not isinstance(object["created_at"], unicode):
+                        print "created_at not datetime or unicode: "+str(object)
+                        return False
+                    if not isinstance(object["about_me"], unicode) and object["about_me"] is not None:
+                        print "about_me not unicode: "+str(object)
+                        return False
+                    if not isinstance(object["is_active"], bool) \
+                            and not isinstance(object["is_alert"], int) and not isinstance(object["is_alert"], unicode):
+                        print "is_active not valid: "+str(object)
+                        return False
+                return True
+            elif test == 2:
+                first = objectData[0]
+                numKeys = len(first.keys())
+                for object in objectData:
+                    if len(object.keys()) != numKeys:
+                        print "Too many keys for "+str(object)
+                        return False
+                    if not isinstance(object["max_score"], int) and object["max_score"] is not None:
+                        print "max_score not integer: "+str(object)
+                        return False
+                    if not isinstance(object["user_id"], int):
+                        print "user_id not integer: "+str(object)
+                        return False
+                    if not isinstance(object["sampled_at"], datetime.datetime) \
+                            and not isinstance(object["sampled_at"], unicode):
+                        print "sampled_at not datetime or unicode: "+str(object)
+                        return False
+                return True
+            elif test == 3:
+                first = objectData[0]
+                numKeys = len(first.keys())
+                for object in objectData:
+                    if len(object.keys()) != numKeys:
+                        print "Too many keys for "+str(object)
+                        return False
+                    if not isinstance(object["is_visible"], bool) \
+                            and not isinstance(object["is_visible"], unicode):
+                        print "is_visible invalid: "+str(object)
+                        return False
+                    if not isinstance(object["resolution_index"], float) \
+                            and object["resolution_index"] is not None:
+                        print "resolution_index invalid: "+str(object)
+                        return False
+                    if not isinstance(object["question_contributors"], unicode) \
+                            and object["question_contributors"] is not None:
+                        print "questin_contributors invalid: "+str(object)
+                        return False
+                    if not isinstance(object["keywords"], unicode) and object["keywords"] is not None:
+                        print "keywords invalid: "+str(object)
+                        return False
+                    if not isinstance(object["relationships"], list):
+                        return False
+                    if not isinstance(object["question_text"], unicode):
+                        print "question_text invalid: "+str(object)
+                        return False
+                    if not isinstance(object["priority"], int) and object["priority"] is not None:
+                        print "priority invalid: "+str(object)
+                        return False
+                    if not isinstance(object["resolution_at"], datetime.datetime) \
+                            and not isinstance(object["resolution_at"], unicode) and object["resolution_at"] is not None:
+                        print "resolution_at invalid: "+str(object)
+                        return False
+                    if not isinstance(object["type"], unicode):
+                        print "type invalid: "+str(object)
+                        return False
+                    if not isinstance(object["short_name"], unicode):
+                        print "short_name invalid: "+str(object)
+                        return False
+                    if not isinstance(object["spark_id"], unicode) and object["spark_id"] is not None:
+                        print "spark_id invalid: "+str(object)
+                        return False
+                    if not isinstance(object["resolution_value_array"], unicode) \
+                            and not isinstance(object["resolution_value_array"], list) and object["resolution_value_array"] is not None:
+                        print "resolution_value_array invalid: "+str(object)
+                        return False
+                    if not isinstance(object["groups"], unicode):
+                        print "groups invalid: "+str(object)
+                        return False
+                    if not isinstance(object["last_traded_at"], datetime.datetime) \
+                            and not isinstance(object["last_traded_at"], unicode) and object["last_traded_at"] is not None:
+                        print "last_traded_at invalid: "+str(object)
+                        return False
+                    if not isinstance(object["categories"], unicode) and object["categories"] is not None:
+                        print "categories invalid: "+str(object)
+                        return False
+                    if not isinstance(object["question_kind"], int) and object["question_kind"] is not None:
+                        print "question_kind invalid: "+str(object)
+                        return False
+                    if not isinstance(object["name"], unicode):
+                        print "name invalid: "+str(object)
+                        return False
+                    if not isinstance(object["is_locked"], bool) and not isinstance(object["is_locked"], unicode):
+                        print "is_locked invalid: "+str(object)
+                        return False
+                    if not isinstance(object["created_at"], datetime.datetime) and not isinstance(object["created_at"], unicode):
+                        print "created_at invalid: "+str(object)
+                        return False
+                    if not isinstance(object["choices"], list):
+                        print "choices invalid: "+str(object)
+                        return False
+                    if not isinstance(object["pending_until"], datetime.datetime) and not isinstance(object["pending_until"], unicode) and object["pending_until"] is not None:
+                        print "pending_until invalid: "+str(object)
+                        return False
+                    if not isinstance(object["challenge"], unicode) and object["challenge"] is not None:
+                        print "challenge invalid: "+str(object)
+                        return False
+                    if not isinstance(object["question_id"], int):
+                        print "question_id invalid: "+str(object)
+                        return False
+                return True

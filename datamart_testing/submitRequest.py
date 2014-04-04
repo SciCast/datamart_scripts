@@ -18,11 +18,9 @@ def validate(date_text):
 
 #person_url: http://scicast.org:8200/person/?format=json&api_key=
 start = True
-startdate = datetime.datetime.now()
-enddate = datetime.datetime.now()
+startDate = None
+endDate = None
 aggregate = False
-aggregateLevel = ""
-test_type = ""
 filename = ""
 test_list = ["comment","person","leaderboard","question","question_history","trade_history"]
 
@@ -42,21 +40,27 @@ def formatDate(dateString):
     else:
         return None
 
-def main():
+def main(argv):
     """
     Main driver for program
     usage: submitRequest.py -h [-s, --startdate] <startdate> [-e, --enddate] <enddate>] [-a, --aggregate] <aggregate_level> [-t, --test] <test type>
     If no params, will run all tests with no arguments
     """
+    global startDate
+    global endDate
     try:
-      opts, args = getopt.getopt(sys.argv,"ht:s:e:a:",["test=","startdate=","enddate=","aggregate="])
+      opts, args = getopt.getopt(argv,"ht:s:e:a:",["test=","startdate=","enddate=","aggregate="])
     except getopt.GetoptError:
         #If no arguments, run script assuming startdate == yesterday
         print 'No arguments detected; usage: submitRequest.py -h [-s, --startdate] <startdate> [-e, --enddate] <enddate>] [-a, --aggregate] <aggregate_level> [-t, --test] <test type>'
         sys.exit()
-    #print opts
+    print opts
+    startstring = ""
+    endstring = ""
+    aggregate_level = ""
+    test_type = ""
     for opt, arg in opts:
-        if opt == '-h': #Help documentation
+        if '-h' in args or opt == '-h': #Help documentation
             print 'submitRequest.py -h [-s, --startdate] <startdate> [-e, --enddate] <enddate>] [-a, --aggregate] <aggregate_level> [-t, --test] <test type>'
             sys.exit()
         elif opt in ("-s", "--startdate"):
@@ -68,16 +72,6 @@ def main():
         elif opt in ("-t", "--test"):
             test_type = arg.lower().strip()
 
-    #convert strings into datetime objects
-    if startstring:
-        startDate = formatDate(startstring)
-
-    if endstring:
-        endDate = formatDate(endstring)
-    else:
-        if startstring:
-            endDate = startDate
-
     if test_type and test_type not in test_list:
         print "Test type not recognized. Test must match one of the following:"
         for test in test_type:
@@ -86,11 +80,25 @@ def main():
 
     elif test_type and test_type in test_list:
         test = test_list.index(test_type)
-
     else:
         test = -1
 
-    testSuite = modules.suite(test, startdate, enddate, aggregate_level)
+    #convert strings into datetime objects
+    if startstring:
+        startDate = formatDate(startstring)
+    else:
+        if test == 2:
+            startDate = datetime.datetime.now()
+
+    if endstring:
+        endDate = formatDate(endstring)
+    else:
+        if startstring:
+            endDate = startDate
+
+    testSuite = modules.suite(test, startDate, endDate, aggregate_level)
+    if testSuite.sanity(test):
+        print "Sanity test passed"
 
 def hideTemporarily():
   if len(sys.argv) < 2:
@@ -285,4 +293,4 @@ def hideTemporarily():
       print "Question history passed sanity check"
 
 if __name__ == '__main__':
-    main()
+    main(sys.argv[1:])

@@ -54,11 +54,12 @@ def main(argv):
         #If no arguments, run script assuming startdate == yesterday
         print 'No arguments detected; usage: submitRequest.py -h [-s, --startdate] <startdate> [-e, --enddate] <enddate>] [-a, --aggregate] <aggregate_level> [-t, --test] <test type>'
         sys.exit()
-    print opts
+    #print opts
     startstring = ""
     endstring = ""
     aggregate_level = ""
     test_type = ""
+    aggregate_types = ["daily", "weekly", "monthly", "yearly"]
     for opt, arg in opts:
         if '-h' in args or opt == '-h': #Help documentation
             print 'submitRequest.py -h [-s, --startdate] <startdate> [-e, --enddate] <enddate>] [-a, --aggregate] <aggregate_level> [-t, --test] <test type>'
@@ -69,17 +70,21 @@ def main(argv):
             endstring = arg
         elif opt in ("-a", "--aggregate"):
             aggregate_level = arg
+            if aggregate_level not in aggregate_types:
+                print 'Acceptable aggregate levels: '+','.join(aggregate_types)
+                sys.exit()
         elif opt in ("-t", "--test"):
             test_type = arg.lower().strip()
 
-    if test_type and test_type not in test_list:
-        print "Test type not recognized. Test must match one of the following:"
-        for test in test_type:
-            print "- "+test
-        sys.exit()
-
-    elif test_type and test_type in test_list:
-        test = test_list.index(test_type)
+    if test_type:
+        if test_type not in test_list:
+            print "Test type not recognized. Test must match one of the following:"
+            for test in test_type:
+                print "- "+test
+            sys.exit()
+        else:
+            print test_type
+            test = test_list.index(test_type)
     else:
         test = -1
 

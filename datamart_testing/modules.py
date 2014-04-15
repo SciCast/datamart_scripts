@@ -130,6 +130,8 @@ class suite():
             if self.startdate is not None and self.enddate is not None:
                 url += "&start_date="+self.formatDate(self.startdate)+"&end_date="+\
                        self.formatDate(self.enddate)
+            if self.aggregate_level is not "":
+                url +="&aggregate_level="+self.aggregate_level
             objectData = self.getData(url)
             if test == 0: #comment sanity test
                 #{"down_votes": 0, "up_votes": 0, "trade_id": null, "comment_text": "Current depth is already 1.5\", with a cold front coming in next week.", "user_id": 36, "is_alert": false, "created_at": "2013-12-04T10:45:46", "comment_id": 4, "parent_comment_id": null, "question_id": 51}
@@ -310,5 +312,23 @@ class suite():
                         return False
                     if not isinstance(object["question_id"], int):
                         print "question_id invalid: "+str(object)
+                        return False
+                return True
+            elif test == 4:
+                first = objectData[0]
+                numKeys = len(first.keys())
+                for object in objectData:
+                    if len(object.keys()) != numKeys:
+                        print "Too many keys for "+str(object)
+                        return False
+                    if not isinstance(object["probabilities"], unicode) and object["probabilities"] is not None:
+                        print "probabilities not csv: "+str(object)
+                        return False
+                    if not isinstance(object["question_id"], int):
+                        print "question_id not integer: "+str(object)
+                        return False
+                    if not isinstance(object["sampled_at"], datetime.datetime) \
+                            and not isinstance(object["sampled_at"], unicode):
+                        print "sampled_at not datetime or unicode: "+str(object)
                         return False
                 return True

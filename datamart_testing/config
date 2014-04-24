@@ -22,3 +22,6 @@ url:scicast.org
 #port: string; port number for the datamart request.
 #will be added to URL
 port:8200
+
+#debug: int; Will output certain debug statements
+debug:0

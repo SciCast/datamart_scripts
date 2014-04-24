@@ -22,7 +22,7 @@ startDate = None
 endDate = None
 aggregate = False
 filename = ""
-test_list = ["comment","person","leaderboard","question","question_history","trade_history"]
+test_list = ["comment","person","leaderboard","question","question_history","trade_history","all"]
 
 def formatDate(dateString):
     if dateString is not None:
@@ -49,16 +49,18 @@ def main(argv):
     global startDate
     global endDate
     try:
-      opts, args = getopt.getopt(argv,"ht:s:e:a:",["test=","startdate=","enddate=","aggregate="])
+      opts, args = getopt.getopt(argv,"hvit:s:e:a:",["test=","startdate=","enddate=","aggregate=","verify","ignore_errors"])
     except getopt.GetoptError:
         #If no arguments, run script assuming startdate == yesterday
-        print 'No arguments detected; usage: submitRequest.py -h [-s, --startdate] <startdate> [-e, --enddate] <enddate>] [-a, --aggregate] <aggregate_level> [-t, --test] <test type>'
+        print 'No arguments detected; usage: submitRequest.py -h [-v, --verify] [-i, --ignore_errors] [-s, --startdate] <startdate> [-e, --enddate] <enddate>] [-a, --aggregate] <aggregate_level> [-t, --test] <test type>'
         sys.exit()
     #print opts
     startstring = ""
     endstring = ""
     aggregate_level = ""
     test_type = ""
+    verify=False
+    ignore=False
     aggregate_types = ["daily", "weekly", "monthly", "yearly"]
     for opt, arg in opts:
         if '-h' in args or opt == '-h': #Help documentation
@@ -66,6 +68,10 @@ def main(argv):
             sys.exit()
         elif opt in ("-s", "--startdate"):
             startstring = arg
+        elif opt in ("-v", "--verify"):
+            verify = True
+        elif opt in ("-i", "--ignore_errors"):
+            ignore = True
         elif opt in ("-e", "--enddate"):
             endstring = arg
         elif opt in ("-a", "--aggregate"):
@@ -79,31 +85,188 @@ def main(argv):
     if test_type:
         if test_type not in test_list:
             print "Test type not recognized. Test must match one of the following:"
-            for test in test_type:
+            for test in test_list:
                 print "- "+test
             sys.exit()
         else:
-            print test_type
+            #print test_type
             test = test_list.index(test_type)
     else:
-        test = -1
+        test = 6
 
     #convert strings into datetime objects
     if startstring:
         startDate = formatDate(startstring)
     else:
-        if test == 2:
-            startDate = datetime.datetime.now()
+        if test == 6:
+            startDate = datetime.datetime.now().strftime("%m-%d-%Y")
 
     if endstring:
         endDate = formatDate(endstring)
     else:
         if startstring:
             endDate = startDate
+#["comment","person","leaderboard","question","question_history","trade_history"]
+    if test != 6:
+        testSuite = modules.suite(test, startDate, endDate, aggregate_level)
+        if testSuite.sanity():
+            print "Sanity test passed"
+        if verify:
+            testSuite = modules.suite(test,None, None, "")
+            if testSuite.verification():
+                print "Verification for "+test_list[test]+" completed successfully."
+            else:
+                print "Verification for "+test_list[test]+" failed."
+                if not ignore:
+                    sys.exit()
+    else:
+        for i in range(len(test_list)-1):
+            if i == 0: #comment
+                testSuite = modules.suite(i,None, None, "")
+                if testSuite.sanity():
+                    print "Non-date sanity check for "+test_list[i]+" completed successfully"
+                else:
+                    print "Non-date sanity check for "+test_list[i]+" failed."
+                    if not ignore:
+                        sys.exit()
+                if verify:
+                    if testSuite.verification():
+                        print "Verification for "+test_list[i]+" completed successfully."
+                    else:
+                        print "Verification for "+test_list[i]+" failed."
+                        if not ignore:
+                            sys.exit()
+                testSuite.setstartdate(formatDate("01-01-2013"))
+                testSuite.setenddate(formatDate(datetime.datetime.now().strftime("%m-%d-%Y")))
+                if testSuite.sanity():
+                    print "Date sanity check for "+str(datetime.datetime.now())+" "+test_list[i]+" completed successfully"
+                else:
+                    print "Date sanity check for "+str(datetime.datetime.now())+" "+test_list[i]+" failed."
+                    if not ignore:
+                        sys.exit()
 
-    testSuite = modules.suite(test, startDate, endDate, aggregate_level)
-    if testSuite.sanity(test):
-        print "Sanity test passed"
+            elif i == 1: #person
+                testSuite = modules.suite(i,None, None, "")
+                if testSuite.sanity():
+                    print "Non-date sanity check for "+test_list[i]+" completed successfully"
+                else:
+                    print "Non-date sanity check for "+test_list[i]+" failed."
+                    if not ignore:
+                        sys.exit()
+                if verify:
+                    if testSuite.verification():
+                        print "Verification for "+test_list[i]+" completed successfully."
+                    else:
+                        print "Verification for "+test_list[i]+" failed."
+                        if not ignore:
+                            sys.exit()
+                testSuite.setstartdate(formatDate("01-01-2013"))
+                testSuite.setenddate(formatDate(datetime.datetime.now().strftime("%m-%d-%Y")))
+                if testSuite.sanity():
+                    print "Date sanity check for "+str(datetime.datetime.now())+" "+test_list[i]+" completed successfully"
+                else:
+                    print "Date sanity check for "+str(datetime.datetime.now())+" "+test_list[i]+" failed."
+                    if not ignore:
+                        sys.exit()
+            elif i == 2: #leaderboard
+                testSuite = modules.suite(i,None, None, "")
+                testSuite.setstartdate(formatDate("01-01-2013"))
+                testSuite.setenddate(formatDate(datetime.datetime.now().strftime("%m-%d-%Y"))) #requires date, so we'll only do this test
+                if testSuite.sanity():
+                    print "Date sanity check for "+str(datetime.datetime.now())+" "+test_list[i]+" completed successfully"
+                else:
+                    print "Date sanity check for "+str(datetime.datetime.now())+" "+test_list[i]+" failed."
+                    if not ignore:
+                        sys.exit()
+            elif i == 3: #question
+                testSuite = modules.suite(i,None, None, "")
+                if testSuite.sanity():
+                    print "Non-date sanity check for "+test_list[i]+" completed successfully"
+                else:
+                    print "Non-date sanity check for "+test_list[i]+" failed."
+                    if not ignore:
+                        sys.exit()
+                if verify:
+                    if testSuite.verification():
+                        print "Verification for "+test_list[i]+" completed successfully."
+                    else:
+                        print "Verification for "+test_list[i]+" failed."
+                        if not ignore:
+                            sys.exit()
+                testSuite.setstartdate(formatDate("01-01-2013"))
+                testSuite.setenddate(formatDate(datetime.datetime.now().strftime("%m-%d-%Y")))
+                if testSuite.sanity():
+                    print "Date sanity check for "+str(datetime.datetime.now())+" "+test_list[i]+" completed successfully"
+                else:
+                    print "Date sanity check for "+str(datetime.datetime.now())+" "+test_list[i]+" failed."
+                    if not ignore:
+                        sys.exit()
+            elif i == 4: #question_history
+                testSuite = modules.suite(i,None, None, "")
+                if testSuite.sanity():
+                    print "Non-date, non-aggregate sanity check for "+test_list[i]+" completed successfully"
+                else:
+                    print "Non-date, non-aggregate sanity check for "+test_list[i]+" failed."
+                    if not ignore:
+                        sys.exit()
+                for level in aggregate_types:
+                    testSuite.setaggregate(level)
+                    if testSuite.sanity():
+                        print "Non-date, "+level+" sanity check for "+test_list[i]+" completed successfully"
+                    else:
+                        print "Non-date, "+level+" sanity check for "+test_list[i]+" failed."
+                        if not ignore:
+                            sys.exit()
+                testSuite.setaggregate("")
+                testSuite.setstartdate(formatDate("01-01-2013"))
+                testSuite.setenddate(formatDate(datetime.datetime.now().strftime("%m-%d-%Y")))
+                if testSuite.sanity():
+                    print "Date, non-aggregate sanity check for "+str(datetime.datetime.now())+" "+test_list[i]+" completed successfully"
+                else:
+                    print "Date, non-aggregate sanity check for "+str(datetime.datetime.now())+" "+test_list[i]+" failed."
+                    if not ignore:
+                        sys.exit()
+                for level in aggregate_types:
+                    testSuite.setaggregate(level)
+                    if testSuite.sanity():
+                        print "Date, "+level+" sanity check for "+test_list[i]+" completed successfully"
+                    else:
+                        print "Date, "+level+" sanity check for "+test_list[i]+" failed."
+                        if not ignore:
+                            sys.exit()
+            elif i == 5: #trade_history
+                testSuite = modules.suite(i,None, None, "")
+                if testSuite.sanity():
+                    print "Non-date, non-aggregate sanity check for "+test_list[i]+" completed successfully"
+                else:
+                    print "Non-date, non-aggregate sanity check for "+test_list[i]+" failed."
+                    if not ignore:
+                        sys.exit()
+                for level in aggregate_types:
+                    testSuite.setaggregate(level)
+                    if testSuite.sanity():
+                        print "Non-date, "+level+" sanity check for "+test_list[i]+" completed successfully"
+                    else:
+                        print "Non-date, "+level+" sanity check for "+test_list[i]+" failed."
+                        if not ignore:
+                            sys.exit()
+                testSuite.setaggregate("")
+                testSuite.setstartdate(formatDate("01-01-2013"))
+                testSuite.setenddate(formatDate(datetime.datetime.now().strftime("%m-%d-%Y")))
+                if testSuite.sanity():
+                    print "Date, non-aggregate sanity check for "+str(datetime.datetime.now())+" "+test_list[i]+" completed successfully"
+                else:
+                    print "Date, non-aggregate sanity check for "+str(datetime.datetime.now())+" "+test_list[i]+" failed."
+                    if not ignore:
+                        sys.exit()
+                for level in aggregate_types:
+                    testSuite.setaggregate(level)
+                    if testSuite.sanity():
+                        print "Date, "+level+" sanity check for "+test_list[i]+" completed successfully"
+                    else:
+                        print "Date, "+level+" sanity check for "+test_list[i]+" failed."
+                        if not ignore:
+                            sys.exit()
 
 def hideTemporarily():
   if len(sys.argv) < 2:

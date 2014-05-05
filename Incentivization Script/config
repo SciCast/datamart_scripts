@@ -1,0 +1,51 @@
+#####################################################
+# Incentivization Payment Script Configuration
+#
+# Lines that start with a # are comments and are ignored
+
+# blank lines are also ignored
+# keys and values are structured as follows:
+# ^key:value$
+# where ^ is line_start and $ is line_end (\n)
+# default values are contained below
+# spaces will be trimmed
+#
+# To make a change, simply change the value to whatever
+# you wish out of the allowed values
+######################################################
+
+#server: string; server to connect to to send the emails
+server:c4i.gmu.edu
+
+#port: string; port number to connect to the server
+port:587
+
+#from: string; email address from which the notification will be sent
+from:ssmith@c4i.gmu.edu
+
+#subject: string; Subject line for emails
+subject:Test Message
+
+#html: string; filename of html-formatted version of the body text
+html:gift_card_bodyfile_html.txt
+
+#plain: string; filename of plaintext-formatted version of body text
+plain:gift_card_bodyfile_plain.txt
+
+#scicast: string; filename for scicast logo
+scicast:scicast_logo.png
+
+#gmu: string; filename for gmu logo
+gmu:gmu_logo.png
+
+#amazon: string; filename for amazon logo
+amazon:amazon.gif
+
+#log: string; filename for log of winners to verify that $575 maximum has not been met
+log:winlog
+
+#winners: string; filename for people to notify, located at internals/prev_winners.json
+winners:prev_winners
+
+#giftcards: string; filename where amazon giftcard file is located
+giftcards:giftcards

@@ -1,0 +1,17 @@
+Dear <<NAME>>,
+
+Congratulations!
+
+You've won a $25 Amazon gift card for your activity on SciCast.org during Fortune Friday.
+
+Your $25 Amazon Gift Card electronic code is:
+
+<<CODE>>
+
+You can redeem your Amazon Gift Card electronic code by visiting http://www.amazon.com/gp/feature.html?ie=UTF8&docId=1000708681 in your web browser.
+
+If you have any questions, please contact us at contact@scicast.org.
+
+Best regards,
+
+The SciCast Team

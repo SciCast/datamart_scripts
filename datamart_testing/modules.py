@@ -730,7 +730,7 @@ class suite():
                     continue
                 if question["is_ordered"] == True and question["serialized_model"] is not None:
                     if len(question["serialized_model"]["range"]) == 0 and len(question["serialized_model"]["bins"]) == 0:
-                        print "Potential issue: question id "+str(question["id"])+" is ordered but serialized_model is not null"
+                        print "Potential issue: question id "+str(question["id"])+" is ordered but serialized_model is null"
                         serialized_issues.append(question["id"])
                 datamart_question = dict[question["id"]]
                 for key,val in question.iteritems():

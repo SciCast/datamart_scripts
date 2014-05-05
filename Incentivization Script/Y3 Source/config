@@ -17,7 +17,7 @@
 #url: string; URL from which the request will take place
 #This shouldn't need to be changed, it's mostly for debugging
 #NOTE: only the hostname, not the http:// part
-url:test.scicast.org
+url:scicast.org
 
 #port: string; port number for the datamart request.
 #will be added to URL

@@ -13,31 +13,6 @@ winners, etc.
 import json, random, math, os, sys, datetime, csv
 from collections import OrderedDict
 
-class WeightedRandomizer:
-    '''
-    Class to do weighted randomization based on activity
-    '''
-    def __init__ (self, weights):
-        '''
-
-        @param weights: list of all activity levels
-        @return: none
-        '''
-        self.__max = .0
-        self.__weights = []
-        for value, weight in weights.items ():
-            self.__max += weight
-            self.__weights.append ( (self.__max, value) )
-
-    def random (self):
-        '''
-        Gets a value from self.__weights based on the activity level of each one
-        @return: userid for user who won
-        '''
-        r = random.random () * self.__max
-        for ceil, value in self.__weights:
-            if ceil > r: return value
-
 class IncentiveDB():
     '''
     Created class to handle the activities necessary for the incentivization script.
@@ -70,11 +45,10 @@ class IncentiveDB():
         self.debug = opt["debug"]
         self.ignore = opt["ignore"].split(',')
         self.activity = {}
-        self.activitytype = opt["activity"]
         self.startdate = start
         self.enddate = end
         self.winners = {}
-        self.previousTrade = None
+        self.previousActivity = None
         self.hat = {}
         self.winlog = {}
 
@@ -126,7 +100,7 @@ class IncentiveDB():
             skip = False
             for key, value in user.iteritems():
                 for item in self.ignore:
-                    if str(value).lower().find(str(item).lower()) != -1:
+                    if unicode(value).lower().find(unicode(item).lower()) != -1:
                         print "Skipped: "+value
                         skip = True
             if skip:
@@ -134,14 +108,9 @@ class IncentiveDB():
             user_id = user["user_id"]
             #print self.activity
             if user_id in self.activity:
-                self.activity[user_id][self.activitytype] += self.countActivity(user_id)
+                self.activity[user_id] += self.countActivity(user_id)
             else:
-                #print type(user_id)
-                self.activity[user_id] = {self.activitytype:self.countActivity(user_id)}
-                if self.activitytype == "trades":
-                    self.activity[user_id]["comments"] = 0
-                else:
-                    self.activity[user_id]["trades"] = 0
+                self.activity[user_id] = self.countActivity(user_id)
 
     def countActivity(self, user_id):
         '''
@@ -150,23 +119,29 @@ class IncentiveDB():
         @type user_id: integer
         @return: integer describing activity levels for current run
         '''
-        counter = 0
-        if self.activitytype == "trades":
-            for trade in self.trades:
-                if trade["user_id"] == user_id:
-                    if self.previousTrade is None:
-                        counter += 1
+        tradecounter = 0
+        commentcounter = 0
+        for trade in self.trades:
+            if trade["user_id"] == user_id:
+                if self.previousActivity is None:
+                    tradecounter += 1
+                else:
+                    if self.previousActivity["user_id"] != user_id:
+                        tradecounter += 1
+                        self.previousActivity = trade
                     else:
-                        if self.previousTrade["user_id"] != user_id:
-                            counter += 1
-                            self.previousTrade = trade
-                        else:
-                            self.previousTrade = trade
-        elif self.activitytype == "comments":
-            for comment in self.comments:
-                if comment["user_id"] == user_id:
-                    counter += 1
-        return counter
+                        self.previousActivity = trade
+        for comment in self.comments:
+            if comment["user_id"] == user_id:
+                if self.previousActivity is None:
+                    commentcounter += 1
+                else:
+                    if self.previousActivity["user_id"] != user_id:
+                        commentcounter += 1
+                        self.previousActivity = comment
+                    else:
+                        self.previousActivity = comment
+        return {"trades":tradecounter,"comments":commentcounter}
 
     def printDatabase(self):
         '''
@@ -182,7 +157,8 @@ class IncentiveDB():
             #print str(key in self.winners)+" "+str(key)
             if key in self.winners and self.accumulate:
                 #print "Found: "+str(key)+" "+self.activitytype
-                value[self.activitytype] = 0
+                for type in value:
+                    type = 0
         try:
             js = open(folder+"/"+self.opt["db"]+".json",'w')
             json.dump(self.previous, js, sort_keys=True, indent=4)
@@ -276,56 +252,51 @@ class IncentiveDB():
         @return: dict of winners as {user_id:#wins}
         '''
 
-        hat = {}
+        hat = []
         temp = {}
         winners = {}
         allUsers = self.activity
         wincount = 0
         for user, activeList in allUsers.iteritems():
-            if activeList[self.activitytype] > 0:
-                entries = activeList[self.activitytype]
-                hat[user] = math.ceil(entries)
+            total_activity = 0
+            for type,number in activeList.iteritems():
+                total_activity += number
+            if total_activity > 0:
+                entries = total_activity
+                for i in range(entries):
+                    hat.append(user)
+                #hat[user] = math.ceil(entries)
                 wincount += math.ceil(entries)
-        if len(hat) < int(self.numwinners) and self.opt["dupes"] != "true":
-            print "Not enough people to win"
+        if len(hat) < int(self.numwinners):
+            print "Not enough people to fill slots"
             print hat
-            sys.exit(1)
+            #sys.exit(1)
         if len(hat) == 0:
             print "No valid users"
+            print allUsers
             sys.exit(1)
-        randomizer = WeightedRandomizer(hat)
-        if self.opt["dupes"] != "true":
-            while len(temp) < int(self.numwinners):
-                win = randomizer.random()
-                if win in temp:
-                    temp[win] += 1
-                else:
-                    temp[win] = 1
-        else:
-            wincount = 0
-            while wincount < int(self.numwinners):
-                win = randomizer.random()
-                if win in temp:
-                    temp[win] += 1
-                else:
-                    temp[win] = 1
-                wincount += 1
-        wincount = 0
+        #randomizer = WeightedRandomizer(hat)
+        while len(temp) < int(self.numwinners) and len(hat)>0:
+            #win = randomizer.random()
+            num = random.randint(0,len(hat)-1)
+            win = hat[num]
+            if win in temp:
+                temp[win] += 1
+            else:
+                temp[win] = 1
+            del hat[num]
         var = False
         for winner,winNum in temp.iteritems():
             if var:
                 break
-            if self.opt["dupes"] == "false":
-                winners[winner] = [winNum]
-            else:
-                winners[winner] = 0
-                for i in xrange(winNum):
-                    if var:
-                        break
-                    winners[winner] += 1
-                    wincount += 1
-                    if wincount == self.numwinners:
-                        var = True
+            winners[winner] = 0
+            for i in xrange(winNum):
+                if var:
+                    break
+                winners[winner] += 1
+                wincount += 1
+                if wincount == self.numwinners:
+                    var = True
         print winners
         self.hat = hat
         self.winners = winners

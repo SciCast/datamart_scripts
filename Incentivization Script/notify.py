@@ -93,7 +93,7 @@ def sendEmail(userid,codes,userlist,opt):
 
     for user in userlist:
         if user["id"] == int(userid):
-            print user
+            #print user
             email = user["email"]
             name = user["username"]
     fp = open(opt["html"], 'r')
@@ -158,7 +158,6 @@ def getCodes(number,opt,userid):
     skip = False
     today_str = datetime.datetime.now().strftime("%Y-%m-%d")
 
-    out = open(opt["giftcards"],'w')
     log = getFromFile(opt["log"])
     if log is None:
         log = {}
@@ -181,6 +180,9 @@ def getCodes(number,opt,userid):
                 code = lines[i].strip('\n')
                 codes.append(code)
                 lines[i] = code+",USED\n"
+                out = open(opt["giftcards"],'w')
+                out.writelines(lines)
+                out.close()
                 numwins += 1
                 if userid in log:
                     if today_str in log[userid]:
@@ -197,8 +199,6 @@ def getCodes(number,opt,userid):
                 if number == 0:
                     skip = True
     writelog(log,opt)
-    out.writelines(lines)
-    out.close()
     return codes
 
 def writelog(log,opt):

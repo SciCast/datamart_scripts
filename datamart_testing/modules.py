@@ -602,6 +602,7 @@ class suite():
                         #print str(numpy_data[stat_type][name])+" "+str(val)
                         if numpy_data[stat_type][name] != val:
                             print stat_type+" "+name+": "+str(stat_list)
+                            print str(numpy_data[stat_type][name])+" "+str(val)
                             return False
             elif self.aggregate_level == "daily":
                 data = objectData["data"]
@@ -635,6 +636,7 @@ class suite():
                         #print str(numpy_data[stat_type][name])+" "+str(val)
                         if numpy_data[stat_type][name] != val:
                             print stat_type+" "+name+": "+str(stat_list)
+                            print str(numpy_data[stat_type][name])+" "+str(val)
                             return False
             return True
 
@@ -726,11 +728,12 @@ class suite():
                 if question["id"] is None:
                     continue
                 if question["id"] not in dict:
-                    print "Potential issue: question id "+str(question["id"])+" not found in datamart"
+                    if question["created_at"].split("T")[0] != datetime.datetime.now().strftime("%Y-%m-%d"):
+                        print "Potential issue: question id "+str(question["id"])+" not found in datamart"
                     continue
                 if question["is_ordered"] == True and question["serialized_model"] is not None:
                     if len(question["serialized_model"]["range"]) == 0 and len(question["serialized_model"]["bins"]) == 0:
-                        print "Potential issue: question id "+str(question["id"])+" is ordered but serialized_model is null"
+                        #print "Potential issue: question id "+str(question["id"])+" is ordered but serialized_model is null"
                         serialized_issues.append(question["id"])
                 datamart_question = dict[question["id"]]
                 for key,val in question.iteritems():
@@ -752,6 +755,6 @@ class suite():
                         if key not in invalid_keys:
                             print "Potential issue: "+str(key)+" not in datamart"
                             invalid_keys.append(key)
-            print sorted(serialized_issues)
+            print "Questions where ordered is true and serialized_assumptions is null: "+str(sorted(serialized_issues))
         return True
 

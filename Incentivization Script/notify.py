@@ -148,7 +148,7 @@ def sendEmail(userid,codes,userlist,opt):
         server.starttls()
         server.login(emailuserpass[0],emailuserpass[1])
         print str(userid)+" "+code
-        #server.sendmail(fromemail,["ssmith@c4i.gmu.edu"],msgroot.as_string())
+        server.sendmail("Test@scicast.org",["ssmith@c4i.gmu.edu"],msgroot.as_string())
 
 def getCodes(number,opt,userid):
     codes = []
@@ -172,7 +172,7 @@ def getCodes(number,opt,userid):
         skip = True
 
     for i in range(0, len(lines)):
-        #print len(lines[i].split(','))
+        print len(lines[i].split(','))
         if skip:
             break
         else:
@@ -240,6 +240,7 @@ def main():
         if len(codes) != winnum:
             print "Error: "+str(codes)+" for user "+str(userid)
             sys.exit(1)
+        print "Sending mail to "+str(userid)
         sendEmail(userid,codes,all_users,options)
 
 if __name__ == '__main__': #driver function

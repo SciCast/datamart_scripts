@@ -1,0 +1,188 @@
+Non-date sanity check for comment completed successfully
+Verification for comment completed successfully.
+Date sanity check for 2014-04-29 14:47:46.491543 comment completed successfully
+Non-date sanity check for person completed successfully
+Potential issue: uninvested_assets not in datamart
+Potential issue: name_first not in datamart
+Potential issue: name_last not in datamart
+Potential issue: status not in datamart
+Potential issue: invitations not in datamart
+Potential issue: image_uri not in datamart
+Potential issue: options not in datamart
+Potential issue: email not in datamart
+Potential issue: gravatar not in datamart
+Potential issue: id not in datamart
+Potential issue: badges not in datamart
+Potential issue: Boston College not in group list for 60
+Potential issue: about_me I'm a Chartered Civil Engineer, aged 64, working in Karachi, and interested in how the world works. mismatch for user_id 367
+Potential issue: opt_out_email 0 mismatch for user_id 367
+Potential issue: University of Virginia not in group list for 1107
+Potential issue: user id 1809 not found in datamart
+Verification for person completed successfully.
+Date sanity check for 2014-04-29 14:47:55.509484 person completed successfully
+Date sanity check for 2014-04-29 14:47:56.142966 leaderboard completed successfully
+Non-date sanity check for question completed successfully
+Potential issue: question id 308 is ordered but serialized_model is not null
+Potential issue: settled_value not in datamart
+Potential issue: updated_at not in datamart
+Potential issue: settlement_at not in datamart
+Potential issue: id not in datamart
+Potential issue: serialized_settled_values not in datamart
+Potential issue: serialized_model not in datamart
+Potential issue: email not in datamart
+Potential issue: settled_at not in datamart
+Potential issue: iarpa_id not in datamart
+Potential issue: spark_context not in datamart
+Potential issue: desc not in datamart
+Potential issue: collaborators not in datamart
+Potential issue: image_uri not in datamart
+Potential issue: question id 286 is ordered but serialized_model is not null
+Potential issue: question id 24 is ordered but serialized_model is not null
+Potential issue: question id 285 is ordered but serialized_model is not null
+Potential issue: question id 430 is ordered but serialized_model is not null
+Potential issue: question id 415 is ordered but serialized_model is not null
+Potential issue: question id 335 is ordered but serialized_model is not null
+Potential issue: question id 314 is ordered but serialized_model is not null
+Potential issue: question id 310 is ordered but serialized_model is not null
+Potential issue: question id 282 is ordered but serialized_model is not null
+Potential issue: question id 257 is ordered but serialized_model is not null
+Potential issue: question id 29 is ordered but serialized_model is not null
+Potential issue: question id 116 is ordered but serialized_model is not null
+Potential issue: question id 212 is ordered but serialized_model is not null
+Potential issue: question id 414 is ordered but serialized_model is not null
+Potential issue: question id 397 is ordered but serialized_model is not null
+Potential issue: question id 55 is ordered but serialized_model is not null
+Potential issue: question id 49 is ordered but serialized_model is not null
+Potential issue: question id 56 is ordered but serialized_model is not null
+Potential issue: question id 167 is ordered but serialized_model is not null
+Potential issue: question id 334 is ordered but serialized_model is not null
+Potential issue: question id 45 is ordered but serialized_model is not null
+Potential issue: question id 41 is ordered but serialized_model is not null
+Potential issue: question id 35 is ordered but serialized_model is not null
+Potential issue: question id 182 is ordered but serialized_model is not null
+Potential issue: question id 38 is ordered but serialized_model is not null
+Potential issue: question id 37 is ordered but serialized_model is not null
+Potential issue: question id 36 is ordered but serialized_model is not null
+Potential issue: question id 181 is ordered but serialized_model is not null
+Potential issue: question id 151 is ordered but serialized_model is not null
+Potential issue: question id 34 is ordered but serialized_model is not null
+Potential issue: priority 111 mismatch for question_id 131
+Potential issue: question id 72 is ordered but serialized_model is not null
+Potential issue: question id 32 is ordered but serialized_model is not null
+Potential issue: question id 90 is ordered but serialized_model is not null
+Potential issue: question id 68 is ordered but serialized_model is not null
+Potential issue: question id 64 is ordered but serialized_model is not null
+Potential issue: question id 27 is ordered but serialized_model is not null
+Potential issue: question id 217 is ordered but serialized_model is not null
+Potential issue: question id 467 is ordered but serialized_model is not null
+Potential issue: question id 466 is ordered but serialized_model is not null
+Potential issue: question id 163 is ordered but serialized_model is not null
+Potential issue: question id 113 is ordered but serialized_model is not null
+Potential issue: question id 106 is ordered but serialized_model is not null
+Potential issue: question id 177 is ordered but serialized_model is not null
+Potential issue: question id 111 is ordered but serialized_model is not null
+Potential issue: question id 178 is ordered but serialized_model is not null
+Potential issue: question id 109 is ordered but serialized_model is not null
+Potential issue: question id 317 is ordered but serialized_model is not null
+Potential issue: question id 184 is ordered but serialized_model is not null
+Potential issue: question id 170 is ordered but serialized_model is not null
+Potential issue: question id 316 is ordered but serialized_model is not null
+Potential issue: question id 315 is ordered but serialized_model is not null
+Potential issue: question id 156 is ordered but serialized_model is not null
+Potential issue: question id 26 is ordered but serialized_model is not null
+Potential issue: question id 30 is ordered but serialized_model is not null
+Potential issue: question id 60 is ordered but serialized_model is not null
+Potential issue: question id 149 is ordered but serialized_model is not null
+Potential issue: question id 71 is ordered but serialized_model is not null
+Potential issue: question id 62 is ordered but serialized_model is not null
+Potential issue: question id 25 is ordered but serialized_model is not null
+Potential issue: question id 176 is ordered but serialized_model is not null
+Potential issue: question id 159 is ordered but serialized_model is not null
+Potential issue: question id 146 is ordered but serialized_model is not null
+Potential issue: question id 319 is ordered but serialized_model is not null
+Potential issue: priority 111 mismatch for question_id 319
+Potential issue: question id 320 is ordered but serialized_model is not null
+Potential issue: priority 111 mismatch for question_id 386
+Potential issue: question id 461 is ordered but serialized_model is not null
+Potential issue: priority 112 mismatch for question_id 461
+Potential issue: question id 158 is ordered but serialized_model is not null
+Potential issue: priority 114 mismatch for question_id 382
+Potential issue: question id 147 is ordered but serialized_model is not null
+Potential issue: question id 349 is ordered but serialized_model is not null
+Potential issue: question id 350 is ordered but serialized_model is not null
+Potential issue: question id 208 is ordered but serialized_model is not null
+Potential issue: question id 85 is ordered but serialized_model is not null
+Potential issue: question id 284 is ordered but serialized_model is not null
+Potential issue: question id 11 is ordered but serialized_model is not null
+Potential issue: question id 104 is ordered but serialized_model is not null
+Potential issue: question id 209 is ordered but serialized_model is not null
+Potential issue: question id 413 is ordered but serialized_model is not null
+Potential issue: question id 70 is ordered but serialized_model is not null
+Potential issue: question id 399 is ordered but serialized_model is not null
+Potential issue: question id 325 is ordered but serialized_model is not null
+Potential issue: question id 150 is ordered but serialized_model is not null
+Potential issue: question id 336 is ordered but serialized_model is not null
+Potential issue: question id 283 is ordered but serialized_model is not null
+Potential issue: question id 313 is ordered but serialized_model is not null
+Potential issue: question id 110 is ordered but serialized_model is not null
+Potential issue: question id 122 is ordered but serialized_model is not null
+Potential issue: question id 120 is ordered but serialized_model is not null
+Potential issue: question id 137 is ordered but serialized_model is not null
+Potential issue: question id 118 is ordered but serialized_model is not null
+Potential issue: question id 115 is ordered but serialized_model is not null
+Potential issue: question id 112 is ordered but serialized_model is not null
+Potential issue: question id 114 is ordered but serialized_model is not null
+Potential issue: question id 180 is ordered but serialized_model is not null
+Potential issue: question id 31 is ordered but serialized_model is not null
+Potential issue: question id 121 is ordered but serialized_model is not null
+Potential issue: question id 117 is ordered but serialized_model is not null
+Potential issue: question id 119 is ordered but serialized_model is not null
+Potential issue: question id 388 is ordered but serialized_model is not null
+Potential issue: question id 33 is ordered but serialized_model is not null
+Potential issue: question id 443 is ordered but serialized_model is not null
+Potential issue: question id 344 is ordered but serialized_model is not null
+Potential issue: priority 111 mismatch for question_id 344
+Potential issue: question id 211 is ordered but serialized_model is not null
+Potential issue: question id 73 is ordered but serialized_model is not null
+Potential issue: question id 307 is ordered but serialized_model is not null
+Potential issue: question id 123 is ordered but serialized_model is not null
+Potential issue: question id 125 is ordered but serialized_model is not null
+Potential issue: question id 174 is ordered but serialized_model is not null
+Potential issue: question id 139 is ordered but serialized_model is not null
+Potential issue: question id 321 is ordered but serialized_model is not null
+Potential issue: question id 337 is ordered but serialized_model is not null
+Potential issue: question id 175 is ordered but serialized_model is not null
+Potential issue: question id 136 is ordered but serialized_model is not null
+Potential issue: question id 348 is ordered but serialized_model is not null
+Potential issue: question id 318 is ordered but serialized_model is not null
+Potential issue: question id 356 is ordered but serialized_model is not null
+Potential issue: question id 287 is ordered but serialized_model is not null
+Potential issue: question id 197 is ordered but serialized_model is not null
+Potential issue: question id 433 is ordered but serialized_model is not null
+[11, 24, 25, 26, 27, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 41, 45, 49, 55, 56, 60, 62, 64, 68, 70, 71, 72, 73, 85, 90, 104, 106, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 125, 136, 137, 139, 146, 147, 149, 150, 151, 156, 158, 159, 163, 167, 170, 174, 175, 176, 177, 178, 180, 181, 182, 184, 197, 208, 209, 211, 212, 217, 257, 282, 283, 284, 285, 286, 287, 307, 308, 310, 313, 314, 315, 316, 317, 318, 319, 320, 321, 325, 334, 335, 336, 337, 344, 348, 349, 350, 356, 388, 397, 399, 413, 414, 415, 430, 433, 443, 461, 466, 467]
+Verification for question completed successfully.
+Date sanity check for 2014-04-29 14:48:04.834537 question completed successfully
+Non-date, non-aggregate sanity check for question_history completed successfully
+False
+std:116.845120638 116.845120638
+Non-date, daily sanity check for question_history completed successfully
+Non-date, weekly sanity check for question_history completed successfully
+Non-date, monthly sanity check for question_history completed successfully
+Non-date, yearly sanity check for question_history completed successfully
+Date, non-aggregate sanity check for 2014-04-29 14:48:13.262999 question_history completed successfully
+False
+std:116.845120638 116.845120638
+Date, daily sanity check for question_history completed successfully
+Date, weekly sanity check for question_history completed successfully
+Date, monthly sanity check for question_history completed successfully
+Date, yearly sanity check for question_history completed successfully
+Non-date, non-aggregate sanity check for trade_history completed successfully
+Non-date, daily sanity check for trade_history completed successfully
+Non-date, weekly sanity check for trade_history completed successfully
+Non-date, monthly sanity check for trade_history completed successfully
+Non-date, yearly sanity check for trade_history completed successfully
+Date, non-aggregate sanity check for 2014-04-29 14:48:19.862931 trade_history completed successfully
+Date, daily sanity check for trade_history completed successfully
+Date, weekly sanity check for trade_history completed successfully
+Date, monthly sanity check for trade_history completed successfully
+Date, yearly sanity check for trade_history completed successfully

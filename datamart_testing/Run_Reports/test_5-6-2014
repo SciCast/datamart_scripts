@@ -1,0 +1,65 @@
+Non-date sanity check for comment completed successfully
+Verification for comment completed successfully.
+Date sanity check for 2014-05-06 14:35:56.543519 comment completed successfully
+Non-date sanity check for person completed successfully
+Potential issue: uninvested_assets not in datamart
+Potential issue: name_first not in datamart
+Potential issue: name_last not in datamart
+Potential issue: status not in datamart
+Potential issue: invitations not in datamart
+Potential issue: image_uri not in datamart
+Potential issue: options not in datamart
+Potential issue: email not in datamart
+Potential issue: gravatar not in datamart
+Potential issue: id not in datamart
+Potential issue: badges not in datamart
+Verification for person completed successfully.
+Date sanity check for 2014-05-06 14:36:05.643588 person completed successfully
+Date sanity check for 2014-05-06 14:36:06.311351 leaderboard completed successfully
+Non-date sanity check for question completed successfully
+Potential issue: settled_value not in datamart
+Potential issue: updated_at not in datamart
+Potential issue: settlement_at not in datamart
+Potential issue: id not in datamart
+Potential issue: serialized_settled_values not in datamart
+Potential issue: serialized_model not in datamart
+Potential issue: email not in datamart
+Potential issue: settled_at not in datamart
+Potential issue: iarpa_id not in datamart
+Potential issue: spark_context not in datamart
+Potential issue: desc not in datamart
+Potential issue: collaborators not in datamart
+Potential issue: image_uri not in datamart
+Potential issue: priority 112 mismatch for question_id 322
+Potential issue: priority 115 mismatch for question_id 206
+Question's where ordered is true and serialized_assumptions is null: [11, 24, 25, 26, 27, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 41, 45, 49, 55, 56, 60, 62, 64, 68, 70, 71, 72, 73, 85, 90, 104, 106, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 125, 136, 137, 139, 146, 147, 149, 150, 151, 156, 158, 159, 163, 167, 170, 174, 175, 176, 177, 178, 180, 181, 182, 184, 197, 208, 209, 211, 212, 217, 257, 282, 283, 284, 285, 286, 287, 307, 308, 310, 313, 314, 315, 316, 317, 318, 319, 320, 321, 325, 334, 335, 336, 337, 344, 348, 349, 350, 356, 388, 397, 399, 413, 414, 415, 430, 433, 443, 461, 466, 467, 542, 543, 544, 545, 546]
+Verification for question completed successfully.
+Date sanity check for 2014-05-06 14:36:15.786644 question completed successfully
+Non-date, non-aggregate sanity check for question_history completed successfully
+Non-date, daily sanity check for question_history completed successfully
+Non-date, weekly sanity check for question_history completed successfully
+Non-date, monthly sanity check for question_history completed successfully
+Non-date, yearly sanity check for question_history completed successfully
+Date, non-aggregate sanity check for 2014-05-06 14:36:24.730474 question_history completed successfully
+Date, daily sanity check for question_history completed successfully
+Date, weekly sanity check for question_history completed successfully
+Date, monthly sanity check for question_history completed successfully
+Date, yearly sanity check for question_history completed successfully
+Non-date, non-aggregate sanity check for trade_history completed successfully
+num_trades stddev_statistics: {u'mean_statistics': 51.56209150326797, u'stddev_statistics': 44.23242682188848}
+44.2324268219 44.2324268219
+Non-date, daily sanity check for trade_history failed.
+num_trades stddev_statistics: {u'mean_statistics': 328.7083333333333, u'stddev_statistics': 192.37560464853357}
+192.375604649 192.375604649
+Non-date, weekly sanity check for trade_history failed.
+Non-date, monthly sanity check for trade_history completed successfully
+Non-date, yearly sanity check for trade_history completed successfully
+Date, non-aggregate sanity check for 2014-05-06 14:36:31.894030 trade_history completed successfully
+num_trades stddev_statistics: {u'mean_statistics': 51.56209150326797, u'stddev_statistics': 44.23242682188848}
+44.2324268219 44.2324268219
+Date, daily sanity check for trade_history failed.
+num_trades stddev_statistics: {u'mean_statistics': 328.7083333333333, u'stddev_statistics': 192.37560464853357}
+192.375604649 192.375604649
+Date, weekly sanity check for trade_history failed.
+Date, monthly sanity check for trade_history completed successfully
+Date, yearly sanity check for trade_history completed successfully

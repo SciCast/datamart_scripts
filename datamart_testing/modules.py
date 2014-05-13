@@ -731,7 +731,7 @@ class suite():
                     if question["created_at"].split("T")[0] != datetime.datetime.now().strftime("%Y-%m-%d"):
                         print "Potential issue: question id "+str(question["id"])+" not found in datamart"
                     continue
-                if question["is_ordered"] == True and question["serialized_model"] is not None:
+                if question["is_ordered"] == True and question["serialized_model"] is not None and question["type"] == "binary":
                     if len(question["serialized_model"]["range"]) == 0 and len(question["serialized_model"]["bins"]) == 0:
                         #print "Potential issue: question id "+str(question["id"])+" is ordered but serialized_model is null"
                         serialized_issues.append(question["id"])
@@ -755,6 +755,6 @@ class suite():
                         if key not in invalid_keys:
                             print "Potential issue: "+str(key)+" not in datamart"
                             invalid_keys.append(key)
-            print "Questions where ordered is true and serialized_assumptions is null: "+str(sorted(serialized_issues))
+            print "Binary questions where ordered is true and serialized_assumptions is null: "+str(sorted(serialized_issues))
         return True
 

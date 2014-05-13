@@ -1,6 +1,6 @@
 Non-date sanity check for comment completed successfully
 Verification for comment completed successfully.
-Date sanity check for 2014-05-13 13:22:19.745593 comment completed successfully
+Date sanity check for 2014-05-13 13:24:15.989772 comment completed successfully
 Non-date sanity check for person completed successfully
 Potential issue: uninvested_assets not in datamart
 Potential issue: name_first not in datamart
@@ -15,8 +15,8 @@ Potential issue: id not in datamart
 Potential issue: badges not in datamart
 Potential issue: IEEE not in group list for 4
 Verification for person completed successfully.
-Date sanity check for 2014-05-13 13:22:28.938353 person completed successfully
-Date sanity check for 2014-05-13 13:22:29.606261 leaderboard completed successfully
+Date sanity check for 2014-05-13 13:24:25.221291 person completed successfully
+Date sanity check for 2014-05-13 13:24:25.876795 leaderboard completed successfully
 Non-date sanity check for question completed successfully
 Potential issue: settled_value not in datamart
 Potential issue: updated_at not in datamart
@@ -35,13 +35,13 @@ Potential issue: is_visible False mismatch for question_id 578
 Potential issue: is_locked True mismatch for question_id 578
 Binary questions where ordered is true and serialized_assumptions is null: [308]
 Verification for question completed successfully.
-Date sanity check for 2014-05-13 13:22:40.629749 question completed successfully
+Date sanity check for 2014-05-13 13:24:36.916179 question completed successfully
 Non-date, non-aggregate sanity check for question_history completed successfully
 Non-date, daily sanity check for question_history completed successfully
 Non-date, weekly sanity check for question_history completed successfully
 Non-date, monthly sanity check for question_history completed successfully
 Non-date, yearly sanity check for question_history completed successfully
-Date, non-aggregate sanity check for 2014-05-13 13:22:49.219213 question_history completed successfully
+Date, non-aggregate sanity check for 2014-05-13 13:24:45.776338 question_history completed successfully
 Date, daily sanity check for question_history completed successfully
 Date, weekly sanity check for question_history completed successfully
 Date, monthly sanity check for question_history completed successfully
@@ -51,7 +51,7 @@ Non-date, daily sanity check for trade_history completed successfully
 Non-date, weekly sanity check for trade_history completed successfully
 Non-date, monthly sanity check for trade_history completed successfully
 Non-date, yearly sanity check for trade_history completed successfully
-Date, non-aggregate sanity check for 2014-05-13 13:22:56.426398 trade_history completed successfully
+Date, non-aggregate sanity check for 2014-05-13 13:24:52.969847 trade_history completed successfully
 Date, daily sanity check for trade_history completed successfully
 Date, weekly sanity check for trade_history completed successfully
 Date, monthly sanity check for trade_history completed successfully

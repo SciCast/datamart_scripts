@@ -86,7 +86,7 @@ def getFromFile(file):
             data = None
         return data
 
-def sendEmail(userid,codes,userlist,opt):
+def sendCodeEmail(userid,codes,userlist,opt):
     email = "ssmith@c4i.gmu.edu"
     name = "Scott Smith"
     fromemail = opt["from"]
@@ -96,10 +96,10 @@ def sendEmail(userid,codes,userlist,opt):
             #print user
             email = user["email"]
             name = user["username"]
-    fp = open(opt["html"], 'r')
+    fp = open(opt["codehtml"], 'r')
     html_text = fp.read()
     fp.close()
-    fp = open(opt["plain"], 'r')
+    fp = open(opt["codeplain"], 'r')
     plain_text = fp.read()
     fp.close()
 
@@ -125,7 +125,7 @@ def sendEmail(userid,codes,userlist,opt):
         message_plain = re.sub('<<CODE>>',code,plain_text)
 
         msgroot = MIMEMultipart('related')
-        msgroot['Subject'] = "Test message to "+email
+        msgroot['Subject'] = "Test amazon message"
         msgroot['From'] = "ssmith@c4i.gmu.edu"
         msgroot['To'] = "ssmith@c4i.gmu.edu"#insert email here
 
@@ -150,11 +150,156 @@ def sendEmail(userid,codes,userlist,opt):
         print str(userid)+" "+code
         server.sendmail("Test@scicast.org",["ssmith@c4i.gmu.edu"],msgroot.as_string())
 
-def getCodes(number,opt,userid):
-    codes = []
-    f = open(opt["giftcards"],'r')
-    lines = f.readlines()
-    f.close()
+def sendSwagEmail(userid,swagnum,winnum,userlist,opt):
+    email = "ssmith@c4i.gmu.edu"
+    name = "Scott Smith"
+    fromemail = opt["from"]
+    fail = False
+    badge = ""
+    congrats = ""
+    html_list = ""
+    plain_list = ""
+
+    for user in userlist:
+        if user["id"] == int(userid):
+            #print user
+            email = user["email"]
+            name = user["username"]
+    fp = open(opt["swaghtml"], 'r')
+    html_text = fp.read()
+    fp.close()
+    fp = open(opt["swagplain"], 'r')
+    plain_text = fp.read()
+    fp.close()
+
+    html_text = re.sub("<<NAME>>",name,html_text)
+    plain_text = re.sub("<<NAME>>",name,plain_text)
+
+    img = open(opt["scicast"], 'rb')
+    sci_logo = MIMEImage(img.read())
+    img.close()
+    img = open(opt["gmu"], 'rb')
+    gmu_logo = MIMEImage(img.read())
+    img.close()
+
+    sci_logo.add_header('Content-ID', "@sci_logo")
+    gmu_logo.add_header('Content-ID', "@gmu_logo")
+
+    html_text = re.sub("<<NUMBER>>",str(swagnum),html_text)
+    plain_text = re.sub("<<NUMBER>>",str(swagnum),plain_text)
+    html_text = re.sub("<<TODAY>>",str(winnum),html_text)
+    plain_text = re.sub("<<TODAY>>",str(winnum),plain_text)
+
+    startswag = swagnum - winnum
+    if swagnum == 0:
+        fail = True
+    elif swagnum == 1:
+        badge = "a Helium"
+    elif swagnum > 1 and swagnum < 4:
+        badge = "a Neon"
+    elif swagnum >= 4 and swagnum < 8:
+        badge = "an Argon"
+    elif swagnum >= 8 and swagnum < 16:
+        badge = "a Krypton"
+    elif swagnum >= 16 and swagnum < 32:
+        badge = "a Xenon"
+    elif swagnum >= 32:
+        badge = "a Radon"
+    else:
+        print "Uh-oh: "+swagnum+" "+userid
+        fail = True
+
+    badges_list = []
+    for i in range(0,winnum):
+        if startswag + i == 0:
+            badges_list.append("Helium")
+        elif startswag + i ==1:
+            badges_list.append("Neon")
+        elif startswag + i == 3:
+            badges_list.append("Argon")
+        elif startswag + i == 7:
+            badges_list.append("Krypton")
+        elif startswag + i == 15:
+            badges_list.append("Xenon")
+        elif startswag + i == 31:
+            badges_list.append("Radon")
+
+    badge_images = []
+    if len(badges_list) == 1:
+        if badges_list[0] == "Helium":
+            congrats = "You've earned your first ever swag badge! "
+        else:
+            congrats = "You've upgraded to a new swag level! "
+        congrats += "The following badge has been added to your profile page:"
+        html_list+="<br /><ul>"
+        plain_list+="\n"
+        for badge_name in badges_list:
+            html_list += "<li><img src=\"cid:@"+opt[badge_name.lower()]+"\" width=\"30\" height=\"30\"/> "+badge_name+"</li>"
+            plain_list += "- "+badge_name+"\n"
+            img = open(opt[badge_name.lower()], 'rb')
+            badge_image = MIMEImage(img.read())
+            img.close()
+            badge_image.add_header('Content-ID', "@"+opt[badge_name.lower()])
+            badge_images.append(badge_image)
+        html_list += "</ul>"
+    elif len(badges_list) > 1:
+        if "Helium" in badges_list:
+            congrats = "You've not only earned your first ever swag badge, you've earned "+str(len(badges_list))+"! "
+        else:
+            congrats = "You've upgraded "+str(len(badges_list))+" swag levels! "
+        congrats += "The following badges have been added to your profile page:"
+        html_list+="<br /><ul>"
+        plain_list+="\n"
+        for badge_name in badges_list:
+            html_list += "<li><img src=\"cid:@"+opt[badge_name.lower()]+"\" width=\"30\" height=\"30\"/> "+badge_name+"</li>"
+            plain_list += "- "+badge_name+"\n"
+            img = open(opt[badge_name.lower()], 'rb')
+            badge_image = MIMEImage(img.read())
+            img.close()
+            badge_image.add_header('Content-ID', "@"+opt[badge_name.lower()])
+            badge_images.append(badge_image)
+        html_list += "</ul>"
+
+    html_congrats = congrats + html_list
+    plain_congrats = congrats + plain_list
+
+    #TODO: add badges with API calls
+
+    html_text = re.sub("<<CONGRATS>>",html_congrats,html_text)
+    plain_text = re.sub("<<CONGRATS>>",plain_congrats,plain_text)
+
+    html_text = re.sub("<<ELEMENT>>",badge,html_text)
+    plain_text = re.sub("<<ELEMENT>>",badge,plain_text)
+
+    msgroot = MIMEMultipart('related')
+    msgroot['Subject'] = "Test swag message"
+    msgroot['From'] = "ssmith@c4i.gmu.edu"
+    msgroot['To'] = "ssmith@c4i.gmu.edu"#insert email here
+
+    msgalternative = MIMEMultipart('alternative')
+    msgroot.attach(msgalternative)
+
+    part1 = MIMEText(html_text,'html')
+    part2 = MIMEText(plain_text,'plain')
+
+    msgroot.attach(sci_logo)
+    msgroot.attach(gmu_logo)
+    for i in badge_images:
+        msgroot.attach(i)
+    msgalternative.attach(part2)
+    msgalternative.attach(part1)
+
+
+    serverport = opt["server"]+":"+opt["port"]
+    server = smtplib.SMTP(serverport)
+    server.ehlo()
+    server.starttls()
+    server.login(emailuserpass[0],emailuserpass[1])
+    if not fail:
+        server.sendmail("ssmith@c4i.gmu.edu",["ssmith@c4i.gmu.edu"],msgroot.as_string())
+
+def getCodes(number, opt, userid, type):
+
     skip = False
     today_str = datetime.datetime.now().strftime("%Y-%m-%d")
 
@@ -162,44 +307,73 @@ def getCodes(number,opt,userid):
     if log is None:
         log = {}
     numwins = 0
-    if  userid in log:
+    numswag = 0
+    num2 = number
+    codes = []
+
+    if userid in log:
         user = log[userid]
         for key,value in user.iteritems():
-            numwins += len(value)
+            if "amazon" in value:
+                numwins += len(value["amazon"])
+            if "badge" in value:
+                numswag += value["badge"]
 
     if numwins >= 23:
         print "User "+str(userid)+" has already won the maximum number of times."
         skip = True
 
-    for i in range(0, len(lines)):
-        print len(lines[i].split(','))
-        if skip:
-            break
-        else:
-            if len(lines[i].split(',')) == 1:
-                code = lines[i].strip('\n')
-                codes.append(code)
-                lines[i] = code+",USED\n"
-                out = open(opt["giftcards"],'w')
-                out.writelines(lines)
-                out.close()
-                numwins += 1
-                if userid in log:
-                    if today_str in log[userid]:
-                            log[userid][today_str].append(code)
+    if type == "code" or type == "both":
+        f = open(opt["giftcards"],'r')
+        lines = f.readlines()
+        f.close()
+        for i in range(0, len(lines)):
+            print lines[i]
+            if skip:
+                break
+            else:
+                if len(lines[i].split(',')) == 1:
+                    code = lines[i].strip('\n')
+                    codes.append(code)
+                    lines[i] = code+",USED\n"
+                    out = open(opt["giftcards"],'w')
+                    out.writelines(lines)
+                    out.close()
+                    numwins += 1
+                    if userid in log:
+                        if today_str in log[userid]:
+                                if "amazon" in log[userid][today_str]:
+                                    log[userid][today_str]["amazon"].append(code)
+                                else:
+                                    log[userid][today_str]["amazon"] = [code]
+                        else:
+                                log[userid] = {today_str:{"amazon":[code]}}
                     else:
-                            log[userid] = {today_str:[code]}
+                        log[userid] = {today_str:{"amazon":[code]}}
+                    #out.writelines(lines)
+                    number -= 1
+                    if numwins == 23:
+                        print "User "+str(userid)+" has reached the maximum number of wins."
+                        skip = True
+                    if number == 0:
+                        skip = True
+    if type == "swag" or type == "both":
+        while num2 > 0:
+            if userid in log:
+                if today_str in log[userid]:
+                        if "badge" in log[userid][today_str]:
+                            log[userid][today_str]["badge"] += 1
+                        else:
+                            log[userid][today_str]["badge"] = 1
                 else:
-                    log[userid] = {today_str:[code]}
-                #out.writelines(lines)
-                number -= 1
-                if numwins == 23:
-                    print "User "+str(userid)+" has reached the maximum number of wins."
-                    skip = True
-                if number == 0:
-                    skip = True
+                        log[userid] = {today_str:{"badge": 1}}
+            else:
+                log[userid] = {today_str:{"badge":1}}
+            num2 -= 1
+    badgenum = log[userid][today_str]["badge"]
+
     writelog(log,opt)
-    return codes
+    return [codes,badgenum]
 
 def writelog(log,opt):
     '''
@@ -216,13 +390,48 @@ def writelog(log,opt):
     except ValueError:
         print "Error"
 
-def main():
+def main(argv):
     '''
     Driver
     @param argv: Command line arguments
     @type argv: list
     @return: none
     '''
+
+    typestring = ""
+    send = True
+    try:
+      opts, args = getopt.getopt(argv,"ht:i",["type","ignore"])
+    except getopt.GetoptError:
+        #If no arguments, run script assuming startdate == yesterday
+        print 'No arguments detected; usage: notify.py -h [-t, --type] <type>  [-i --ignore]'
+        sys.exit()
+
+    for opt, arg in opts:
+        if '-h' in args or opt == '-h': #Help documentation
+            print 'notify.py -h [-t, --type] <type> [-i --ignore]'
+            print 'Include the -i or --ignore switch if you do not wish to send notification emails'
+            print 'NOTE: The -i switch is cancelled out if type is not "swag"'
+            sys.exit()
+        elif opt in ("-t", "--type"):
+            typestring = arg.lower()
+        elif opt in ("-i", "--ignore"):
+            send = False
+
+    if typestring:
+        if typestring not in ["code","swag","both"]:
+            print "Incentive type not recognized. Type must match one of the following:"
+            for test in ["code","swag","both"]:
+                print "- "+test
+            sys.exit()
+    else:
+        print "Incentive type is required. Type must match one of the following:"
+        for test in ["code","swag","both"]:
+            print "- "+test
+        sys.exit()
+
+    if typestring != "swag":
+        send = True
 
     today_str = datetime.datetime.now().strftime("%Y-%m-%d")
 
@@ -236,12 +445,20 @@ def main():
             winlist[userid] = dates[today_str]
 
     for userid,winnum in winlist.iteritems():
-        codes = getCodes(winnum,options,userid)
-        if len(codes) != winnum:
+        returned = getCodes(winnum,options,userid,typestring)
+        codes = returned[0]
+        badgenum = returned[1]
+        if len(codes) != winnum and typestring != "swag":
             print "Error: "+str(codes)+" for user "+str(userid)
             sys.exit(1)
         print "Sending mail to "+str(userid)
-        sendEmail(userid,codes,all_users,options)
+        if typestring == "code":
+            sendCodeEmail(userid,codes,all_users,options)
+        if typestring == "swag" and send:
+            sendSwagEmail(userid,badgenum,winnum,all_users,options)
+        if typestring == "both":
+            sendCodeEmail(userid,codes,all_users,options)
+            sendSwagEmail(userid,badgenum,winnum,all_users,options)
 
 if __name__ == '__main__': #driver function
-    main()
+    main(sys.argv[1:])

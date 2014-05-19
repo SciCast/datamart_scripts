@@ -26,17 +26,23 @@ from:ssmith@c4i.gmu.edu
 #subject: string; Subject line for emails
 subject:Test Message
 
-#html: string; filename of html-formatted version of the body text
-html:gift_card_bodyfile_html.txt
+#codehtml: string; filename of html-formatted version of the body text for gift codes
+codehtml:gift_card_bodyfile_html.txt
 
-#plain: string; filename of plaintext-formatted version of body text
-plain:gift_card_bodyfile_plain.txt
+#codeplain: string; filename of plaintext-formatted version of body text for gift codes
+codeplain:gift_card_bodyfile_plain.txt
+
+#swaghtml: string; filename of html-formatted version of the body text for swag notifications
+swaghtml:swag_bodyfile_html.txt
+
+#swagplain: string; filename of plaintext-formatted version of body text for swag notifications
+swagplain:swag_bodyfile_plain.txt
 
 #scicast: string; filename for scicast logo
 scicast:scicast_logo.png
 
 #gmu: string; filename for gmu logo
-gmu:gmu_logo.png
+gmu:GMUlogo.jpg
 
 #amazon: string; filename for amazon logo
 amazon:amazon.gif
@@ -49,3 +55,11 @@ winners:prev_winners
 
 #giftcards: string; filename where amazon giftcard file is located
 giftcards:giftcards
+
+#The following are filenames for the badge icons
+helium:helium_icon.png
+neon:neon_icon.png
+argon:argon_icon.png
+krypton:krypton_icon.png
+xenon:xenon_icon.png
+radon:radon_icon.png

@@ -1,0 +1,13 @@
+Dear <<NAME>>,
+
+Congratulations!
+
+You've won <<TODAY>> "swag" for your activity on SciCast.org. This brings your "swag" total to <<NUMBER>>.
+<<CONGRATS>>
+Your level of collected swag appears as <<ELEMENT>> badge on your profile.
+Log in to SciCast.org to see your winnings.
+
+If you have any questions, please contact us at contact@scicast.org
+
+Best regards,
+The SciCast Team

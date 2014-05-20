@@ -30,7 +30,7 @@ accumulate:true
 
 #winners: int; number of winners
 
-winners:25
+winners:60
 
 #activity: string; the activity type which will be counted
 #current activity types accepted: trades, comments

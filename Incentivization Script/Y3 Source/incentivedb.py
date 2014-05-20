@@ -93,6 +93,7 @@ class IncentiveDB():
         and accumulate is set in config file), and the number of ACTIVITY_TYPE for current run
         @return: none
         '''
+
         if self.previous is not None and self.accumulate:
             print type(self.previous)
             self.activity = dict((int(k), v) for k,v in self.previous.iteritems())
@@ -108,7 +109,12 @@ class IncentiveDB():
             user_id = user["user_id"]
             #print self.activity
             if user_id in self.activity:
-                self.activity[user_id] += self.countActivity(user_id)
+                temp = self.countActivity(user_id)
+                for type,idlist in temp.iteritems():
+                    if type in self.activity[user_id]:
+                        self.activity[user_id][type].append(idlist)
+                    else:
+                        self.activity[user_id][type] = idlist
             else:
                 self.activity[user_id] = self.countActivity(user_id)
 
@@ -119,25 +125,26 @@ class IncentiveDB():
         @type user_id: integer
         @return: integer describing activity levels for current run
         '''
-        tradecounter = 0
-        commentcounter = 0
+
+        tradecounter = []
+        commentcounter = []
         for trade in self.trades:
             if trade["user_id"] == user_id:
                 if self.previousActivity is None:
-                    tradecounter += 1
+                    tradecounter.append(trade["id"])
                 else:
                     if self.previousActivity["user_id"] != user_id:
-                        tradecounter += 1
+                        tradecounter.append(trade["id"])
                         self.previousActivity = trade
                     else:
                         self.previousActivity = trade
         for comment in self.comments:
             if comment["user_id"] == user_id:
                 if self.previousActivity is None:
-                    commentcounter += 1
+                    commentcounter.append(comment["id"])
                 else:
                     if self.previousActivity["user_id"] != user_id:
-                        commentcounter += 1
+                        commentcounter.append(comment["id"])
                         self.previousActivity = comment
                     else:
                         self.previousActivity = comment
@@ -254,23 +261,26 @@ class IncentiveDB():
 
         hat = []
         temp = {}
-        winners = {}
+        #winners = {}
         allUsers = self.activity
-        wincount = 0
+        #wincount = 0
         for user, activeList in allUsers.iteritems():
             total_activity = 0
             for type,number in activeList.iteritems():
-                total_activity += number
+                total_activity += len(number)
             if total_activity > 0:
-                entries = total_activity
-                for i in range(entries):
-                    hat.append(user)
+                #entries = total_activity
+                #for i in range(entries):
+                #    hat.append(user)
                 #hat[user] = math.ceil(entries)
-                wincount += math.ceil(entries)
+                for type,number in activeList.iteritems():
+                    for id in number:
+                        hat.append({ "uid":id, "type": type, "activity": id})
+                #wincount += math.ceil(entries)
         if len(hat) < int(self.numwinners):
             print "Not enough people to fill slots"
             print hat
-            #sys.exit(1)
+        #    #sys.exit(1)
         if len(hat) == 0:
             print "No valid users"
             print allUsers
@@ -280,12 +290,17 @@ class IncentiveDB():
             #win = randomizer.random()
             num = random.randint(0,len(hat)-1)
             win = hat[num]
-            if win in temp:
-                temp[win] += 1
+            if win["uid"] in temp:
+                if win["type"] in win["uid"]:
+                    win["type"].append(win["activity"])
+                else:
+                    win["type"] = [win["activity"]]
+                #temp[win] += 1
             else:
-                temp[win] = 1
+                temp[win["uid"]] = { win["type"]:[ win["activity"] ] }
             del hat[num]
-        var = False
+        #winners = temp
+        '''var = False
         for winner,winNum in temp.iteritems():
             if var:
                 break
@@ -296,9 +311,9 @@ class IncentiveDB():
                 winners[winner] += 1
                 wincount += 1
                 if wincount == self.numwinners:
-                    var = True
-        print winners
+                    var = True'''
+        print temp
         self.hat = hat
-        self.winners = winners
+        self.winners = temp
         return self.winners
 

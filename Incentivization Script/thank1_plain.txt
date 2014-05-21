@@ -1,0 +1,9 @@
+Dear <<NAME>>,
+
+Thank you for your activity on SciCast.org this week. You've made <<TRADE>> forecasts and <<COMMENT>> comments
+on <<DAY>>.  SciCast depends on a community of users people who follow and contemplate science and technology.
+Your participation improves that community and helps us to predict the future.
+
+Best regards,
+
+The SciCast Team

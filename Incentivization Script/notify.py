@@ -447,7 +447,7 @@ def getCodes(number, opt, userid, type):
         return [None,None]
     badgenum = log[userid][today_str]["badge"]
 
-    writelog(log,opt)
+    #writelog(log,opt)
     return [codes,badgenum]
 
 def writelog(log,opt):

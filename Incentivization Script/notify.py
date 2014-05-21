@@ -152,7 +152,7 @@ def sendCodeEmail(userid,codes,userlist,opt):
         server.starttls()
         server.login(emailuserpass[0],emailuserpass[1])
         print str(userid)+" "+code
-        #server.sendmail("Test@scicast.org",["ssmith@c4i.gmu.edu"],msgroot.as_string())
+        server.sendmail("Test@scicast.org",["ssmith@c4i.gmu.edu"],msgroot.as_string())
 
 def sendThanksEmail(userid,active_list,userlist,opt):
     global dayName
@@ -447,7 +447,7 @@ def getCodes(number, opt, userid, type):
         return [None,None]
     badgenum = log[userid][today_str]["badge"]
 
-    #writelog(log,opt)
+    writelog(log,opt)
     return [codes,badgenum]
 
 def writelog(log,opt):

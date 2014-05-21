@@ -15,7 +15,7 @@ If you have any questions, please contact us at <a href="mailto:contact@scicast.
 Best regards,<br />
 The SciCast Team<br />
 
-<a href="http://twitter.com/share?url=http://scicast.org&text=I just won <<TODAY>> merits on <<DAY>>!&via=scicasters">Tweet this</a>
+<a href="http://twitter.com/share?url=http://blog.scicast.org/2014/05/21/win-prizes-for-making-forecasts-on-scicast/&text=I just won <<TODAY>> merits for my activity on <<DAY>>!&via=scicasters">Tweet this</a>
 <a href="https://twitter.com/intent/user?screen_name=scicasters">Follow @scicasters on twitter</a>
 <a href="https://www.facebook.com/SciCast">Facebook</a>
 <a href="http://www.linkedin.com/groups/SciCast-5065196">LinkedIn</a>

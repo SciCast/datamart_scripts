@@ -131,20 +131,20 @@ class IncentiveDB():
         for trade in self.trades:
             if trade["user_id"] == user_id:
                 if self.previousActivity is None:
-                    tradecounter.append(trade["id"])
+                    tradecounter.append(trade["trade_id"])
                 else:
                     if self.previousActivity["user_id"] != user_id:
-                        tradecounter.append(trade["id"])
+                        tradecounter.append(trade["trade_id"])
                         self.previousActivity = trade
                     else:
                         self.previousActivity = trade
         for comment in self.comments:
             if comment["user_id"] == user_id:
                 if self.previousActivity is None:
-                    commentcounter.append(comment["id"])
+                    commentcounter.append(comment["comment_id"])
                 else:
                     if self.previousActivity["user_id"] != user_id:
-                        commentcounter.append(comment["id"])
+                        commentcounter.append(comment["comment_id"])
                         self.previousActivity = comment
                     else:
                         self.previousActivity = comment
@@ -260,23 +260,22 @@ class IncentiveDB():
         '''
 
         hat = []
-        temp = {}
+        winDict = {}
         #winners = {}
         allUsers = self.activity
         #wincount = 0
         for user, activeList in allUsers.iteritems():
+            #print user
+            #print activeList
             total_activity = 0
             for type,number in activeList.iteritems():
                 total_activity += len(number)
             if total_activity > 0:
-                #entries = total_activity
-                #for i in range(entries):
-                #    hat.append(user)
-                #hat[user] = math.ceil(entries)
                 for type,number in activeList.iteritems():
                     for id in number:
-                        hat.append({ "uid":id, "type": type, "activity": id})
+                        hat.append({ "uid":user, "type": type, "activity": id})
                 #wincount += math.ceil(entries)
+        #print hat
         if len(hat) < int(self.numwinners):
             print "Not enough people to fill slots"
             print hat
@@ -286,34 +285,25 @@ class IncentiveDB():
             print allUsers
             sys.exit(1)
         #randomizer = WeightedRandomizer(hat)
-        while len(temp) < int(self.numwinners) and len(hat)>0:
+        counter = 0
+        while counter < int(self.numwinners) and len(hat)>0:
             #win = randomizer.random()
             num = random.randint(0,len(hat)-1)
             win = hat[num]
-            if win["uid"] in temp:
-                if win["type"] in win["uid"]:
-                    win["type"].append(win["activity"])
+            if win["uid"] in winDict:
+                if win["type"] in winDict[win["uid"]]:
+                    winDict[win["uid"]][win["type"]].append(win["activity"])
                 else:
-                    win["type"] = [win["activity"]]
+                    winDict[win["uid"]][win["type"]] = [win["activity"]]
                 #temp[win] += 1
             else:
-                temp[win["uid"]] = { win["type"]:[ win["activity"] ] }
+                winDict[win["uid"]] = { win["type"]:[ win["activity"] ] }
             del hat[num]
+            counter += 1
         #winners = temp
-        '''var = False
-        for winner,winNum in temp.iteritems():
-            if var:
-                break
-            winners[winner] = 0
-            for i in xrange(winNum):
-                if var:
-                    break
-                winners[winner] += 1
-                wincount += 1
-                if wincount == self.numwinners:
-                    var = True'''
-        print temp
+        #print temp
         self.hat = hat
-        self.winners = temp
-        return self.winners
+        self.winners = winDict
+        #print winDict
+        return winDict
 

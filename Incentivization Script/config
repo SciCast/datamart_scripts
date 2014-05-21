@@ -38,6 +38,12 @@ swaghtml:swag_bodyfile_html.txt
 #swagplain: string; filename of plaintext-formatted version of body text for swag notifications
 swagplain:swag_bodyfile_plain.txt
 
+#thankhtml: csv; list of different html-formatted thank you messages
+thankhtml:thank1_html.txt,thank2_html.txt
+
+#thankplain: csv; list of different plaintext-formatted thank you messages
+thankplain:thank1_plain.txt,thank2_plain.txt
+
 #scicast: string; filename for scicast logo
 scicast:scicast_logo.png
 
@@ -56,10 +62,13 @@ winners:prev_winners
 #giftcards: string; filename where amazon giftcard file is located
 giftcards:giftcards
 
+#daily: number; Number of codes you can win per day
+daily:6
+
 #The following are filenames for the badge icons
-helium:helium_icon.png
-neon:neon_icon.png
-argon:argon_icon.png
-krypton:krypton_icon.png
-xenon:xenon_icon.png
-radon:radon_icon.png
+helium:swag_he.png
+neon:swag_ne.png
+argon:swag_ar.png
+krypton:swag_kr.png
+xenon:swag_xe.png
+radon:swag_rn.png

@@ -8,7 +8,7 @@
 Dear <<NAME>>,
 <br /><br />
 Congratulations!<br /><br />
-You&#146;ve won a $25 Amazon gift card for your activity on SciCast.org during Fortune Friday.<br /><br />
+You&#146;ve won a $25 Amazon gift card for your activity on SciCast.org during <<DAY>>.<br /><br />
 Your $25 Amazon Gift Card electronic code is:
 <br /><br />
 <<CODE>>
@@ -18,3 +18,8 @@ You can redeem your Amazon Gift Card electronic code by clicking
 If you have any questions, please contact us at <a href="mailto:contact@scicast.org">contact@scicast.org</a>.<br /><br />
 Best regards,<br />
 The SciCast Team<br />
+<a href="http://twitter.com/share?url=http://scicast.org&text=I just won a $25 Amazon Gift Card on <<DAY>>!&via=scicasters">Tweet this</a>
+<a href="https://twitter.com/intent/user?screen_name=scicasters">Follow @scicasters on twitter</a>
+<a href="https://www.facebook.com/SciCast">Facebook</a>
+<a href="http://www.linkedin.com/groups/SciCast-5065196">LinkedIn</a>
+<a href="https://plus.google.com/110554548506496003756/posts">Google+</a>

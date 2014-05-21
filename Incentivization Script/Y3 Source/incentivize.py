@@ -10,7 +10,7 @@ various files for verification/payment
 
 import requests, csv, json, sys, datetime, re, incentivedb, getopt
 
-api = open('api_key', 'r').readline().strip('\n').strip()
+api = ""
 configName = "config" # change this to change config file name
 
 def formatDate(dateString):
@@ -127,8 +127,10 @@ def main(argv):
     @return: none
     '''
     global configName
+    global api
     startstring = ""
     endstring = ""
+    yesterday = datetime.date.today()-datetime.timedelta(days=1)
 
     #check for command line inputs
     try:
@@ -148,7 +150,6 @@ def main(argv):
             endstring = arg
 
     if not startstring:
-        yesterday = datetime.date.today()-datetime.timedelta(days=1)
         startstring = yesterday.strftime('%m-%d-%Y')
         endstring = startstring
 
@@ -163,6 +164,7 @@ def main(argv):
 
     print str(startDate)+" "+str(endDate)
     options = getConfig(configName)
+    api = open(options["api"], 'r').readline().strip('\n').strip()
     print "Getting users"
     users = getUsers(options)
     print "Users received, getting trades"
@@ -181,11 +183,7 @@ def main(argv):
 
     print "Getting winners"
     winners = database.calculateWinners()
-
-    winList = []
-
-    for user,winNum in winners.iteritems():
-        winList.append(database.getUsername(user))
+    print winners
 
     #Now we have the winners, let's work on our outputs
     if database.printDatabase():
@@ -202,18 +200,26 @@ def main(argv):
 
     #print winners
 
-    wincounter = 0
     finalWinList = []
-    winners = database.winners
-    for user,winNum in winners.iteritems():
-        finalWinList.append(user)
+    #winners = database.winners
+    #print winners
     wincounter = 0
-    winwriter = csv.DictWriter(open(options["output_dir"]+"/"+options["newwinners"]+".csv.txt", 'wb'), fieldnames=['user_id', 'num_wins'], delimiter=',', quotechar='"', quoting=csv.QUOTE_NONNUMERIC)
-    for person in finalWinList:
-        numwins = winners[person]
-        wincounter += numwins
-        winwriter.writerow({'user_id':person, 'num_wins':numwins})
-    winwriter.writerow({'user_id':"Total wins", 'num_wins':wincounter})
+    winwriter = csv.DictWriter(open(options["output_dir"]+"/"+options["newwinners"]+".csv.txt", 'wb'), fieldnames=['user_id', 'comment_id', 'trade_id', 'win_date'], delimiter=',', quotechar='"', quoting=csv.QUOTE_NONNUMERIC)
+    winwriter.writeheader()
+    for person,wins in winners.iteritems():
+        #numwins = winners[person]
+        #wincounter += numwins
+        for type,value in wins.iteritems():
+            for val_id in value:
+                commentId = ""
+                tradeId = ""
+                if type == "trades":
+                    tradeId = val_id
+                else:
+                    commentId = val_id
+                winwriter.writerow({'user_id':person, 'comment_id':commentId, 'trade_id':tradeId, 'win_date':yesterday})
+                wincounter += 1
+    winwriter.writerow({'user_id':"Total wins", 'comment_id':wincounter})
 
 if __name__ == '__main__': #driver function
     main(sys.argv[1:])

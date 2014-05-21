@@ -7,7 +7,7 @@ Incentivization Script Payment Function. Gets email addresses for users and send
 @copyright: 2014+
 '''
 
-import requests, json, sys, datetime, re, getopt, smtplib, os
+import requests, json, sys, datetime, re, getopt, smtplib, os, random
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from email.mime.image import MIMEImage
@@ -19,6 +19,7 @@ userpassfile.close()
 allusers = None
 configName = "config" # change this to change config file name
 api = "scicast.org" #change this to change the market api variable
+dayName = ""
 
 def getConfig(filename):
     '''
@@ -87,6 +88,7 @@ def getFromFile(file):
         return data
 
 def sendCodeEmail(userid,codes,userlist,opt):
+    global dayName
     email = "ssmith@c4i.gmu.edu"
     name = "Scott Smith"
     fromemail = opt["from"]
@@ -105,27 +107,30 @@ def sendCodeEmail(userid,codes,userlist,opt):
 
     html_text = re.sub('<<NAME>>',name,html_text)
     plain_text = re.sub('<<NAME>>',name,plain_text)
+    html_text = re.sub('<<DAY>>',dayName,html_text)
+    plain_text = re.sub('<<DAY>>',dayName,plain_text)
 
     img = open(opt["scicast"], 'rb')
     sci_logo = MIMEImage(img.read())
-    img.close()
-    img = open(opt["gmu"], 'rb')
-    gmu_logo = MIMEImage(img.read())
     img.close()
     img = open(opt["amazon"], 'rb')
     ama_logo = MIMEImage(img.read())
     img.close()
 
     sci_logo.add_header('Content-ID', "@sci_logo")
-    gmu_logo.add_header('Content-ID', "@gmu_logo")
     ama_logo.add_header('content-ID', "@ama_image")
 
+    totalcodes = len(codes)
     for code in codes:
+        currentcode = codes.index(code)+1
         message_html = re.sub('<<CODE>>',code,html_text)
         message_plain = re.sub('<<CODE>>',code,plain_text)
 
         msgroot = MIMEMultipart('related')
-        msgroot['Subject'] = "Test amazon message"
+        subjectText = "Test amazon message"
+        if totalcodes > 1:
+            subjectText += " code "+str(currentcode)+" of "+str(totalcodes)
+        msgroot['Subject'] = subjectText
         msgroot['From'] = "ssmith@c4i.gmu.edu"
         msgroot['To'] = "ssmith@c4i.gmu.edu"#insert email here
 
@@ -136,7 +141,6 @@ def sendCodeEmail(userid,codes,userlist,opt):
         part2 = MIMEText(message_plain,'plain')
 
         msgroot.attach(sci_logo)
-        msgroot.attach(gmu_logo)
         msgroot.attach(ama_logo)
         msgalternative.attach(part2)
         msgalternative.attach(part1)
@@ -148,9 +152,76 @@ def sendCodeEmail(userid,codes,userlist,opt):
         server.starttls()
         server.login(emailuserpass[0],emailuserpass[1])
         print str(userid)+" "+code
-        server.sendmail("Test@scicast.org",["ssmith@c4i.gmu.edu"],msgroot.as_string())
+        #server.sendmail("Test@scicast.org",["ssmith@c4i.gmu.edu"],msgroot.as_string())
+
+def sendThanksEmail(userid,active_list,userlist,opt):
+    global dayName
+    email = "ssmith@c4i.gmu.edu"
+    name = "Scott Smith"
+    htmllist = opt["thankhtml"].split(',')
+    plainlist = opt["thankplain"].split(',')
+    bodytext = random.randint(0,len(htmllist)-1)
+    print active_list
+    trades = 0
+    comments = 0
+    if "trades" in active_list:
+        trades = len(active_list["trades"])
+    if "comments" in active_list:
+        comments = len(active_list["comments"])
+    fromemail = opt["from"]
+
+    for user in userlist:
+        if user["id"] == int(userid):
+            #print user
+            email = user["email"]
+            name = user["username"]
+    fp = open(htmllist[bodytext], 'r')
+    html_text = fp.read().decode('utf-8')
+    fp.close()
+    fp = open(plainlist[bodytext], 'r')
+    plain_text = fp.read().decode('utf-8')
+    fp.close()
+
+    html_text = re.sub('<<NAME>>',name,html_text)
+    plain_text = re.sub('<<NAME>>',name,plain_text)
+    html_text = re.sub('<<TRADE>>',unicode(trades),html_text)
+    plain_text = re.sub('<<TRADE>>',unicode(trades),plain_text)
+    html_text = re.sub('<<COMMENT>>',unicode(comments),html_text)
+    plain_text = re.sub('<<COMMENT>>',unicode(comments),plain_text)
+    html_text = re.sub('<<DAY>>',dayName,html_text)
+    plain_text = re.sub('<<DAY>>',dayName,plain_text)
+
+    img = open(opt["scicast"], 'rb')
+    sci_logo = MIMEImage(img.read())
+    img.close()
+
+    sci_logo.add_header('Content-ID', "@sci_logo")
+
+    msgroot = MIMEMultipart('related')
+    msgroot['Subject'] = "Test thank message"
+    msgroot['From'] = "ssmith@c4i.gmu.edu"
+    msgroot['To'] = "ssmith@c4i.gmu.edu"#insert email here
+
+    msgalternative = MIMEMultipart('alternative')
+    msgroot.attach(msgalternative)
+
+    part1 = MIMEText(html_text,'html')
+    part2 = MIMEText(plain_text,'plain')
+
+    msgroot.attach(sci_logo)
+    msgalternative.attach(part2)
+    msgalternative.attach(part1)
+
+
+    serverport = opt["server"]+":"+opt["port"]
+    server = smtplib.SMTP(serverport)
+    server.ehlo()
+    server.starttls()
+    server.login(emailuserpass[0],emailuserpass[1])
+    server.sendmail("Test@scicast.org",["ssmith@c4i.gmu.edu"],msgroot.as_string())
 
 def sendSwagEmail(userid,swagnum,winnum,userlist,opt):
+    global dayName
     email = "ssmith@c4i.gmu.edu"
     name = "Scott Smith"
     fromemail = opt["from"]
@@ -172,18 +243,16 @@ def sendSwagEmail(userid,swagnum,winnum,userlist,opt):
     plain_text = fp.read()
     fp.close()
 
-    html_text = re.sub("<<NAME>>",name,html_text)
-    plain_text = re.sub("<<NAME>>",name,plain_text)
+    html_text = re.sub('<<NAME>>',name,html_text)
+    plain_text = re.sub('<<NAME>>',name,plain_text)
+    html_text = re.sub('<<DAY>>',dayName,html_text)
+    plain_text = re.sub('<<DAY>>',dayName,plain_text)
 
     img = open(opt["scicast"], 'rb')
     sci_logo = MIMEImage(img.read())
     img.close()
-    img = open(opt["gmu"], 'rb')
-    gmu_logo = MIMEImage(img.read())
-    img.close()
 
     sci_logo.add_header('Content-ID', "@sci_logo")
-    gmu_logo.add_header('Content-ID', "@gmu_logo")
 
     html_text = re.sub("<<NUMBER>>",str(swagnum),html_text)
     plain_text = re.sub("<<NUMBER>>",str(swagnum),plain_text)
@@ -227,9 +296,9 @@ def sendSwagEmail(userid,swagnum,winnum,userlist,opt):
     badge_images = []
     if len(badges_list) == 1:
         if badges_list[0] == "Helium":
-            congrats = "You've earned your first ever swag badge! "
+            congrats = "You've earned your first ever merit badge! "
         else:
-            congrats = "You've upgraded to a new swag level! "
+            congrats = "You've upgraded to a new merit level! "
         congrats += "The following badge has been added to your profile page:"
         html_list+="<br /><ul>"
         plain_list+="\n"
@@ -244,9 +313,9 @@ def sendSwagEmail(userid,swagnum,winnum,userlist,opt):
         html_list += "</ul>"
     elif len(badges_list) > 1:
         if "Helium" in badges_list:
-            congrats = "You've not only earned your first ever swag badge, you've earned "+str(len(badges_list))+"! "
+            congrats = "You've not only earned your first ever merit badge, you've earned "+str(len(badges_list))+"! "
         else:
-            congrats = "You've upgraded "+str(len(badges_list))+" swag levels! "
+            congrats = "You've upgraded "+str(len(badges_list))+" badge levels! "
         congrats += "The following badges have been added to your profile page:"
         html_list+="<br /><ul>"
         plain_list+="\n"
@@ -272,18 +341,17 @@ def sendSwagEmail(userid,swagnum,winnum,userlist,opt):
     plain_text = re.sub("<<ELEMENT>>",badge,plain_text)
 
     msgroot = MIMEMultipart('related')
-    msgroot['Subject'] = "Test swag message"
+    msgroot['Subject'] = "Test merit message"
     msgroot['From'] = "ssmith@c4i.gmu.edu"
     msgroot['To'] = "ssmith@c4i.gmu.edu"#insert email here
 
     msgalternative = MIMEMultipart('alternative')
     msgroot.attach(msgalternative)
 
-    part1 = MIMEText(html_text,'html')
-    part2 = MIMEText(plain_text,'plain')
+    part1 = MIMEText(html_text.encode('utf8'),'html')
+    part2 = MIMEText(plain_text.encode('utf8'),'plain')
 
     msgroot.attach(sci_logo)
-    msgroot.attach(gmu_logo)
     for i in badge_images:
         msgroot.attach(i)
     msgalternative.attach(part2)
@@ -309,6 +377,7 @@ def getCodes(number, opt, userid, type):
     numwins = 0
     numswag = 0
     num2 = number
+    limit = int(opt["daily"])
     codes = []
 
     if userid in log:
@@ -323,14 +392,18 @@ def getCodes(number, opt, userid, type):
         print "User "+str(userid)+" has already won the maximum number of times."
         skip = True
 
-    if type == "code" or type == "both":
+    if "code" in type:
         f = open(opt["giftcards"],'r')
         lines = f.readlines()
         f.close()
         for i in range(0, len(lines)):
-            print lines[i]
+            #print lines[i]
             if skip:
-                break
+                if number > 0:
+                    num2 += 1
+                    number-= 1
+                else:
+                    break
             else:
                 if len(lines[i].split(',')) == 1:
                     code = lines[i].strip('\n')
@@ -352,12 +425,12 @@ def getCodes(number, opt, userid, type):
                         log[userid] = {today_str:{"amazon":[code]}}
                     #out.writelines(lines)
                     number -= 1
-                    if numwins == 23:
+                    if numwins == 23 or numwins >= limit:
                         print "User "+str(userid)+" has reached the maximum number of wins."
                         skip = True
                     if number == 0:
                         skip = True
-    if type == "swag" or type == "both":
+    if "swag" in type:
         while num2 > 0:
             if userid in log:
                 if today_str in log[userid]:
@@ -370,6 +443,8 @@ def getCodes(number, opt, userid, type):
             else:
                 log[userid] = {today_str:{"badge":1}}
             num2 -= 1
+    if len(type) == 1 and "thank" in type:
+        return [None,None]
     badgenum = log[userid][today_str]["badge"]
 
     writelog(log,opt)
@@ -397,40 +472,63 @@ def main(argv):
     @type argv: list
     @return: none
     '''
-
+    global dayName
     typestring = ""
+    dayString = ""
+
     send = True
     try:
-      opts, args = getopt.getopt(argv,"ht:i",["type","ignore"])
+      opts, args = getopt.getopt(argv,"ht:d:",["type","day"])
     except getopt.GetoptError:
         #If no arguments, run script assuming startdate == yesterday
-        print 'No arguments detected; usage: notify.py -h [-t, --type] <type>  [-i --ignore]'
+        print 'No arguments detected; usage: notify.py -h [-t, --type] <type>  [-d --day] <day>'
         sys.exit()
 
+    print opts
     for opt, arg in opts:
         if '-h' in args or opt == '-h': #Help documentation
-            print 'notify.py -h [-t, --type] <type> [-i --ignore]'
-            print 'Include the -i or --ignore switch if you do not wish to send notification emails'
-            print 'NOTE: The -i switch is cancelled out if type is not "swag"'
+            print 'notify.py -h [-t, --type] <type> [-d --day] <day>'
+            print '"Day" is a day of the week, one of the following'
+            for day in ["monday,m,mon","tuesday,t,tue","wednesday,w,wed","thursday,r,thurs","friday,f,fri"]:
+                print "- "+day
             sys.exit()
-        elif opt in ("-t", "--type"):
-            typestring = arg.lower()
+        elif opt in ("-t", "--types"):
+            typestring += arg.lower()+","
+        elif opt in ("-d", "--day"):
+            dayString = arg.lower()
         elif opt in ("-i", "--ignore"):
             send = False
 
-    if typestring:
-        if typestring not in ["code","swag","both"]:
-            print "Incentive type not recognized. Type must match one of the following:"
-            for test in ["code","swag","both"]:
-                print "- "+test
-            sys.exit()
+    if dayString == "monday" or dayString == "m" or dayString == "mon":
+        dayName = (datetime.date.today()-datetime.timedelta(days=1)).strftime('%m-%d-%Y')
+    elif dayString == "tuesday" or dayString == "t" or dayString == "tues":
+        dayName = "Super Tuesday"
+    elif dayString == "wednesday" or dayString == "w" or dayString == "wed":
+        dayName = "Badge Wednesday"
+    elif dayString == "thursday" or dayString == "r" or dayString == "thurs":
+        dayName = (datetime.date.today()-datetime.timedelta(days=1)).strftime('%m-%d-%Y')
+    elif dayString == "friday" or dayString == "f" or dayString == "fri":
+        dayName = "Fortune Friday"
     else:
-        print "Incentive type is required. Type must match one of the following:"
-        for test in ["code","swag","both"]:
+        print "Day not recognized. Day must match one of the following:"
+        for test in ["monday,m,mon","tuesday,t,tue","wednesday,w,wed","thursday,r,thurs","friday,f,fri"]:
             print "- "+test
         sys.exit()
-
-    if typestring != "swag":
+    typestring = typestring[:-1]
+    if typestring:
+        for reward in typestring.split(','):
+            if reward not in ["code","swag","thank"]:
+              print "Incentive type not recognized. Type must match one of the following:"
+              for test in ["code","swag","thank"]:
+                  print "- "+test
+              sys.exit()
+    else:
+        print "Incentive type is required. Type must match one or more of the following:"
+        for test in ["code","swag","thank"]:
+            print "- "+test
+        sys.exit()
+    typearray = typestring.split(',')
+    if "swag" not in typearray:
         send = True
 
     today_str = datetime.datetime.now().strftime("%Y-%m-%d")
@@ -444,21 +542,28 @@ def main(argv):
         if today_str in dates:
             winlist[userid] = dates[today_str]
 
+    print winlist
+    #sys.exit(1)
     for userid,winnum in winlist.iteritems():
-        returned = getCodes(winnum,options,userid,typestring)
+        numActivityWins = 0
+        for type,ids in winnum.iteritems():
+            numActivityWins += len(ids)
+        returned = getCodes(numActivityWins,options,userid,typearray)
         codes = returned[0]
         badgenum = returned[1]
-        if len(codes) != winnum and typestring != "swag":
-            print "Error: "+str(codes)+" for user "+str(userid)
-            sys.exit(1)
+        if "code" in typearray and len(codes) < numActivityWins:
+            numActivityWins += numActivityWins - len(codes)
+        print badgenum
+        #if codes and len(codes) != numActivityWins or len(codes) != 23 and "code" in typearray:
+        #    print "Error: "+str(codes)+" for user "+str(userid)
+        #    sys.exit(1)
         print "Sending mail to "+str(userid)
-        if typestring == "code":
+        if "code" in typearray:
             sendCodeEmail(userid,codes,all_users,options)
-        if typestring == "swag" and send:
-            sendSwagEmail(userid,badgenum,winnum,all_users,options)
-        if typestring == "both":
-            sendCodeEmail(userid,codes,all_users,options)
-            sendSwagEmail(userid,badgenum,winnum,all_users,options)
+        if "swag" in typearray and send:
+            sendSwagEmail(userid,badgenum,numActivityWins,all_users,options)
+        if "thank" in typearray:
+            sendThanksEmail(userid,winnum,all_users,options)
 
 if __name__ == '__main__': #driver function
     main(sys.argv[1:])

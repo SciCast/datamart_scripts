@@ -6,7 +6,7 @@
 Dear <<NAME>>,
 <br /><br />
 Congratulations!<br /><br />
-You&#146;ve won <<TODAY>> merits for your activity on SciCast.org. This brings your merit total to <<NUMBER>>.<br />
+You&#146;ve won <<TODAY>> merits for your activity on SciCast.org on <<DAY>>. This brings your merit total to <<NUMBER>>.<br />
 <<CONGRATS>><br />
 Your level of collected merit appears as <<ELEMENT>> badge on your profile.<br />
 Log in to SciCast.org to see your winnings.<br /><br />
@@ -15,5 +15,8 @@ If you have any questions, please contact us at <a href="mailto:contact@scicast.
 Best regards,<br />
 The SciCast Team<br />
 
-<a href="http://twitter.com/share?url=http://scicast.org&text=I just won <<TODAY>> merits on day!&via=scicasters">Tweet this</a>
+<a href="http://twitter.com/share?url=http://scicast.org&text=I just won <<TODAY>> merits on <<DAY>>!&via=scicasters">Tweet this</a>
 <a href="https://twitter.com/intent/user?screen_name=scicasters">Follow @scicasters on twitter</a>
+<a href="https://www.facebook.com/SciCast">Facebook</a>
+<a href="http://www.linkedin.com/groups/SciCast-5065196">LinkedIn</a>
+<a href="https://plus.google.com/110554548506496003756/posts">Google+</a>

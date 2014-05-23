@@ -152,7 +152,7 @@ def sendCodeEmail(userid,codes,userlist,opt):
         server.starttls()
         server.login(emailuserpass[0],emailuserpass[1])
         print str(userid)+" "+code
-        server.sendmail("Test@scicast.org",["ssmith@c4i.gmu.edu"],msgroot.as_string())
+        server.sendmail("Test@scicast.org",["ssmith@c4i.gmu.edu","kennyth.co@gmail.com"],msgroot.as_string())
 
 def sendThanksEmail(userid,active_list,userlist,opt):
     global dayName
@@ -218,7 +218,7 @@ def sendThanksEmail(userid,active_list,userlist,opt):
     server.ehlo()
     server.starttls()
     server.login(emailuserpass[0],emailuserpass[1])
-    server.sendmail("Test@scicast.org",["ssmith@c4i.gmu.edu"],msgroot.as_string())
+    server.sendmail("Test@scicast.org",["ssmith@c4i.gmu.edu","kennyth.co@gmail.com"],msgroot.as_string())
 
 def sendSwagEmail(userid,swagnum,winnum,userlist,opt):
     global dayName
@@ -260,6 +260,7 @@ def sendSwagEmail(userid,swagnum,winnum,userlist,opt):
     plain_text = re.sub("<<TODAY>>",str(winnum),plain_text)
 
     startswag = swagnum - winnum
+
     if swagnum == 0:
         fail = True
     elif swagnum == 1:
@@ -364,7 +365,7 @@ def sendSwagEmail(userid,swagnum,winnum,userlist,opt):
     server.starttls()
     server.login(emailuserpass[0],emailuserpass[1])
     if not fail:
-        server.sendmail("ssmith@c4i.gmu.edu",["ssmith@c4i.gmu.edu"],msgroot.as_string())
+        server.sendmail("ssmith@c4i.gmu.edu",["ssmith@c4i.gmu.edu","kennyth.co@gmail.com"],msgroot.as_string())
 
 def getCodes(number, opt, userid, type):
 
@@ -387,7 +388,6 @@ def getCodes(number, opt, userid, type):
                 numwins += len(value["amazon"])
             if "badge" in value:
                 numswag += value["badge"]
-
     if numwins >= 23:
         print "User "+str(userid)+" has already won the maximum number of times."
         skip = True
@@ -443,11 +443,11 @@ def getCodes(number, opt, userid, type):
             else:
                 log[userid] = {today_str:{"badge":1}}
             num2 -= 1
+	log[userid][today_str]["badge"] += numswag
     if len(type) == 1 and "thank" in type:
         return [None,None]
     badgenum = log[userid][today_str]["badge"]
-
-    writelog(log,opt)
+    #writelog(log,opt)
     return [codes,badgenum]
 
 def writelog(log,opt):

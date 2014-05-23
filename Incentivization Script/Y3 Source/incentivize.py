@@ -204,7 +204,7 @@ def main(argv):
     #winners = database.winners
     #print winners
     wincounter = 0
-    winwriter = csv.DictWriter(open(options["output_dir"]+"/"+options["newwinners"]+".csv.txt", 'wb'), fieldnames=['user_id', 'comment_id', 'trade_id', 'win_date'], delimiter=',', quotechar='"', quoting=csv.QUOTE_NONNUMERIC)
+    winwriter = csv.DictWriter(open(options["output_dir"]+"/"+options["newwinners"]+".csv.txt", 'ab'), fieldnames=['user_id', 'comment_id', 'trade_id', 'win_date'], delimiter=',', quotechar='"', quoting=csv.QUOTE_NONNUMERIC)
     winwriter.writeheader()
     for person,wins in winners.iteritems():
         #numwins = winners[person]

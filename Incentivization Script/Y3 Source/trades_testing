@@ -1,0 +1,58 @@
+[
+    {
+        "choice_index": 1,
+        "updated_at": "2013-12-02T09:38:48",
+        "trade_id": 1,
+        "old_value_list": "0.2,0.2,0.2,0.2,0.2",
+        "assets_per_option": "[-73.69655941662062, 96.34741239748861, 0.0, 43.295940727610635, -332.19280948873626]",
+        "trade_status": null,
+        "asset_resolution": null,
+        "user_id": 11,
+        "traded_at": "2013-12-02T09:38:48",
+        "serialized_assumptions": null,
+        "new_value_list": "0.11999999,0.39000002,0.20000002,0.27,0.020000001",
+        "question_id": 70
+    },
+    {
+        "choice_index": 1,
+        "updated_at": "2013-12-02T09:38:48",
+        "trade_id": 1,
+        "old_value_list": "0.2,0.2,0.2,0.2,0.2",
+        "assets_per_option": "[-73.69655941662062, 96.34741239748861, 0.0, 43.295940727610635, -332.19280948873626]",
+        "trade_status": null,
+        "asset_resolution": null,
+        "user_id": 7,
+        "traded_at": "2013-12-02T09:38:48",
+        "serialized_assumptions": null,
+        "new_value_list": "0.11999999,0.39000002,0.20000002,0.27,0.020000001",
+        "question_id": 70
+    },
+    {
+        "choice_index": 1,
+        "updated_at": "2013-12-02T09:38:48",
+        "trade_id": 1,
+        "old_value_list": "0.2,0.2,0.2,0.2,0.2",
+        "assets_per_option": "[-73.69655941662062, 96.34741239748861, 0.0, 43.295940727610635, -332.19280948873626]",
+        "trade_status": null,
+        "asset_resolution": null,
+        "user_id": 9,
+        "traded_at": "2013-12-02T09:38:48",
+        "serialized_assumptions": null,
+        "new_value_list": "0.11999999,0.39000002,0.20000002,0.27,0.020000001",
+        "question_id": 70
+    },
+    {
+        "choice_index": 1,
+        "updated_at": "2013-12-02T09:38:48",
+        "trade_id": 1,
+        "old_value_list": "0.2,0.2,0.2,0.2,0.2",
+        "assets_per_option": "[-73.69655941662062, 96.34741239748861, 0.0, 43.295940727610635, -332.19280948873626]",
+        "trade_status": null,
+        "asset_resolution": null,
+        "user_id": 10,
+        "traded_at": "2013-12-02T09:38:48",
+        "serialized_assumptions": null,
+        "new_value_list": "0.11999999,0.39000002,0.20000002,0.27,0.020000001",
+        "question_id": 70
+    }
+]

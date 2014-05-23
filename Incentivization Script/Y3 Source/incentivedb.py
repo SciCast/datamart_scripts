@@ -17,7 +17,7 @@ class IncentiveDB():
     '''
     Created class to handle the activities necessary for the incentivization script.
     '''
-    def __init__(self, opt, users, trades, comments, start = None, end = None):
+    def __init__(self, opt, users, tradesIn, commentsIn, start = None, end = None):
         '''
         Initializes database
         @param opt: config options from config file
@@ -35,8 +35,10 @@ class IncentiveDB():
         @return: none
         '''
         self.users = users
-        self.trades = trades
-        self.comments = comments
+        #self.trades = tradesIn
+        #self.comments = commentsIn
+        self.trades = self.getTestingFiles("trades.json")
+        self.comments = self.getTestingFiles("comments.json")
         self.opt = opt
         self.accumulate = True if opt["accumulate"] == "true" else False
         self.previous = self.getPrevious(opt)
@@ -51,6 +53,9 @@ class IncentiveDB():
         self.previousActivity = None
         self.hat = {}
         self.winlog = {}
+        #print self.trades
+        #print self.comments
+        #sys.exit(1)
 
 
     def getPrevious(self,opt):
@@ -61,6 +66,16 @@ class IncentiveDB():
         @return: information inside database file or None if file doesn't exist
         '''
         filename = opt["db"]+".json"
+        if os.path.isfile(filename):
+            json_data = open(filename)
+            data = json.load(json_data)
+            json_data.close()
+            print type(data)
+        else:
+            data = None
+        return data
+
+    def getTestingFiles(self,filename):
         if os.path.isfile(filename):
             json_data = open(filename)
             data = json.load(json_data)
@@ -186,7 +201,7 @@ class IncentiveDB():
         file_handle = None
         winNum = 0
         try:
-            file_handle = open(folder+"/"+self.opt["winlog"]+".json")
+            file_handle = open(folder+"/"+self.opt["winlog"]+".json",'rb')
         except IOError:
             print 'No win log file'
         if not os.path.exists(folder):

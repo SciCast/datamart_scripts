@@ -1,4 +1,65 @@
 {
+    "1": {
+        "comments": [], 
+        "trades": []
+    }, 
+    "2": {
+        "comments": [], 
+        "trades": []
+    }, 
+    "3": {
+        "comments": [], 
+        "trades": []
+    }, 
+    "4": {
+        "comments": [], 
+        "trades": []
+    }, 
+    "5": {
+        "comments": [], 
+        "trades": []
+    }, 
+    "6": {
+        "comments": [], 
+        "trades": []
+    }, 
+    "7": {
+        "comments": [], 
+        "trades": [
+            2, 
+            3
+        ]
+    }, 
+    "8": {
+        "comments": [], 
+        "trades": []
+    }, 
+    "9": {
+        "comments": [], 
+        "trades": [
+            4, 
+            5, 
+            6
+        ]
+    }, 
+    "10": {
+        "comments": [], 
+        "trades": []
+    }, 
+    "11": {
+        "comments": [], 
+        "trades": [
+            1
+        ]
+    }, 
+    "12": {
+        "comments": [], 
+        "trades": []
+    }, 
+    "13": {
+        "comments": [], 
+        "trades": []
+    }, 
     "14": {
         "comments": [], 
         "trades": []
@@ -8,6 +69,14 @@
         "trades": []
     }, 
     "16": {
+        "comments": [], 
+        "trades": []
+    }, 
+    "17": {
+        "comments": [], 
+        "trades": []
+    }, 
+    "18": {
         "comments": [], 
         "trades": []
     }, 
@@ -35,6 +104,10 @@
         "comments": [], 
         "trades": []
     }, 
+    "25": {
+        "comments": [], 
+        "trades": []
+    }, 
     "26": {
         "comments": [], 
         "trades": []
@@ -55,6 +128,14 @@
         "comments": [], 
         "trades": []
     }, 
+    "31": {
+        "comments": [], 
+        "trades": []
+    }, 
+    "32": {
+        "comments": [], 
+        "trades": []
+    }, 
     "33": {
         "comments": [], 
         "trades": []
@@ -67,10 +148,6 @@
         "comments": [], 
         "trades": []
     }, 
-    "36": {
-        "comments": [], 
-        "trades": []
-    }, 
     "37": {
         "comments": [], 
         "trades": []
@@ -80,6 +157,10 @@
         "trades": []
     }, 
     "39": {
+        "comments": [], 
+        "trades": []
+    }, 
+    "40": {
         "comments": [], 
         "trades": []
     }, 
@@ -100,56 +181,8 @@
         "trades": []
     }, 
     "45": {
-        "comments": [
-            976, 
-            975, 
-            977
-        ], 
-        "trades": [
-            9077, 
-            8987, 
-            8990, 
-            8992, 
-            8995, 
-            8999, 
-            9000, 
-            9002, 
-            9003, 
-            8988, 
-            8996, 
-            9001, 
-            9005, 
-            9009, 
-            9017, 
-            8989, 
-            8991, 
-            8993, 
-            8994, 
-            8997, 
-            8998, 
-            9004, 
-            9006, 
-            9014, 
-            9015, 
-            9016, 
-            9047, 
-            9048, 
-            9049, 
-            9064, 
-            9078, 
-            9093, 
-            9094, 
-            9046, 
-            9063, 
-            9080, 
-            9082, 
-            9079, 
-            9083, 
-            9092, 
-            9095, 
-            9097, 
-            9096
-        ]
+        "comments": [], 
+        "trades": []
     }, 
     "46": {
         "comments": [], 
@@ -204,32 +237,8 @@
         "trades": []
     }, 
     "59": {
-        "comments": [
-            982, 
-            979, 
-            984, 
-            985
-        ], 
-        "trades": [
-            9059, 
-            9076, 
-            9056, 
-            9062, 
-            9066, 
-            9071, 
-            9060, 
-            9068, 
-            9070, 
-            9073, 
-            9058, 
-            9061, 
-            9065, 
-            9067, 
-            9069, 
-            9072, 
-            9074, 
-            9075
-        ]
+        "comments": [], 
+        "trades": []
     }, 
     "60": {
         "comments": [], 
@@ -240,6 +249,10 @@
         "trades": []
     }, 
     "62": {
+        "comments": [], 
+        "trades": []
+    }, 
+    "63": {
         "comments": [], 
         "trades": []
     }, 
@@ -260,6 +273,10 @@
         "trades": []
     }, 
     "68": {
+        "comments": [], 
+        "trades": []
+    }, 
+    "69": {
         "comments": [], 
         "trades": []
     }, 
@@ -343,6 +360,10 @@
         "comments": [], 
         "trades": []
     }, 
+    "90": {
+        "comments": [], 
+        "trades": []
+    }, 
     "91": {
         "comments": [], 
         "trades": []
@@ -384,6 +405,10 @@
         "trades": []
     }, 
     "101": {
+        "comments": [], 
+        "trades": []
+    }, 
+    "102": {
         "comments": [], 
         "trades": []
     }, 
@@ -443,6 +468,10 @@
         "comments": [], 
         "trades": []
     }, 
+    "117": {
+        "comments": [], 
+        "trades": []
+    }, 
     "118": {
         "comments": [], 
         "trades": []
@@ -472,6 +501,10 @@
         "trades": []
     }, 
     "125": {
+        "comments": [], 
+        "trades": []
+    }, 
+    "126": {
         "comments": [], 
         "trades": []
     }, 
@@ -523,6 +556,14 @@
         "comments": [], 
         "trades": []
     }, 
+    "139": {
+        "comments": [], 
+        "trades": []
+    }, 
+    "140": {
+        "comments": [], 
+        "trades": []
+    }, 
     "141": {
         "comments": [], 
         "trades": []
@@ -556,6 +597,10 @@
         "trades": []
     }, 
     "149": {
+        "comments": [], 
+        "trades": []
+    }, 
+    "150": {
         "comments": [], 
         "trades": []
     }, 
@@ -660,14 +705,8 @@
         "trades": []
     }, 
     "176": {
-        "comments": [
-            983
-        ], 
-        "trades": [
-            9057, 
-            9007, 
-            9008
-        ]
+        "comments": [], 
+        "trades": []
     }, 
     "177": {
         "comments": [], 
@@ -933,6 +972,10 @@
         "comments": [], 
         "trades": []
     }, 
+    "243": {
+        "comments": [], 
+        "trades": []
+    }, 
     "244": {
         "comments": [], 
         "trades": []
@@ -1139,16 +1182,11 @@
     }, 
     "295": {
         "comments": [], 
-        "trades": [
-            9085, 
-            9084
-        ]
+        "trades": []
     }, 
     "296": {
         "comments": [], 
-        "trades": [
-            9081
-        ]
+        "trades": []
     }, 
     "297": {
         "comments": [], 
@@ -1452,9 +1490,7 @@
     }, 
     "372": {
         "comments": [], 
-        "trades": [
-            9098
-        ]
+        "trades": []
     }, 
     "373": {
         "comments": [], 
@@ -1529,6 +1565,10 @@
         "trades": []
     }, 
     "391": {
+        "comments": [], 
+        "trades": []
+    }, 
+    "392": {
         "comments": [], 
         "trades": []
     }, 
@@ -1701,6 +1741,10 @@
         "trades": []
     }, 
     "435": {
+        "comments": [], 
+        "trades": []
+    }, 
+    "436": {
         "comments": [], 
         "trades": []
     }, 
@@ -2341,6 +2385,10 @@
         "trades": []
     }, 
     "596": {
+        "comments": [], 
+        "trades": []
+    }, 
+    "597": {
         "comments": [], 
         "trades": []
     }, 
@@ -3138,35 +3186,7 @@
     }, 
     "796": {
         "comments": [], 
-        "trades": [
-            9019, 
-            9028, 
-            9018, 
-            9023, 
-            9024, 
-            9026, 
-            9020, 
-            9021, 
-            9022, 
-            9025, 
-            9031, 
-            9033, 
-            9034, 
-            9035, 
-            9027, 
-            9043, 
-            9044, 
-            9029, 
-            9030, 
-            9032, 
-            9036, 
-            9039, 
-            9040, 
-            9041, 
-            9042, 
-            9045, 
-            9055
-        ]
+        "trades": []
     }, 
     "797": {
         "comments": [], 
@@ -3397,6 +3417,10 @@
         "trades": []
     }, 
     "854": {
+        "comments": [], 
+        "trades": []
+    }, 
+    "855": {
         "comments": [], 
         "trades": []
     }, 
@@ -4404,6 +4428,10 @@
         "comments": [], 
         "trades": []
     }, 
+    "1107": {
+        "comments": [], 
+        "trades": []
+    }, 
     "1108": {
         "comments": [], 
         "trades": []
@@ -4981,6 +5009,10 @@
         "trades": []
     }, 
     "1252": {
+        "comments": [], 
+        "trades": []
+    }, 
+    "1253": {
         "comments": [], 
         "trades": []
     }, 
@@ -5772,6 +5804,10 @@
         "comments": [], 
         "trades": []
     }, 
+    "1451": {
+        "comments": [], 
+        "trades": []
+    }, 
     "1452": {
         "comments": [], 
         "trades": []
@@ -5817,6 +5853,10 @@
         "trades": []
     }, 
     "1463": {
+        "comments": [], 
+        "trades": []
+    }, 
+    "1464": {
         "comments": [], 
         "trades": []
     }, 
@@ -7390,11 +7430,7 @@
     }, 
     "1857": {
         "comments": [], 
-        "trades": [
-            9050, 
-            9051, 
-            9052
-        ]
+        "trades": []
     }, 
     "1858": {
         "comments": [], 
@@ -7466,9 +7502,7 @@
     }, 
     "1875": {
         "comments": [], 
-        "trades": [
-            9037
-        ]
+        "trades": []
     }, 
     "1876": {
         "comments": [], 
@@ -7488,9 +7522,7 @@
     }, 
     "1880": {
         "comments": [], 
-        "trades": [
-            9038
-        ]
+        "trades": []
     }, 
     "1881": {
         "comments": [], 
@@ -7666,12 +7698,7 @@
     }, 
     "1924": {
         "comments": [], 
-        "trades": [
-            9013, 
-            9010, 
-            9012, 
-            9011
-        ]
+        "trades": []
     }, 
     "1925": {
         "comments": [], 
@@ -7687,19 +7714,11 @@
     }, 
     "1928": {
         "comments": [], 
-        "trades": [
-            9086
-        ]
+        "trades": []
     }, 
     "1929": {
         "comments": [], 
-        "trades": [
-            9091, 
-            9087, 
-            9088, 
-            9090, 
-            9089
-        ]
+        "trades": []
     }, 
     "1930": {
         "comments": [], 
@@ -7726,6 +7745,342 @@
         "trades": []
     }, 
     "1936": {
+        "comments": [], 
+        "trades": []
+    }, 
+    "1937": {
+        "comments": [], 
+        "trades": []
+    }, 
+    "1938": {
+        "comments": [], 
+        "trades": []
+    }, 
+    "1939": {
+        "comments": [], 
+        "trades": []
+    }, 
+    "1940": {
+        "comments": [], 
+        "trades": []
+    }, 
+    "1941": {
+        "comments": [], 
+        "trades": []
+    }, 
+    "1942": {
+        "comments": [], 
+        "trades": []
+    }, 
+    "1943": {
+        "comments": [], 
+        "trades": []
+    }, 
+    "1944": {
+        "comments": [], 
+        "trades": []
+    }, 
+    "1945": {
+        "comments": [], 
+        "trades": []
+    }, 
+    "1946": {
+        "comments": [], 
+        "trades": []
+    }, 
+    "1947": {
+        "comments": [], 
+        "trades": []
+    }, 
+    "1948": {
+        "comments": [], 
+        "trades": []
+    }, 
+    "1949": {
+        "comments": [], 
+        "trades": []
+    }, 
+    "1950": {
+        "comments": [], 
+        "trades": []
+    }, 
+    "1951": {
+        "comments": [], 
+        "trades": []
+    }, 
+    "1952": {
+        "comments": [], 
+        "trades": []
+    }, 
+    "1953": {
+        "comments": [], 
+        "trades": []
+    }, 
+    "1954": {
+        "comments": [], 
+        "trades": []
+    }, 
+    "1955": {
+        "comments": [], 
+        "trades": []
+    }, 
+    "1956": {
+        "comments": [], 
+        "trades": []
+    }, 
+    "1957": {
+        "comments": [], 
+        "trades": []
+    }, 
+    "1958": {
+        "comments": [], 
+        "trades": []
+    }, 
+    "1959": {
+        "comments": [], 
+        "trades": []
+    }, 
+    "1960": {
+        "comments": [], 
+        "trades": []
+    }, 
+    "1961": {
+        "comments": [], 
+        "trades": []
+    }, 
+    "1962": {
+        "comments": [], 
+        "trades": []
+    }, 
+    "1963": {
+        "comments": [], 
+        "trades": []
+    }, 
+    "1964": {
+        "comments": [], 
+        "trades": []
+    }, 
+    "1965": {
+        "comments": [], 
+        "trades": []
+    }, 
+    "1966": {
+        "comments": [], 
+        "trades": []
+    }, 
+    "1967": {
+        "comments": [], 
+        "trades": []
+    }, 
+    "1968": {
+        "comments": [], 
+        "trades": []
+    }, 
+    "1969": {
+        "comments": [], 
+        "trades": []
+    }, 
+    "1970": {
+        "comments": [], 
+        "trades": []
+    }, 
+    "1971": {
+        "comments": [], 
+        "trades": []
+    }, 
+    "1972": {
+        "comments": [], 
+        "trades": []
+    }, 
+    "1973": {
+        "comments": [], 
+        "trades": []
+    }, 
+    "1974": {
+        "comments": [], 
+        "trades": []
+    }, 
+    "1975": {
+        "comments": [], 
+        "trades": []
+    }, 
+    "1976": {
+        "comments": [], 
+        "trades": []
+    }, 
+    "1977": {
+        "comments": [], 
+        "trades": []
+    }, 
+    "1978": {
+        "comments": [], 
+        "trades": []
+    }, 
+    "1979": {
+        "comments": [], 
+        "trades": []
+    }, 
+    "1980": {
+        "comments": [], 
+        "trades": []
+    }, 
+    "1981": {
+        "comments": [], 
+        "trades": []
+    }, 
+    "1982": {
+        "comments": [], 
+        "trades": []
+    }, 
+    "1983": {
+        "comments": [], 
+        "trades": []
+    }, 
+    "1984": {
+        "comments": [], 
+        "trades": []
+    }, 
+    "1985": {
+        "comments": [], 
+        "trades": []
+    }, 
+    "1986": {
+        "comments": [], 
+        "trades": []
+    }, 
+    "1987": {
+        "comments": [], 
+        "trades": []
+    }, 
+    "1988": {
+        "comments": [], 
+        "trades": []
+    }, 
+    "1989": {
+        "comments": [], 
+        "trades": []
+    }, 
+    "1990": {
+        "comments": [], 
+        "trades": []
+    }, 
+    "1991": {
+        "comments": [], 
+        "trades": []
+    }, 
+    "1992": {
+        "comments": [], 
+        "trades": []
+    }, 
+    "1993": {
+        "comments": [], 
+        "trades": []
+    }, 
+    "1994": {
+        "comments": [], 
+        "trades": []
+    }, 
+    "1995": {
+        "comments": [], 
+        "trades": []
+    }, 
+    "1996": {
+        "comments": [], 
+        "trades": []
+    }, 
+    "1997": {
+        "comments": [], 
+        "trades": []
+    }, 
+    "1998": {
+        "comments": [], 
+        "trades": []
+    }, 
+    "1999": {
+        "comments": [], 
+        "trades": []
+    }, 
+    "2000": {
+        "comments": [], 
+        "trades": []
+    }, 
+    "2001": {
+        "comments": [], 
+        "trades": []
+    }, 
+    "2002": {
+        "comments": [], 
+        "trades": []
+    }, 
+    "2003": {
+        "comments": [], 
+        "trades": []
+    }, 
+    "2004": {
+        "comments": [], 
+        "trades": []
+    }, 
+    "2005": {
+        "comments": [], 
+        "trades": []
+    }, 
+    "2006": {
+        "comments": [], 
+        "trades": []
+    }, 
+    "2007": {
+        "comments": [], 
+        "trades": []
+    }, 
+    "2008": {
+        "comments": [], 
+        "trades": []
+    }, 
+    "2009": {
+        "comments": [], 
+        "trades": []
+    }, 
+    "2010": {
+        "comments": [], 
+        "trades": []
+    }, 
+    "2011": {
+        "comments": [], 
+        "trades": []
+    }, 
+    "2012": {
+        "comments": [], 
+        "trades": []
+    }, 
+    "2013": {
+        "comments": [], 
+        "trades": []
+    }, 
+    "2014": {
+        "comments": [], 
+        "trades": []
+    }, 
+    "2015": {
+        "comments": [], 
+        "trades": []
+    }, 
+    "2016": {
+        "comments": [], 
+        "trades": []
+    }, 
+    "2017": {
+        "comments": [], 
+        "trades": []
+    }, 
+    "2018": {
+        "comments": [], 
+        "trades": []
+    }, 
+    "2019": {
+        "comments": [], 
+        "trades": []
+    }, 
+    "2020": {
         "comments": [], 
         "trades": []
     }

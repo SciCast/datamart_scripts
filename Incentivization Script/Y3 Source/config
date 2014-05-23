@@ -87,4 +87,5 @@ api:api_key
 ##TODO: Make ignore include question fields as well
 #ignore: comma,separated,list; used to tell which user groups, usernames, id's, etc. to ignore
 #can parse over any field name returned
-ignore:internal
+#ignore:internal
+ignore:MemberFDIC

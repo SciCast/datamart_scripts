@@ -88,4 +88,4 @@ api:api_key
 #ignore: comma,separated,list; used to tell which user groups, usernames, id's, etc. to ignore
 #can parse over any field name returned
 #ignore:internal
-ignore:MemberFDIC
+ignore:internal

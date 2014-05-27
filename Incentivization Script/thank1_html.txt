@@ -5,8 +5,8 @@
 </table><br /><br />
 Dear <<NAME>>,<br /><br />
 
-Thank you for your activity on SciCast.org this week. You&#146;ve made <<TRADE>> forecasts and <<COMMENT>> comments
-on <<DAY>>.  SciCast depends on a community of users people who follow and contemplate science and technology.<br />
+Thank you for your activity on SciCast.org this week. You&#146;ve made <<ACTIVITY>> on <<DAY>>.
+ SciCast depends on a community of users people who follow and contemplate science and technology.<br />
 Your participation improves that community and helps us to predict the future.<br /><br />
 
 Best regards,<br /><br />

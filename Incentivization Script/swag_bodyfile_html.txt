@@ -6,7 +6,7 @@
 Dear <<NAME>>,
 <br /><br />
 Congratulations!<br /><br />
-You&#146;ve won <<TODAY>> merits for your activity on SciCast.org on <<DAY>>. This brings your merit total to <<NUMBER>>.<br />
+You&#146;ve won <<TODAY>> for your activity on SciCast.org on <<DAY>>. This brings your merit total to <<NUMBER>>. <<NEXT>><br />
 <<CONGRATS>><br />
 Your level of collected merit appears as <<ELEMENT>> badge on your profile.<br />
 Log in to SciCast.org to see your winnings.<br /><br />

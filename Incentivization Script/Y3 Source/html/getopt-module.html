@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="ascii"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-          "DTD/xhtml1-transitional.dtd">
+        "DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-  <title>getopt</title>
-  <link rel="stylesheet" href="epydoc.css" type="text/css" />
-  <script type="text/javascript" src="epydoc.js"></script>
+    <title>getopt</title>
+    <link rel="stylesheet" href="epydoc.css" type="text/css"/>
+    <script type="text/javascript" src="epydoc.js"></script>
 </head>
 
 <body bgcolor="white" text="black" link="blue" vlink="#204080"
@@ -13,360 +13,407 @@
 <!-- ==================== NAVIGATION BAR ==================== -->
 <table class="navbar" border="0" width="100%" cellpadding="0"
        bgcolor="#a0c0ff" cellspacing="0">
-  <tr valign="middle">
+    <tr valign="middle">
 
-  <!-- Tree link -->
-      <th>&nbsp;&nbsp;&nbsp;<a
-        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+        <!-- Tree link -->
+        <th>&nbsp;&nbsp;&nbsp;<a
+                href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
 
-  <!-- Index link -->
-      <th>&nbsp;&nbsp;&nbsp;<a
-        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+        <!-- Index link -->
+        <th>&nbsp;&nbsp;&nbsp;<a
+                href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
 
-  <!-- Help link -->
-      <th>&nbsp;&nbsp;&nbsp;<a
-        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+        <!-- Help link -->
+        <th>&nbsp;&nbsp;&nbsp;<a
+                href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
 
-      <th class="navbar" width="100%"></th>
-  </tr>
+        <th class="navbar" width="100%"></th>
+    </tr>
 </table>
 <table width="100%" cellpadding="0" cellspacing="0">
-  <tr valign="top">
-    <td width="100%">
+    <tr valign="top">
+        <td width="100%">
       <span class="breadcrumbs">
         Module&nbsp;getopt
       </span>
-    </td>
-    <td>
-      <table cellpadding="0" cellspacing="0">
-        <!-- hide/show private -->
-        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
-    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
-        <tr><td align="right"><span class="options"
-            >[<a href="frames.html" target="_top">frames</a
-            >]&nbsp;|&nbsp;<a href="getopt-module.html"
-            target="_top">no&nbsp;frames</a>]</span></td></tr>
-      </table>
-    </td>
-  </tr>
+        </td>
+        <td>
+            <table cellpadding="0" cellspacing="0">
+                <!-- hide/show private -->
+                <tr>
+                    <td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+                                                                onclick="toggle_private();">hide&nbsp;private</a>]</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right"><span class="options"
+                            >[<a href="frames.html" target="_top">frames</a
+                            >]&nbsp;|&nbsp;<a href="getopt-module.html"
+                                              target="_top">no&nbsp;frames</a>]</span></td>
+                </tr>
+            </table>
+        </td>
+    </tr>
 </table>
 <!-- ==================== MODULE DESCRIPTION ==================== -->
-<h1 class="epydoc">Module getopt</h1><p class="nomargin-top"><span class="codelink"><a href="getopt-pysrc.html">source&nbsp;code</a></span></p>
+<h1 class="epydoc">Module getopt</h1>
+
+<p class="nomargin-top"><span class="codelink"><a href="getopt-pysrc.html">source&nbsp;code</a></span></p>
+
 <p>Parser for command line options.</p>
-  <p>This module helps scripts to parse the command line arguments in 
-  sys.argv.  It supports the same conventions as the Unix getopt() function
-  (including the special meanings of arguments of the form `-' and `--').  
-  Long options similar to those supported by GNU software may be used as 
-  well via an optional third argument.  This module provides two functions 
-  and an exception:</p>
-  <p>getopt() -- Parse command line options gnu_getopt() -- Like getopt(), 
-  but allow option and non-option arguments to be intermixed. GetoptError 
-  -- exception (class) raised with 'opt' attribute, which is the option 
-  involved with the exception.</p>
+
+<p>This module helps scripts to parse the command line arguments in
+    sys.argv. It supports the same conventions as the Unix getopt() function
+    (including the special meanings of arguments of the form `-' and `--').
+    Long options similar to those supported by GNU software may be used as
+    well via an optional third argument. This module provides two functions
+    and an exception:</p>
+
+<p>getopt() -- Parse command line options gnu_getopt() -- Like getopt(),
+    but allow option and non-option arguments to be intermixed. GetoptError
+    -- exception (class) raised with 'opt' attribute, which is the option
+    involved with the exception.</p>
 
 <!-- ==================== CLASSES ==================== -->
 <a name="section-Classes"></a>
 <table class="summary" border="1" cellpadding="3"
        cellspacing="0" width="100%" bgcolor="white">
-<tr bgcolor="#70b0f0" class="table-header">
-  <td colspan="2" class="table-header">
-    <table border="0" cellpadding="0" cellspacing="0" width="100%">
-      <tr valign="top">
-        <td align="left"><span class="table-header">Classes</span></td>
-        <td align="right" valign="top"
-         ><span class="options">[<a href="#section-Classes"
-         class="privatelink" onclick="toggle_private();"
-         >hide private</a>]</span></td>
-      </tr>
-    </table>
-  </td>
-</tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-        <a href="getopt.GetoptError-class.html" class="summary-name">GetoptError</a>
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-        <a href="getopt.GetoptError-class.html" class="summary-name">error</a>
-    </td>
-  </tr>
+    <tr bgcolor="#70b0f0" class="table-header">
+        <td colspan="2" class="table-header">
+            <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                <tr valign="top">
+                    <td align="left"><span class="table-header">Classes</span></td>
+                    <td align="right" valign="top"
+                            ><span class="options">[<a href="#section-Classes"
+                                                       class="privatelink" onclick="toggle_private();"
+                            >hide private</a>]</span></td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td width="15%" align="right" valign="top" class="summary">
+            <span class="summary-type">&nbsp;</span>
+        </td>
+        <td class="summary">
+            <a href="getopt.GetoptError-class.html" class="summary-name">GetoptError</a>
+        </td>
+    </tr>
+    <tr>
+        <td width="15%" align="right" valign="top" class="summary">
+            <span class="summary-type">&nbsp;</span>
+        </td>
+        <td class="summary">
+            <a href="getopt.GetoptError-class.html" class="summary-name">error</a>
+        </td>
+    </tr>
 </table>
 <!-- ==================== FUNCTIONS ==================== -->
 <a name="section-Functions"></a>
 <table class="summary" border="1" cellpadding="3"
        cellspacing="0" width="100%" bgcolor="white">
-<tr bgcolor="#70b0f0" class="table-header">
-  <td colspan="2" class="table-header">
-    <table border="0" cellpadding="0" cellspacing="0" width="100%">
-      <tr valign="top">
-        <td align="left"><span class="table-header">Functions</span></td>
-        <td align="right" valign="top"
-         ><span class="options">[<a href="#section-Functions"
-         class="privatelink" onclick="toggle_private();"
-         >hide private</a>]</span></td>
-      </tr>
-    </table>
-  </td>
-</tr>
-<tr class="private">
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a name="do_longs"></a><span class="summary-sig-name">do_longs</span>(<span class="summary-sig-arg">opts</span>,
+    <tr bgcolor="#70b0f0" class="table-header">
+        <td colspan="2" class="table-header">
+            <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                <tr valign="top">
+                    <td align="left"><span class="table-header">Functions</span></td>
+                    <td align="right" valign="top"
+                            ><span class="options">[<a href="#section-Functions"
+                                                       class="privatelink" onclick="toggle_private();"
+                            >hide private</a>]</span></td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr class="private">
+        <td width="15%" align="right" valign="top" class="summary">
+            <span class="summary-type">&nbsp;</span>
+        </td>
+        <td class="summary">
+            <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                    <td><span class="summary-sig"><a name="do_longs"></a><span class="summary-sig-name">do_longs</span>(<span
+                            class="summary-sig-arg">opts</span>,
         <span class="summary-sig-arg">opt</span>,
         <span class="summary-sig-arg">longopts</span>,
         <span class="summary-sig-arg">args</span>)</span></td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="getopt-pysrc.html#do_longs">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr class="private">
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a name="do_shorts"></a><span class="summary-sig-name">do_shorts</span>(<span class="summary-sig-arg">opts</span>,
+                    <td align="right" valign="top">
+                        <span class="codelink"><a href="getopt-pysrc.html#do_longs">source&nbsp;code</a></span>
+
+                    </td>
+                </tr>
+            </table>
+
+        </td>
+    </tr>
+    <tr class="private">
+        <td width="15%" align="right" valign="top" class="summary">
+            <span class="summary-type">&nbsp;</span>
+        </td>
+        <td class="summary">
+            <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                    <td><span class="summary-sig"><a name="do_shorts"></a><span
+                            class="summary-sig-name">do_shorts</span>(<span class="summary-sig-arg">opts</span>,
         <span class="summary-sig-arg">optstring</span>,
         <span class="summary-sig-arg">shortopts</span>,
         <span class="summary-sig-arg">args</span>)</span></td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="getopt-pysrc.html#do_shorts">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">opts, args</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a href="getopt-module.html#getopt" class="summary-sig-name">getopt</a>(<span class="summary-sig-arg">args</span>,
+                    <td align="right" valign="top">
+                        <span class="codelink"><a href="getopt-pysrc.html#do_shorts">source&nbsp;code</a></span>
+
+                    </td>
+                </tr>
+            </table>
+
+        </td>
+    </tr>
+    <tr>
+        <td width="15%" align="right" valign="top" class="summary">
+            <span class="summary-type">opts, args</span>
+        </td>
+        <td class="summary">
+            <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                    <td><span class="summary-sig"><a href="getopt-module.html#getopt"
+                                                     class="summary-sig-name">getopt</a>(<span class="summary-sig-arg">args</span>,
         <span class="summary-sig-arg">options</span>,
-        <span class="summary-sig-arg">long_options</span>=<span class="summary-sig-default">...</span>)</span><br />
-      Parses command line options and parameter list.</td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="getopt-pysrc.html#getopt">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">opts, args</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a href="getopt-module.html#gnu_getopt" class="summary-sig-name">gnu_getopt</a>(<span class="summary-sig-arg">args</span>,
+        <span class="summary-sig-arg">long_options</span>=<span class="summary-sig-default">...</span>)</span><br/>
+                        Parses command line options and parameter list.
+                    </td>
+                    <td align="right" valign="top">
+                        <span class="codelink"><a href="getopt-pysrc.html#getopt">source&nbsp;code</a></span>
+
+                    </td>
+                </tr>
+            </table>
+
+        </td>
+    </tr>
+    <tr>
+        <td width="15%" align="right" valign="top" class="summary">
+            <span class="summary-type">opts, args</span>
+        </td>
+        <td class="summary">
+            <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                    <td><span class="summary-sig"><a href="getopt-module.html#gnu_getopt" class="summary-sig-name">gnu_getopt</a>(<span
+                            class="summary-sig-arg">args</span>,
         <span class="summary-sig-arg">options</span>,
-        <span class="summary-sig-arg">long_options</span>=<span class="summary-sig-default">...</span>)</span><br />
-      This function works like getopt(), except that GNU style scanning 
-      mode is used by default.</td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="getopt-pysrc.html#gnu_getopt">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr class="private">
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a name="long_has_args"></a><span class="summary-sig-name">long_has_args</span>(<span class="summary-sig-arg">opt</span>,
+        <span class="summary-sig-arg">long_options</span>=<span class="summary-sig-default">...</span>)</span><br/>
+                        This function works like getopt(), except that GNU style scanning
+                        mode is used by default.
+                    </td>
+                    <td align="right" valign="top">
+                        <span class="codelink"><a href="getopt-pysrc.html#gnu_getopt">source&nbsp;code</a></span>
+
+                    </td>
+                </tr>
+            </table>
+
+        </td>
+    </tr>
+    <tr class="private">
+        <td width="15%" align="right" valign="top" class="summary">
+            <span class="summary-type">&nbsp;</span>
+        </td>
+        <td class="summary">
+            <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                    <td><span class="summary-sig"><a name="long_has_args"></a><span class="summary-sig-name">long_has_args</span>(<span
+                            class="summary-sig-arg">opt</span>,
         <span class="summary-sig-arg">longopts</span>)</span></td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="getopt-pysrc.html#long_has_args">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr class="private">
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a name="short_has_arg"></a><span class="summary-sig-name">short_has_arg</span>(<span class="summary-sig-arg">opt</span>,
+                    <td align="right" valign="top">
+                        <span class="codelink"><a href="getopt-pysrc.html#long_has_args">source&nbsp;code</a></span>
+
+                    </td>
+                </tr>
+            </table>
+
+        </td>
+    </tr>
+    <tr class="private">
+        <td width="15%" align="right" valign="top" class="summary">
+            <span class="summary-type">&nbsp;</span>
+        </td>
+        <td class="summary">
+            <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                    <td><span class="summary-sig"><a name="short_has_arg"></a><span class="summary-sig-name">short_has_arg</span>(<span
+                            class="summary-sig-arg">opt</span>,
         <span class="summary-sig-arg">shortopts</span>)</span></td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="getopt-pysrc.html#short_has_arg">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
+                    <td align="right" valign="top">
+                        <span class="codelink"><a href="getopt-pysrc.html#short_has_arg">source&nbsp;code</a></span>
+
+                    </td>
+                </tr>
+            </table>
+
+        </td>
+    </tr>
 </table>
 <!-- ==================== VARIABLES ==================== -->
 <a name="section-Variables"></a>
 <table class="summary" border="1" cellpadding="3"
        cellspacing="0" width="100%" bgcolor="white">
-<tr bgcolor="#70b0f0" class="table-header">
-  <td colspan="2" class="table-header">
-    <table border="0" cellpadding="0" cellspacing="0" width="100%">
-      <tr valign="top">
-        <td align="left"><span class="table-header">Variables</span></td>
-        <td align="right" valign="top"
-         ><span class="options">[<a href="#section-Variables"
-         class="privatelink" onclick="toggle_private();"
-         >hide private</a>]</span></td>
-      </tr>
-    </table>
-  </td>
-</tr>
-<tr class="private">
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-        <a name="__package__"></a><span class="summary-name">__package__</span> = <code title="None">None</code><br />
-      hash(x)
-    </td>
-  </tr>
+    <tr bgcolor="#70b0f0" class="table-header">
+        <td colspan="2" class="table-header">
+            <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                <tr valign="top">
+                    <td align="left"><span class="table-header">Variables</span></td>
+                    <td align="right" valign="top"
+                            ><span class="options">[<a href="#section-Variables"
+                                                       class="privatelink" onclick="toggle_private();"
+                            >hide private</a>]</span></td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr class="private">
+        <td width="15%" align="right" valign="top" class="summary">
+            <span class="summary-type">&nbsp;</span>
+        </td>
+        <td class="summary">
+            <a name="__package__"></a><span class="summary-name">__package__</span> = <code
+                title="None">None</code><br/>
+            hash(x)
+        </td>
+    </tr>
 </table>
 <!-- ==================== FUNCTION DETAILS ==================== -->
 <a name="section-FunctionDetails"></a>
 <table class="details" border="1" cellpadding="3"
        cellspacing="0" width="100%" bgcolor="white">
-<tr bgcolor="#70b0f0" class="table-header">
-  <td colspan="2" class="table-header">
-    <table border="0" cellpadding="0" cellspacing="0" width="100%">
-      <tr valign="top">
-        <td align="left"><span class="table-header">Function Details</span></td>
-        <td align="right" valign="top"
-         ><span class="options">[<a href="#section-FunctionDetails"
-         class="privatelink" onclick="toggle_private();"
-         >hide private</a>]</span></td>
-      </tr>
-    </table>
-  </td>
-</tr>
+    <tr bgcolor="#70b0f0" class="table-header">
+        <td colspan="2" class="table-header">
+            <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                <tr valign="top">
+                    <td align="left"><span class="table-header">Function Details</span></td>
+                    <td align="right" valign="top"
+                            ><span class="options">[<a href="#section-FunctionDetails"
+                                                       class="privatelink" onclick="toggle_private();"
+                            >hide private</a>]</span></td>
+                </tr>
+            </table>
+        </td>
+    </tr>
 </table>
 <a name="getopt"></a>
+
 <div>
-<table class="details" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr><td>
-  <table width="100%" cellpadding="0" cellspacing="0" border="0">
-  <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">getopt</span>(<span class="sig-arg">args</span>,
+    <table class="details" border="1" cellpadding="3"
+           cellspacing="0" width="100%" bgcolor="white">
+        <tr>
+            <td>
+                <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                    <tr valign="top">
+                        <td>
+                            <h3 class="epydoc"><span class="sig"><span class="sig-name">getopt</span>(<span
+                                    class="sig-arg">args</span>,
         <span class="sig-arg">options</span>,
         <span class="sig-arg">long_options</span>=<span class="sig-default">...</span>)</span>
-  </h3>
-  </td><td align="right" valign="top"
-    ><span class="codelink"><a href="getopt-pysrc.html#getopt">source&nbsp;code</a></span>&nbsp;
-    </td>
-  </tr></table>
-  
-  <p>Parses command line options and parameter list.  args is the argument 
-  list to be parsed, without the leading reference to the running program.
-  Typically, this means &quot;sys.argv[1:]&quot;.  shortopts is the string 
-  of option letters that the script wants to recognize, with options that 
-  require an argument followed by a colon (i.e., the same format that Unix 
-  getopt() uses).  If specified, longopts is a list of strings with the 
-  names of the long options which should be supported.  The leading '--' 
-  characters should not be included in the option name.  Options which 
-  require an argument should be followed by an equal sign ('=').</p>
-  <p>The return value consists of two elements: the first is a list of 
-  (option, value) pairs; the second is the list of program arguments left 
-  after the option list was stripped (this is a trailing slice of the first
-  argument).  Each option-and-value pair returned has the option as its 
-  first element, prefixed with a hyphen (e.g., '-x'), and the option 
-  argument as its second element, or an empty string if the option has no 
-  argument.  The options occur in the list in the same order in which they 
-  were found, thus allowing multiple occurrences.  Long and short options 
-  may be mixed.</p>
-  <dl class="fields">
-    <dt>Returns: opts, args</dt>
-  </dl>
-</td></tr></table>
+                            </h3>
+                        </td>
+                        <td align="right" valign="top"
+                                ><span class="codelink"><a href="getopt-pysrc.html#getopt">source&nbsp;code</a></span>&nbsp;
+                        </td>
+                    </tr>
+                </table>
+
+                <p>Parses command line options and parameter list. args is the argument
+                    list to be parsed, without the leading reference to the running program.
+                    Typically, this means &quot;sys.argv[1:]&quot;. shortopts is the string
+                    of option letters that the script wants to recognize, with options that
+                    require an argument followed by a colon (i.e., the same format that Unix
+                    getopt() uses). If specified, longopts is a list of strings with the
+                    names of the long options which should be supported. The leading '--'
+                    characters should not be included in the option name. Options which
+                    require an argument should be followed by an equal sign ('=').</p>
+
+                <p>The return value consists of two elements: the first is a list of
+                    (option, value) pairs; the second is the list of program arguments left
+                    after the option list was stripped (this is a trailing slice of the first
+                    argument). Each option-and-value pair returned has the option as its
+                    first element, prefixed with a hyphen (e.g., '-x'), and the option
+                    argument as its second element, or an empty string if the option has no
+                    argument. The options occur in the list in the same order in which they
+                    were found, thus allowing multiple occurrences. Long and short options
+                    may be mixed.</p>
+                <dl class="fields">
+                    <dt>Returns: opts, args</dt>
+                </dl>
+            </td>
+        </tr>
+    </table>
 </div>
 <a name="gnu_getopt"></a>
+
 <div>
-<table class="details" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr><td>
-  <table width="100%" cellpadding="0" cellspacing="0" border="0">
-  <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">gnu_getopt</span>(<span class="sig-arg">args</span>,
+    <table class="details" border="1" cellpadding="3"
+           cellspacing="0" width="100%" bgcolor="white">
+        <tr>
+            <td>
+                <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                    <tr valign="top">
+                        <td>
+                            <h3 class="epydoc"><span class="sig"><span class="sig-name">gnu_getopt</span>(<span
+                                    class="sig-arg">args</span>,
         <span class="sig-arg">options</span>,
         <span class="sig-arg">long_options</span>=<span class="sig-default">...</span>)</span>
-  </h3>
-  </td><td align="right" valign="top"
-    ><span class="codelink"><a href="getopt-pysrc.html#gnu_getopt">source&nbsp;code</a></span>&nbsp;
-    </td>
-  </tr></table>
-  
-  <p>This function works like getopt(), except that GNU style scanning mode
-  is used by default. This means that option and non-option arguments may 
-  be intermixed. The getopt() function stops processing options as soon as 
-  a non-option argument is encountered.</p>
-  <p>If the first character of the option string is `+', or if the 
-  environment variable POSIXLY_CORRECT is set, then option processing stops
-  as soon as a non-option argument is encountered.</p>
-  <dl class="fields">
-    <dt>Returns: opts, args</dt>
-  </dl>
-</td></tr></table>
+                            </h3>
+                        </td>
+                        <td align="right" valign="top"
+                                ><span class="codelink"><a
+                                href="getopt-pysrc.html#gnu_getopt">source&nbsp;code</a></span>&nbsp;
+                        </td>
+                    </tr>
+                </table>
+
+                <p>This function works like getopt(), except that GNU style scanning mode
+                    is used by default. This means that option and non-option arguments may
+                    be intermixed. The getopt() function stops processing options as soon as
+                    a non-option argument is encountered.</p>
+
+                <p>If the first character of the option string is `+', or if the
+                    environment variable POSIXLY_CORRECT is set, then option processing stops
+                    as soon as a non-option argument is encountered.</p>
+                <dl class="fields">
+                    <dt>Returns: opts, args</dt>
+                </dl>
+            </td>
+        </tr>
+    </table>
 </div>
-<br />
+<br/>
 <!-- ==================== NAVIGATION BAR ==================== -->
 <table class="navbar" border="0" width="100%" cellpadding="0"
        bgcolor="#a0c0ff" cellspacing="0">
-  <tr valign="middle">
+    <tr valign="middle">
 
-  <!-- Tree link -->
-      <th>&nbsp;&nbsp;&nbsp;<a
-        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+        <!-- Tree link -->
+        <th>&nbsp;&nbsp;&nbsp;<a
+                href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
 
-  <!-- Index link -->
-      <th>&nbsp;&nbsp;&nbsp;<a
-        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+        <!-- Index link -->
+        <th>&nbsp;&nbsp;&nbsp;<a
+                href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
 
-  <!-- Help link -->
-      <th>&nbsp;&nbsp;&nbsp;<a
-        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+        <!-- Help link -->
+        <th>&nbsp;&nbsp;&nbsp;<a
+                href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
 
-      <th class="navbar" width="100%"></th>
-  </tr>
+        <th class="navbar" width="100%"></th>
+    </tr>
 </table>
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
-  <tr>
-    <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Wed Mar 26 13:41:40 2014
-    </td>
-    <td align="right" class="footer">
-      <a target="mainFrame" href="http://epydoc.sourceforge.net"
-        >http://epydoc.sourceforge.net</a>
-    </td>
-  </tr>
+    <tr>
+        <td align="left" class="footer">
+            Generated by Epydoc 3.0.1 on Wed Mar 26 13:41:40 2014
+        </td>
+        <td align="right" class="footer">
+            <a target="mainFrame" href="http://epydoc.sourceforge.net"
+                    >http://epydoc.sourceforge.net</a>
+        </td>
+    </tr>
 </table>
 
 <script type="text/javascript">
@@ -377,6 +424,7 @@
   // them unless we have a cookie that says to show them.
   checkCookie();
   // -->
+
 </script>
 </body>
 </html>

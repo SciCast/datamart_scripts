@@ -63,7 +63,7 @@ winners:prev_winners
 giftcards:giftcards
 
 #daily: number; Number of codes you can win per day
-daily:6
+daily:4
 
 #The following are filenames for the badge icons
 helium:swag_he.png
@@ -72,3 +72,11 @@ argon:swag_ar.png
 krypton:swag_kr.png
 xenon:swag_xe.png
 radon:swag_rn.png
+
+#the following are badge numbers for badge icons
+he:6
+ne:8
+ar:5
+kr:7
+xe:10
+rn:9

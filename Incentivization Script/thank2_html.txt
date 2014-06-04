@@ -6,12 +6,12 @@
 Dear <<NAME>>,<br /><br />
 
 We at SciCast appreciate the crowd of bright people who make our crowdsourcing of science and technology forecasts possible,
- but you really stand out from the crowd this week. You&#146;ve made <<ACTIVITY>> today.<br />
+ but you really stand out from the crowd this week. You&#146;ve made <<ACTIVITY>> on <<DAY>>.<br />
 Thank you for participating in SciCast.org.<br /><br />
 
 Best regards,<br /><br />
 
-The SciCast Team
+The SciCast Team<br />
 <a href="https://twitter.com/intent/user?screen_name=scicasters">Follow @scicasters on twitter</a>
 <a href="https://www.facebook.com/SciCast">Facebook</a>
 <a href="http://www.linkedin.com/groups/SciCast-5065196">LinkedIn</a>

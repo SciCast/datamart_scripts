@@ -1,7 +1,7 @@
 Dear <<NAME>>,
 
 We at SciCast appreciate the crowd of bright people who make our crowdsourcing of science and technology forecasts possible,
- but you really stand out from the crowd this week. You've made <<ACTIVITY>> today.
+ but you really stand out from the crowd this week. You've made <<ACTIVITY>> on <<DAY>>.
 Thank you for participating in SciCast.org.
 
 Best regards,

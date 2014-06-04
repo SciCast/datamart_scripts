@@ -9,16 +9,15 @@ winners, etc.
 @copyright: 2014+
 '''
 
+
 import json, random, math, os, sys, datetime, csv
 from collections import OrderedDict
-
 
 class IncentiveDB():
     '''
     Created class to handle the activities necessary for the incentivization script.
     '''
-
-    def __init__(self, opt, users, tradesIn, commentsIn, start=None, end=None):
+    def __init__(self, opt, users, tradesIn, commentsIn, start = None, end = None):
         '''
         Initializes database
         @param opt: config options from config file
@@ -59,14 +58,14 @@ class IncentiveDB():
         #sys.exit(1)
 
 
-    def getPrevious(self, opt):
+    def getPrevious(self,opt):
         '''
         Gets list of previous users, used for accumulation levels
         @param opt: config file options
         @type opt: dict
         @return: information inside database file or None if file doesn't exist
         '''
-        filename = opt["db"] + ".json"
+        filename = opt["db"]+".json"
         if os.path.isfile(filename):
             json_data = open(filename)
             data = json.load(json_data)
@@ -76,7 +75,7 @@ class IncentiveDB():
             data = None
         return data
 
-    def getTestingFiles(self, filename):
+    def getTestingFiles(self,filename):
         if os.path.isfile(filename):
             json_data = open(filename)
             data = json.load(json_data)
@@ -86,14 +85,14 @@ class IncentiveDB():
             data = None
         return data
 
-    def getPreviousWinners(self, opt):
+    def getPreviousWinners(self,opt):
         '''
         Gets list of previous winners, for keeping track of who's won
         @param opt: config file options
         @type opt: dict
         @return: information inside previous winners file or None if file doesn't exist
         '''
-        filename = opt["winlog"] + ".json"
+        filename = opt["winlog"]+".json"
         if os.path.isfile(filename):
             json_data = open(filename)
             data = json.load(json_data)
@@ -112,27 +111,31 @@ class IncentiveDB():
 
         if self.previous is not None and self.accumulate:
             print type(self.previous)
-            self.activity = dict((int(k), v) for k, v in self.previous.iteritems())
+            self.activity = dict((int(k), v) for k,v in self.previous.iteritems())
+        skippedUsers = []
         for user in self.users:
             skip = False
             for key, value in user.iteritems():
                 for item in self.ignore:
                     if unicode(value).lower().find(unicode(item).lower()) != -1:
-                        print "Skipped: " + value
+                        print "Skipped: "+value+" "+str(user["user_id"])
                         skip = True
             if skip:
+                skippedUsers.append(user["user_id"])
                 continue
             user_id = int(user["user_id"])
             #print self.activity
             if user_id in self.activity:
                 temp = self.countActivity(user_id)
-                for typeS, idlist in temp.iteritems():
+                for typeS,idlist in temp.iteritems():
                     if typeS in self.activity[user_id]:
                         self.activity[user_id][typeS].append(idlist)
                     else:
                         self.activity[user_id][typeS] = idlist
             else:
                 self.activity[user_id] = self.countActivity(user_id)
+        print skippedUsers
+        sys.exit(1)
 
     def countActivity(self, user_id):
         '''
@@ -144,9 +147,9 @@ class IncentiveDB():
 
         tradecounter = []
         commentcounter = []
-        previousActivity = None
+	previousActivity = None
         for trade in self.trades:
-            #print trade["user_id"]
+	    #print trade["user_id"]
             if int(trade["user_id"]) == user_id:
                 if previousActivity is None:
                     tradecounter.append(trade["trade_id"])
@@ -154,10 +157,10 @@ class IncentiveDB():
                     if int(previousActivity["user_id"]) != user_id:
                         tradecounter.append(trade["trade_id"])
                     else:
-                        print "Skipped Trade"
-                        print trade["trade_id"]
-                        print previousActivity["trade_id"]
-                        #previousActivity = trade
+			print "Skipped Trade"
+			print trade["trade_id"]
+			print previousActivity["trade_id"]
+            previousActivity = trade
         for comment in self.comments:
             if int(comment["user_id"]) == user_id:
                 if previousActivity is None:
@@ -166,7 +169,7 @@ class IncentiveDB():
                     if int(previousActivity["user_id"]) != user_id:
                         commentcounter.append(comment["comment_id"])
             previousActivity = comment
-        return {"trades": tradecounter, "comments": commentcounter}
+        return {"trades":tradecounter,"comments":commentcounter}
 
     def printDatabase(self):
         '''
@@ -185,7 +188,7 @@ class IncentiveDB():
                 for type in value:
                     type = 0
         try:
-            js = open(folder + "/" + self.opt["db"] + ".json", 'w')
+            js = open(folder+"/"+self.opt["db"]+".json",'w')
             json.dump(self.previous, js, sort_keys=True, indent=4)
             js.close()
             return True
@@ -204,7 +207,7 @@ class IncentiveDB():
         file_handle = None
         winNum = 0
         try:
-            file_handle = open(folder + "/" + self.opt["winlog"] + ".json", 'rb')
+            file_handle = open(folder+"/"+self.opt["winlog"]+".json",'rb')
         except IOError:
             print 'No win log file'
         if not os.path.exists(folder):
@@ -213,20 +216,20 @@ class IncentiveDB():
             data = json.load(file_handle)
             file_handle.close()
             prev_winners = data
-            for key, val in self.winners.iteritems():
+            for key,val in self.winners.iteritems():
                 userId = str(key)
                 if userId in prev_winners:
                     prev_winners[userId][today_str] = val
                 else:
-                    prev_winners[userId] = {today_str: val}
+                    prev_winners[userId] = {today_str:val}
         else:
             prev_winners = {}
-            for key, val in self.winners.iteritems():
+            for key,val in self.winners.iteritems():
                 userId = str(key)
-                prev_winners[userId] = {today_str: val}
+                prev_winners[userId] = {today_str:val}
         self.winlog = prev_winners
         try:
-            js = open(folder + "/" + self.opt["winlog"] + ".json", 'w')
+            js = open(folder+"/"+self.opt["winlog"]+".json",'w')
             json.dump(self.winlog, js, sort_keys=True, indent=4)
             js.close()
             return True
@@ -244,22 +247,18 @@ class IncentiveDB():
 
         #print the "prevusers" database. Database is used for storing accumulation. This is mostly for debugging
         #or verification
-        prevwriter = csv.DictWriter(open(folder + "/" + self.opt["db"] + ".csv.txt", 'wb'),
-                                    fieldnames=['user_id', 'activity_levels'], delimiter=',', quotechar='"',
-                                    quoting=csv.QUOTE_NONNUMERIC)
+        prevwriter = csv.DictWriter(open(folder+"/"+self.opt["db"]+".csv.txt", 'wb'), fieldnames=['user_id', 'activity_levels'], delimiter=',', quotechar='"', quoting=csv.QUOTE_NONNUMERIC)
         prevwriter.writeheader()
-        for uid, activity in self.previous.iteritems():
-            prevwriter.writerow({'user_id': uid, 'activity_levels': activity})
+        for uid,activity in self.previous.iteritems():
+            prevwriter.writerow({'user_id':uid, 'activity_levels':activity})
 
         #print the winner log
-        winlogwriter = csv.DictWriter(open(folder + "/" + self.opt["winlog"] + ".csv.txt", 'wb'),
-                                      fieldnames=['user_id', 'win_dates'], delimiter=',', quotechar='"',
-                                      quoting=csv.QUOTE_NONNUMERIC)
+        winlogwriter = csv.DictWriter(open(folder+"/"+self.opt["winlog"]+".csv.txt", 'wb'), fieldnames=['user_id', 'win_dates'], delimiter=',', quotechar='"', quoting=csv.QUOTE_NONNUMERIC)
         winlogwriter.writeheader()
-        for uid, dates in self.winlog.iteritems():
-            winlogwriter.writerow({'user_id': uid, 'win_dates': dates})
+        for uid,dates in self.winlog.iteritems():
+            winlogwriter.writerow({'user_id':uid, 'win_dates':dates})
 
-    def getUsername(self, user_id):
+    def getUsername(self,user_id):
         '''
         Gets username for user
         @param user_id: user to pull from database
@@ -269,7 +268,7 @@ class IncentiveDB():
         for user in self.users:
             if user["user_id"] == user_id:
                 return user["username"]
-        return "User not found: " + user_id
+        return "User not found: "+user_id
 
     def calculateWinners(self):
         '''
@@ -292,13 +291,13 @@ class IncentiveDB():
             #print user
             #print activeList
             total_activity = 0
-            for type, number in activeList.iteritems():
+            for type,number in activeList.iteritems():
                 total_activity += len(number)
             if total_activity > 0:
-                for type, number in activeList.iteritems():
+                for type,number in activeList.iteritems():
                     for id in number:
-                        hat.append({"uid": user, "type": type, "activity": id})
-                        #wincount += math.ceil(entries)
+                        hat.append({ "uid":user, "type": type, "activity": id})
+                #wincount += math.ceil(entries)
         #print hat
         if len(hat) < int(self.numwinners):
             print "Not enough people to fill slots"
@@ -310,19 +309,19 @@ class IncentiveDB():
             sys.exit(1)
         #randomizer = WeightedRandomizer(hat)
         counter = 0
-        while counter < int(self.numwinners) and len(hat) > 0:
+        while counter < int(self.numwinners) and len(hat)>0:
             #win = randomizer.random()
-            num = random.randint(0, len(hat) - 1)
+            num = random.randint(0,len(hat)-1)
             win = hat[num]
-            #print win
+	    #print win
             if win["uid"] in winDict:
                 if win["type"] in winDict[win["uid"]]:
                     winDict[win["uid"]][win["type"]].append(win["activity"])
                 else:
                     winDict[win["uid"]][win["type"]] = [win["activity"]]
-                    #temp[win] += 1
+                #temp[win] += 1
             else:
-                winDict[win["uid"]] = {win["type"]: [win["activity"]]}
+                winDict[win["uid"]] = { win["type"]:[ win["activity"] ] }
             del hat[num]
             counter += 1
         #winners = temp

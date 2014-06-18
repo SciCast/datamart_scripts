@@ -2,7 +2,7 @@ Dear <<NAME>>,
 
 Congratulations!
 
-You've won a $25 Amazon gift card for your activity on SciCast.org during Fortune Friday.
+You've won a $25 Amazon gift card for your activity on SciCast.org during <<DAY>>.
 
 Your $25 Amazon Gift Card electronic code is:
 

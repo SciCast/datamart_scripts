@@ -30,7 +30,7 @@ accumulate:true
 
 #winners: int; number of winners
 
-winners:25
+winners:60
 
 #activity: string; the activity type which will be counted
 #current activity types accepted: trades, comments
@@ -79,28 +79,13 @@ output_dir:outputs
 
 #internals:string; folder name where internal database files will
 #be stored
-
 internals:util
 
-####TODO#####
-#Implement high/low percentile bounds
-#low_percent: int; lower bound (percentile) to clip off data
+#api:string; filename containing the datamart API key
+api:api_key
 
-#low_percent:5
-
-#high_percent: int; higher bound (percentile) to clip off data
-
-#high_percent:95
-
-#percent_range: int; Used to determine clipping if you don't want
-#to use high/low percent granularity.
-#EG: percent_range:10 would mean clipping at 10%/90%
-#percent_range:30 would mean clipping at 30%/70%
-#percent range:60 would mean clipping at 40%/60%
-#NOTE: high/low_percent overrides this setting
-
-#percent_range:5
-
+##TODO: Make ignore include question fields as well
 #ignore: comma,separated,list; used to tell which user groups, usernames, id's, etc. to ignore
 #can parse over any field name returned
+#ignore:internal
 ignore:internal

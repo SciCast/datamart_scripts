@@ -1,0 +1,13 @@
+Dear <<NAME>>,
+
+Congratulations!
+
+You've won <<TODAY>> for your activity on SciCast.org on <<DAY>>. This brings your merit total to <<NUMBER>>. <<NEXT>>
+<<CONGRATS>>
+Your level of collected merits appear as <<ELEMENT>> badge on your profile.
+Log in to SciCast.org to see your winnings.
+
+If you have any questions, please contact us at contact@scicast.org
+
+Best regards,
+The SciCast Team

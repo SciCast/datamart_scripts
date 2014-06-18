@@ -1,19 +1,14 @@
-<br /><br />
-<br /><br />
+
 <table width="100%">
 <tr>
-<td valign="middle" align="left"><img src="cid:@sci_logo" width="50" height="50" /></td>
-<td valign="middle" align="right"><img src="cid:@gmu_logo" width="50" height="50" /></td>
-<td valign="middle" align="right"><img src="cid:@ama_image" width="100" height="50" /></td>
+<td valign="middle" align="center"><img src="cid:@sci_logo" width="100" height="100" /></td>
+<td valign="middle" align="center"><img src="cid:@ama_image" width="200" height="71" /></td>
 </tr>
 </table><br /><br />
-<br /><br />
-<br /><br />
-<br /><br />
 Dear <<NAME>>,
 <br /><br />
 Congratulations!<br /><br />
-You&#146;ve won a $25 Amazon gift card for your activity on SciCast.org during Fortune Friday.<br /><br />
+You&#146;ve won a $25 Amazon gift card for your activity on SciCast.org during <<DAY>>.<br /><br />
 Your $25 Amazon Gift Card electronic code is:
 <br /><br />
 <<CODE>>
@@ -21,6 +16,10 @@ Your $25 Amazon Gift Card electronic code is:
 You can redeem your Amazon Gift Card electronic code by clicking
 <a href="http://www.amazon.com/gp/feature.html?ie=UTF8&docId=1000708681">redeem code,</a> or visiting http://www.amazon.com/gp/feature.html?ie=UTF8&docId=1000708681 in your web browser.<br /><br />
 If you have any questions, please contact us at <a href="mailto:contact@scicast.org">contact@scicast.org</a>.<br /><br />
-<br /><br />
 Best regards,<br />
 The SciCast Team<br />
+<a href="http://twitter.com/share?url=http://blog.scicast.org/2014/05/21/win-prizes-for-making-forecasts-on-scicast/&text=I just won a $25 Amazon Gift Card for my activity on <<DAY>>!&via=scicasters">Tweet this</a>
+<a href="https://twitter.com/intent/user?screen_name=scicasters">Follow @scicasters on twitter</a>
+<a href="https://www.facebook.com/SciCast">Facebook</a>
+<a href="http://www.linkedin.com/groups/SciCast-5065196">LinkedIn</a>
+<a href="https://plus.google.com/110554548506496003756/posts">Google+</a>

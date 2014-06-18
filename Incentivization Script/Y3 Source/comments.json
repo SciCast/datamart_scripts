@@ -1,0 +1,15 @@
+[
+    {
+        "down_votes": 0,
+        "up_votes": 0,
+        "trade_id": null,
+        "comment_text": "Current depth is already 1.5\", with a cold front coming in next week.",
+        "user_id": 36,
+        "is_alert": false,
+        "created_at":
+        "2013-12-04T10:45:46",
+        "comment_id": 4,
+        "parent_comment_id": null,
+        "question_id": 51
+    }
+]

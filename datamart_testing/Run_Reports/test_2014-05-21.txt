@@ -1,0 +1,73 @@
+Non-date sanity check for comment completed successfully
+Verification for comment completed successfully.
+Date sanity check for 2014-05-21 04:00:05.285882 comment completed successfully
+Non-date sanity check for person completed successfully
+Potential issue: uninvested_assets not in datamart
+Potential issue: name_first not in datamart
+Potential issue: name_last not in datamart
+Potential issue: status not in datamart
+Potential issue: invitations not in datamart
+Potential issue: image_uri not in datamart
+Potential issue: options not in datamart
+Potential issue: email not in datamart
+Potential issue: gravatar not in datamart
+Potential issue: id not in datamart
+Potential issue: badges not in datamart
+Potential issue: Massachusetts Institute of Technology not in group list for 1936
+Potential issue: email_verified True mismatch for user_id 1936
+Potential issue: user id 1937 not found in datamart
+Potential issue: user id 1938 not found in datamart
+Potential issue: user id 1939 not found in datamart
+Potential issue: user id 1941 not found in datamart
+Potential issue: user id 1942 not found in datamart
+Potential issue: user id 1943 not found in datamart
+Verification for person completed successfully.
+Date sanity check for 2014-05-21 04:00:15.074463 person completed successfully
+Date sanity check for 2014-05-21 04:00:15.814291 leaderboard completed successfully
+Non-date sanity check for question completed successfully
+Potential issue: settled_value not in datamart
+Potential issue: updated_at not in datamart
+Potential issue: settlement_at not in datamart
+Potential issue: id not in datamart
+Potential issue: serialized_settled_values not in datamart
+Potential issue: serialized_model not in datamart
+Potential issue: email not in datamart
+Potential issue: settled_at not in datamart
+Potential issue: iarpa_id not in datamart
+Potential issue: spark_context not in datamart
+Potential issue: desc not in datamart
+Potential issue: collaborators not in datamart
+Potential issue: image_uri not in datamart
+Binary questions where ordered is true and serialized_assumptions is null: [308]
+Verification for question completed successfully.
+Date sanity check for 2014-05-21 04:00:28.875567 question completed successfully
+Non-date, non-aggregate sanity check for question_history completed successfully
+False
+std:138.729243058 138.729243058
+Non-date, daily sanity check for question_history completed successfully
+Non-date, weekly sanity check for question_history completed successfully
+Non-date, monthly sanity check for question_history completed successfully
+Non-date, yearly sanity check for question_history completed successfully
+Date, non-aggregate sanity check for 2014-05-21 04:00:38.772912 question_history completed successfully
+False
+std:138.729243058 138.729243058
+Date, daily sanity check for question_history completed successfully
+Date, weekly sanity check for question_history completed successfully
+Date, monthly sanity check for question_history completed successfully
+Date, yearly sanity check for question_history completed successfully
+Non-date, non-aggregate sanity check for trade_history completed successfully
+unique_questions stddev_statistics: {u'mean_statistics': 24.692307692307693, u'stddev_statistics': 15.358439269819492}
+15.3584392698 15.3584392698
+Non-date, daily sanity check for trade_history failed.
+Non-date, weekly sanity check for trade_history completed successfully
+num_trades stddev_statistics: {u'mean_statistics': 1516.5, u'stddev_statistics': 396.9453152933453}
+Non-date, monthly sanity check for trade_history failed.
+Non-date, yearly sanity check for trade_history completed successfully
+Date, non-aggregate sanity check for 2014-05-21 04:00:46.803665 trade_history completed successfully
+unique_questions stddev_statistics: {u'mean_statistics': 24.692307692307693, u'stddev_statistics': 15.358439269819492}
+15.3584392698 15.3584392698
+Date, daily sanity check for trade_history failed.
+Date, weekly sanity check for trade_history completed successfully
+num_trades stddev_statistics: {u'mean_statistics': 1516.5, u'stddev_statistics': 396.9453152933453}
+Date, monthly sanity check for trade_history failed.
+Date, yearly sanity check for trade_history completed successfully

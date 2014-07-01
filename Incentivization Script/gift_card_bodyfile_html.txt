@@ -8,7 +8,7 @@
 Dear <<NAME>>,
 <br /><br />
 Congratulations!<br /><br />
-You&#146;ve won a $25 Amazon gift card for your activity on SciCast.org during <<DAY>>.<br /><br />
+You&#146;ve won a $25 Amazon Gift Card for your activity on SciCast.org during <<DAY>>.<br /><br />
 Your $25 Amazon Gift Card electronic code is:
 <br /><br />
 <<CODE>>

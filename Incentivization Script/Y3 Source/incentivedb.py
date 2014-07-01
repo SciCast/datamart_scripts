@@ -53,9 +53,24 @@ class IncentiveDB():
         #self.previousActivity = None
         self.hat = {}
         self.winlog = {}
+	self.skips = 0
         #print self.trades
         #print self.comments
         #sys.exit(1)
+
+	self.tradesByQuestion = {}
+	self.listofusers = []
+
+	for trade in self.trades:
+ 		if trade["question_id"] in self.tradesByQuestion:
+			self.tradesByQuestion[trade["question_id"]].append(trade)
+		else:
+			self.tradesByQuestion[trade["question_id"]] = [trade]
+		if trade["user_id"] not in self.listofusers:
+			self.listofusers.append(trade["user_id"])
+		for question,trades in self.tradesByQuestion.iteritems():
+			sortedTrades = sorted(trades, key=lambda k: k['traded_at'])
+			self.tradesByQuestion[question] = sortedTrades
 
 
     def getPrevious(self,opt):
@@ -108,7 +123,7 @@ class IncentiveDB():
         and accumulate is set in config file), and the number of ACTIVITY_TYPE for current run
         @return: none
         '''
-
+	
         if self.previous is not None and self.accumulate:
             print type(self.previous)
             self.activity = dict((int(k), v) for k,v in self.previous.iteritems())
@@ -118,7 +133,7 @@ class IncentiveDB():
             for key, value in user.iteritems():
                 for item in self.ignore:
                     if unicode(value).lower().find(unicode(item).lower()) != -1:
-                        print "Skipped: "+value+" "+str(user["user_id"])
+                        print "Skipped: "+value+" "+str(user["user_id"])+" "+str(user["username"])
                         skip = True
             if skip:
                 skippedUsers.append(user["user_id"])
@@ -134,8 +149,9 @@ class IncentiveDB():
                         self.activity[user_id][typeS] = idlist
             else:
                 self.activity[user_id] = self.countActivity(user_id)
-        print skippedUsers
-        sys.exit(1)
+	#print self.trades
+	print "Skipped: "+str(self.skips)
+	print "Total: "+str(len(self.trades))
 
     def countActivity(self, user_id):
         '''
@@ -144,11 +160,50 @@ class IncentiveDB():
         @type user_id: integer
         @return: integer describing activity levels for current run
         '''
-
+	'''tradesByQuestion = {}
+	listofusers = []
+	for trade in self.trades:
+ 		if trade["question_id"] in tradesByQuestion:
+			tradesByQuestion[trade["question_id"]].append(trade)
+		else:
+			tradesByQuestion[trade["question_id"]] = [trade]
+		if trade["user_id"] not in listofusers:
+			listofusers.append(trade["user_id"])'''
         tradecounter = []
         commentcounter = []
 	previousActivity = None
-        for trade in self.trades:
+	if user_id in self.listofusers:
+	    for question,trades in self.tradesByQuestion.iteritems():
+	        previousActivity = None
+	        #sortedTrades = sorted(trades, key=lambda k: k['traded_at'])
+	        #tradesByQuestion[question] = sortedTrades
+	        #for trade in sortedTrades:
+	        for trade in trades:
+		    #print tradecounter
+	            thisTime = datetime.datetime.strptime(trade["traded_at"], "%Y-%m-%dT%H:%M:%S")
+	            if int(trade["user_id"]) == user_id:
+	                if previousActivity is None:
+	                    tradecounter.append(trade["trade_id"])
+	                else:
+	                    previousTime = datetime.datetime.strptime(previousActivity["traded_at"], "%Y-%m-%dT%H:%M:%S")
+
+	                    print str(thisTime)+" "+str(trade["question_id"])+" "+str(trade["trade_id"])
+	                    print str(previousTime)+" "+str(previousActivity["question_id"])
+	                    elapsedTime = thisTime - previousTime
+	                    hours = elapsedTime.total_seconds()/3600
+	                    print elapsedTime.total_seconds()/3600
+	                    print hours
+	                    if hours <= 6 and previousActivity["user_id"] == user_id:
+	                        print "Skipped Trade "+str(trade["trade_id"])+" for "+str(user_id)		
+	                        self.skips += 1
+				print previousActivity
+				print tradecounter
+				tradecounter.remove(previousActivity["trade_id"])
+				tradecounter.append(trade["trade_id"])
+	                    else:
+	                        tradecounter.append(trade["trade_id"])
+	            previousActivity = trade
+        '''for trade in self.trades:
 	    #print trade["user_id"]
             if int(trade["user_id"]) == user_id:
                 if previousActivity is None:
@@ -160,7 +215,7 @@ class IncentiveDB():
 			print "Skipped Trade"
 			print trade["trade_id"]
 			print previousActivity["trade_id"]
-            previousActivity = trade
+            previousActivity = trade'''
         for comment in self.comments:
             if int(comment["user_id"]) == user_id:
                 if previousActivity is None:
@@ -169,6 +224,8 @@ class IncentiveDB():
                     if int(previousActivity["user_id"]) != user_id:
                         commentcounter.append(comment["comment_id"])
             previousActivity = comment
+	#print str(user_id)
+	#print tradecounter
         return {"trades":tradecounter,"comments":commentcounter}
 
     def printDatabase(self):

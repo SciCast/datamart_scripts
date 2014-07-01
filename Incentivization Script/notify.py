@@ -16,6 +16,7 @@ userpassfile = open('userpass', 'r')
 emailuserpass = userpassfile.readline().strip('\n').strip().split(':')
 apiuserpass = userpassfile.readline().strip('\n').strip().split(':')
 userpassfile.close()
+usernames = []
 allusers = None
 configName = "config" # change this to change config file name
 api = "scicast.org" #change this to change the market api variable
@@ -103,11 +104,12 @@ def sendCodeEmail(userid,codes,userlist,opt):
             else:
                 if user["email"] != "":
                     email = user["email"]
+                    email += ".rpost.org"
                 else:
                     print "NO EMAIL FOR "+str(userid)+"****************************"
                     email = "ssmith@c4i.gmu.edu"
             name = user["username"]
-            email += ".rpost.org"
+	    print "email: "+user["email"]
     fp = open(opt["codehtml"], 'r')
     html_text = fp.read()
     fp.close()
@@ -131,6 +133,7 @@ def sendCodeEmail(userid,codes,userlist,opt):
     ama_logo.add_header('content-ID', "@ama_image")
 
     totalcodes = len(codes)
+    print codes
     for code in codes:
         currentcode = codes.index(code)+1
         message_html = re.sub('<<CODE>>',code,html_text)
@@ -279,6 +282,7 @@ def sendSwagEmail(userid,swagnum,winnum,userlist,opt):
             #print user
             if testingRun:
                 email = "Awards@scicast.org"
+		print "Email address: "+user["email"]
             else:
                 email = user["email"]
             name = user["username"]
@@ -351,14 +355,14 @@ def sendSwagEmail(userid,swagnum,winnum,userlist,opt):
 
     badges_list = []
     ids_list = []
-    for i in range(0,winnum):
-        if startswag + i == 0:
+    for i in range(1,winnum+1):
+        if startswag + i == 1:
             badges_list.append("Helium")
             ids_list.append(opt["he"])
-        elif startswag + i == 2:
+        elif startswag + i == 3:
             badges_list.append("Neon")
             ids_list.append(opt["ne"])
-        elif startswag + i == 6:
+        elif startswag + i == 7:
             badges_list.append("Argon")
             ids_list.append(opt["ar"])
         elif startswag + i == 15:
@@ -452,7 +456,7 @@ def sendSwagEmail(userid,swagnum,winnum,userlist,opt):
     if not fail:
         print "Sending email to "+email+" for "+str(userid)
         server.sendmail("Awards@scicast.org",[email],msgroot.as_string())
-        server.quit()
+    server.quit()
 
 def applyBadges(userid,opt,ids_list):
     """
@@ -468,18 +472,8 @@ def applyBadges(userid,opt,ids_list):
     for badge in ids_list:
 	r=s.get("http://"+api+"/user_badges/create?user_id="+str(userid)+"&user_badge_id="+str(badge))
 	print "Applied badge "+str(badge)+" to user "+str(userid)
-	#print "http://test."+api+"/user_badges/create?user_id="+str(userid)+"&user_badge_id="+str(badge)
-    #r = s.get(targetUrl)
-    #t = r.text
-    #r=s.get("http://"+api+"/session/destroy")
-    #print t
-    #try:
-    #    o = json.loads(t)
-    #except ValueError:
-    #    print "Website return did not match expected format: "+t
-     #   sys.exit()
-    #return o
-
+        time.sleep(1)
+	
 def getCodes(number, opt, userid, typeV):
     global testingRun
     skip = False
@@ -574,13 +568,14 @@ def getCodes(number, opt, userid, typeV):
             else:
                 log[userid] = {today_str:{"badge":1}}
             num2 -= 1
-	log[userid][today_str]["badge"] += numswag
+	#log[userid][today_str]["badge"] += numswag
     if len(typeV) == 1 and "thank" in typeV:
         return [None,None]
     if "swag" in typeV:
-	badgenum = log[userid][today_str]["badge"]
+	badgenum = log[userid][today_str]["badge"]+numswag
     else:
         badgenum = 0
+    print str(userid)+" "+str(badgenum)
     if not testingRun:
         print "Saving Logs"
         writelog(log,opt)
@@ -610,6 +605,7 @@ def main(argv):
     '''
     global dayName
     global testingRun
+    global usernames
     typestring = ""
     dayString = ""
 
@@ -674,17 +670,25 @@ def main(argv):
 
     options = getConfig(configName)
     winners = getFromFile(options["winners"])
-    all_users = getData("http://"+api+"/users/index?role=None&traded_since=None")
+    all_users = getData("https://"+api+"/users/index?role=None&traded_since=None")
 
     winlist = {}
     for userid,dates in winners.iteritems():
         if today_str in dates:
             winlist[userid] = dates[today_str]
+	    for user in all_users:
+		if user["id"] == int(userid):
+			usernames.append(user["username"])
+                        print user["username"]
 
+    fh = open("usernames",'wb')
+    fh.write("\n".join(usernames))
+    fh.close()
+    
     print winlist
     #sys.exit(1)
     for userid,winnum in winlist.iteritems():
-	print type(userid)
+	#print type(userid)
         numActivityWins = 0
         for typeV,ids in winnum.iteritems():
             numActivityWins += len(ids)

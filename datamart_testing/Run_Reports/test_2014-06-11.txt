@@ -1,0 +1,64 @@
+Non-date sanity check for comment completed successfully
+Verification for comment completed successfully.
+Date sanity check for 2014-06-11 04:00:09.622223 comment completed successfully
+Non-date sanity check for person completed successfully
+Potential issue: uninvested_assets not in datamart
+Potential issue: name_first not in datamart
+Potential issue: name_last not in datamart
+Potential issue: status not in datamart
+Potential issue: invitations not in datamart
+Potential issue: image_uri not in datamart
+Potential issue: options not in datamart
+Potential issue: email not in datamart
+Potential issue: gravatar not in datamart
+Potential issue: id not in datamart
+Potential issue: badges not in datamart
+Potential issue: opt_out_email 1 mismatch for user_id 2187
+Verification for person completed successfully.
+Date sanity check for 2014-06-11 04:00:22.196175 person completed successfully
+Date sanity check for 2014-06-11 04:00:23.075910 leaderboard completed successfully
+Non-date sanity check for question completed successfully
+Potential issue: settled_value not in datamart
+Potential issue: updated_at not in datamart
+Potential issue: settlement_at not in datamart
+Potential issue: id not in datamart
+Potential issue: serialized_settled_values not in datamart
+Potential issue: serialized_model not in datamart
+Potential issue: email not in datamart
+Potential issue: settled_at not in datamart
+Potential issue: iarpa_id not in datamart
+Potential issue: spark_context not in datamart
+Potential issue: desc not in datamart
+Potential issue: collaborators not in datamart
+Potential issue: image_uri not in datamart
+Binary questions where ordered is true and serialized_assumptions is null: [308, 673]
+Verification for question completed successfully.
+Date sanity check for 2014-06-11 04:00:41.471804 question completed successfully
+Non-date, non-aggregate sanity check for question_history completed successfully
+Non-date, daily sanity check for question_history completed successfully
+Non-date, weekly sanity check for question_history completed successfully
+Non-date, monthly sanity check for question_history completed successfully
+Non-date, yearly sanity check for question_history completed successfully
+Date, non-aggregate sanity check for 2014-06-11 04:00:53.971974 question_history completed successfully
+Date, daily sanity check for question_history completed successfully
+Date, weekly sanity check for question_history completed successfully
+Date, monthly sanity check for question_history completed successfully
+Date, yearly sanity check for question_history completed successfully
+Non-date, non-aggregate sanity check for trade_history completed successfully
+num_trades stddev_statistics: {u'mean_statistics': 119.2, u'stddev_statistics': 361.4742358148013}
+361.474235815 361.474235815
+Non-date, daily sanity check for trade_history failed.
+num_traders stddev_statistics: {u'mean_statistics': 58.793103448275865, u'stddev_statistics': 34.8547521227884}
+34.8547521228 34.8547521228
+Non-date, weekly sanity check for trade_history failed.
+Non-date, monthly sanity check for trade_history completed successfully
+Non-date, yearly sanity check for trade_history completed successfully
+Date, non-aggregate sanity check for 2014-06-11 04:01:08.892611 trade_history completed successfully
+num_trades stddev_statistics: {u'mean_statistics': 119.2, u'stddev_statistics': 361.4742358148013}
+361.474235815 361.474235815
+Date, daily sanity check for trade_history failed.
+num_traders stddev_statistics: {u'mean_statistics': 58.793103448275865, u'stddev_statistics': 34.8547521227884}
+34.8547521228 34.8547521228
+Date, weekly sanity check for trade_history failed.
+Date, monthly sanity check for trade_history completed successfully
+Date, yearly sanity check for trade_history completed successfully

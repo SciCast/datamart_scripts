@@ -1,0 +1,80 @@
+Non-date sanity check for comment completed successfully
+Verification for comment completed successfully.
+Date sanity check for 2014-06-20 04:00:10.381315 comment completed successfully
+Non-date sanity check for person completed successfully
+Potential issue: uninvested_assets not in datamart
+Potential issue: name_first not in datamart
+Potential issue: name_last not in datamart
+Potential issue: status not in datamart
+Potential issue: invitations not in datamart
+Potential issue: image_uri not in datamart
+Potential issue: options not in datamart
+Potential issue: email not in datamart
+Potential issue: gravatar not in datamart
+Potential issue: id not in datamart
+Potential issue: badges not in datamart
+Potential issue: user id 2661 not found in datamart
+Potential issue: user id 2663 not found in datamart
+Potential issue: user id 2665 not found in datamart
+Potential issue: user id 2671 not found in datamart
+Potential issue: user id 2672 not found in datamart
+Potential issue: user id 2673 not found in datamart
+Potential issue: user id 2674 not found in datamart
+Potential issue: user id 2675 not found in datamart
+Potential issue: user id 2679 not found in datamart
+Potential issue: user id 2680 not found in datamart
+Potential issue: user id 2682 not found in datamart
+Potential issue: user id 2683 not found in datamart
+Potential issue: user id 2685 not found in datamart
+Potential issue: user id 2689 not found in datamart
+Potential issue: user id 2690 not found in datamart
+Potential issue: user id 2691 not found in datamart
+Potential issue: user id 2692 not found in datamart
+Potential issue: user id 2693 not found in datamart
+Potential issue: user id 2694 not found in datamart
+Potential issue: user id 2695 not found in datamart
+Verification for person completed successfully.
+Date sanity check for 2014-06-20 04:00:26.149835 person completed successfully
+Date sanity check for 2014-06-20 04:00:27.121894 leaderboard completed successfully
+Non-date sanity check for question completed successfully
+Potential issue: settled_value not in datamart
+Potential issue: updated_at not in datamart
+Potential issue: settlement_at not in datamart
+Potential issue: id not in datamart
+Potential issue: serialized_settled_values not in datamart
+Potential issue: serialized_model not in datamart
+Potential issue: email not in datamart
+Potential issue: settled_at not in datamart
+Potential issue: iarpa_id not in datamart
+Potential issue: spark_context not in datamart
+Potential issue: collaborators not in datamart
+Potential issue: image_uri not in datamart
+Binary questions where ordered is true and serialized_assumptions is null: [308, 673]
+Verification for question completed successfully.
+Date sanity check for 2014-06-20 04:00:46.253359 question completed successfully
+Non-date, non-aggregate sanity check for question_history completed successfully
+Non-date, daily sanity check for question_history completed successfully
+Non-date, weekly sanity check for question_history completed successfully
+std: 164.788051875 164.788051875
+Non-date, monthly sanity check for question_history completed successfully
+Non-date, yearly sanity check for question_history completed successfully
+Date, non-aggregate sanity check for 2014-06-20 04:00:59.709309 question_history completed successfully
+Date, daily sanity check for question_history completed successfully
+Date, weekly sanity check for question_history completed successfully
+std: 164.788051875 164.788051875
+Date, monthly sanity check for question_history completed successfully
+Date, yearly sanity check for question_history completed successfully
+Non-date, non-aggregate sanity check for trade_history completed successfully
+Non-date, daily sanity check for trade_history completed successfully
+num_traders stddev_statistics: {u'mean_statistics': 66.46666666666667, u'stddev_statistics': 45.78917873132132}
+45.7891787313 45.7891787313
+Non-date, weekly sanity check for trade_history failed.
+Non-date, monthly sanity check for trade_history completed successfully
+Non-date, yearly sanity check for trade_history completed successfully
+Date, non-aggregate sanity check for 2014-06-20 04:01:18.975812 trade_history completed successfully
+Date, daily sanity check for trade_history completed successfully
+num_traders stddev_statistics: {u'mean_statistics': 66.46666666666667, u'stddev_statistics': 45.78917873132132}
+45.7891787313 45.7891787313
+Date, weekly sanity check for trade_history failed.
+Date, monthly sanity check for trade_history completed successfully
+Date, yearly sanity check for trade_history completed successfully

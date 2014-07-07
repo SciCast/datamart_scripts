@@ -88,4 +88,4 @@ api:api_key
 #ignore: comma,separated,list; used to tell which user groups, usernames, id's, etc. to ignore
 #can parse over any field name returned
 #ignore:internal
-ignore:internal
+ignore:internal,chrisC_oo,tearra000,khloeice,nooberman,laticha,frebo12345,thereddemonflash1,tim8080,fr4nk6577

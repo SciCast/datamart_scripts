@@ -1,0 +1,7 @@
+Dear {{username}},
+
+We at SciCast appreciate the crowd of bright people who make our crowdsourcing of science and technology forecasts possible, but you stood out from the crowd yesterday. We estimate that you were one of our most accurate forecasters. Thank you for participating in SciCast.org.
+
+Best regards,
+
+The SciCast Team

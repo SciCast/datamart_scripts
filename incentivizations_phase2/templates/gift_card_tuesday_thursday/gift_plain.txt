@@ -1,0 +1,22 @@
+Dear {{username}},
+
+Congratulations! You’ve won 
+{{number_of_merits}} merit{% if number_of_merits == 1 %}s{% end %} for your activity on SciCast.org during Activity Badge Wednesday. This brings your activity merit total to {{total_merits}}. 
+
+<If applicable>This qualifies you for a new badge or badges:
+
+• <icon> <noble gas> for earning <number> merits
+
+• <repeat for each level earned>
+
+You need <number> more activity merits to reach <next noble gas>. Your 
+
+newest badge appears on your <hyperlink>profile</link>. Log in to 
+
+SciCast.org to see your winnings.
+
+If you have any questions, please contact us at contact@scicast.org.
+
+Best regards,
+
+The SciCast Team

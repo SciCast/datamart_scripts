@@ -3,6 +3,7 @@
 *.pdf
 *.csv
 *.dot
+*.DS_Store
 *history
 /datamart_testing/submitRequest.py~
 /datamart_testing/api_key

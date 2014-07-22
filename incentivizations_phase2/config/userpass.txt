@@ -14,3 +14,8 @@
 # you wish out of the allowed values
 ######################################################
 
+smtp_password:j&j+ben3232
+smtp_username:jack.schultz
+
+api_username:jschultz
+api_password:asdfasdf

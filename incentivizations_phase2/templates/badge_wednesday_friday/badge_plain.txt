@@ -1,28 +1,14 @@
-Congratulations!
+Dear {{username}},
 
-<If applicable> You’ve won {{number_of_codes}} $25 Amazon gift card<s> for your activity on SciCast.org during Activity Reward Tuesday.
+Congratulations! You’ve won {{number_of_merits}} merit{% if number_of_merits == 1 %}s{% end %} for your activity on SciCast.org during Activity Badge Wednesday. This brings your activity merit total to {{number_of_total_merits}}. 
 
-{% if number_of_codes > 1 %}
-One of your {{number_of_codes}} $25 Amazon Gift Card electronic codes is:
-{% else %}
-Your $25 Amazon Gift Card electronic codes is:
-{% end %}
-
-{{code}}
-
-You can redeem your Amazon Gift Card electronic code by clicking <Redeem> or visiting
-
-<http://www.amazon.com/....>
-
-<If applicable>You’ve also won <number> merits for your activity. This brings your activity merit total to <total number>. We wish we could award you more $25 Amazon gift cards, but you have reached the limit of $575. The limit was set because winnings worth $600 or more become taxable personal income in the U.S.
-
-<If applicable>Your merits qualify you for a new badge or badges:
+<If applicable>This qualifies you for a new badge or badges:
 
 • <icon> <noble gas> for earning <number> merits
 
 • <repeat for each level earned>
 
-You need <number> more activity merits to reach <next noble gas>. Your newest badge appears on your <hyperlink>profile</link>. Log in to SciCast.org to see your winnings.
+You need {{merits_until_next_level}} more activity merits to reach {{next_level}}. Your newest badge appears on your <hyperlink>profile</link>. Log in to SciCast.org to see your winnings.
 
 If you have any questions, please contact us at contact@scicast.org.
 

@@ -3,11 +3,9 @@
 <td valign="middle" align="center"><img src="cid:@sci_logo" width="100" height="100" /></td>
 </tr>
 </table><br /><br />
-Dear <<NAME>>,<br /><br />
+Dear {{username}},<br /><br />
 
-Thank you for your activity on SciCast.org this week. You&#146;ve made <<ACTIVITY>> on <<DAY>>.
- SciCast depends on a community of users people who follow and contemplate science and technology.<br />
-Your participation improves that community and helps us to predict the future.<br /><br />
+Thank you for your forecasts on SciCast.org. Based on the state of the market on Monday, we estimate that you were among the most accurate participants. SciCast depends on a community of people who follow and contemplate science and technology. Your participation improves that community and helps us to predict the future.<br /><br />
 
 Best regards,<br /><br />
 

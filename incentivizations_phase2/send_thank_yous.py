@@ -1,8 +1,5 @@
 import csv, requests, time, re, sys, random, smtplib, jinja2, envelopes
 
-from email.mime.multipart import MIMEMultipart
-from email.mime.text import MIMEText
-from email.mime.image import MIMEImage
 
 #Imports from files that I've defined
 import helpers
@@ -24,99 +21,86 @@ def read_winner_data(data_full_path):
 
 if __name__ == "__main__":
 
-  if len(sys.argv) < 2:
-      print "Usage: %s api_key" % (sys.argv[0])
-      sys.exit(1)
-
   #are we in test mode or do we want to send the emails for real?
   test_mode = True #default to testing. No accidents here
   if test_mode: #setup the necessairy test information
-    test_send_from_addr = ''
-    test_send_to_addrs = [''] #array of email addresses that would get the test email
-    test_email_body = ''
+    test_send_to_addrs = ['jackschultz23@gmail.com'] #array of email addresses that would get the test email
 
   #grab the configuration from the config file
   config = helpers.get_config('config/config')
+  userpass = helpers.get_config('config/userpass')
 
-  #grab the api key from command line
-  api_key = sys.argv[1]
+  #options for the smtp server
+  smtp_options = {}
+  smtp_options['server'] = config['server']
+  smtp_options['port'] = config['port']
+  smtp_options['username'] = userpass['smtp_username']
+  smtp_options['password'] = userpass['smtp_password']
 
   #paths to the data
+  date_string = time.strftime("%Y-%m-%d")
   data_directory = 'winners_thank_you'
-  data_filename = 'winners_2014_07_14.csv'
+  data_filename = 'Winners_2014-07-21.csv' #+ date_string + '.csv'
   data_full_path = 'data/' + data_directory + '/' + data_filename
   winner_list = read_winner_data(data_full_path)
 
   #paths to the templates
   template_path = 'templates/thank_you_monday'
-  plain_text_1_filename = 'thank1_plain.txt'
-  plain_text_2_filename = 'thank2_plain.txt'
+  plain_filenames = config['thankplain'].split(',')
+  html_filenames = config['thankhtml'].split(',')
 
-  query_params = {'api_key': api_key, 'format': 'json'}
+#  query_params = {'api_key': api_key, 'format': 'json'}
 
-  #grab the text of the emails
-  #template one first
-  mail_templates = []
-  for filename in config['thankplain'].split(','):
+  #plain templates
+  plain_mail_templates = []
+  for filename in plain_filenames:
     plain_text_file = open(template_path + '/' + filename, 'r')
     template_text = plain_text_file.read()
     plain_text_file.close()
-    mail_templates.append(jinja2.Template(template_text))
+    plain_mail_templates.append(jinja2.Template(template_text))
 
+  html_mail_templates = []
+  for filename in html_filenames:
+    html_text_file = open(template_path + '/' + filename, 'r')
+    template_text = html_text_file.read()
+    html_text_file.close()
+    html_mail_templates.append(jinja2.Template(template_text))
+
+  #images that we need to send
+  images = []
+  images.append(['images/scicast_logo.png', '<@sci_logo>'])
+
+
+  print "Getting All Users..."
+  all_users = helpers.get_data("https://scicast.org/users/index?role=None&traded_since=None", userpass['api_username'], userpass['api_password'])
+  import pdb;pdb.set_trace()
 
   for winner in winner_list:
     #pick a random template for the thank you
-    template = mail_templates[random.randint(0, len(mail_templates)-1)]
-    plain_text_rendered = template.render(username = winner["username"])
-
-    #in test mode, we're not going to want to send all the emails out, obviously
-    if test_mode:
-      test_email_body += plain_text_rendered + '\n\n'
+    template_index = random.randint(0, len(plain_mail_templates)-1)
+    plain_template = plain_mail_templates[template_index]
+    html_template = html_mail_templates[template_index]
+    text_rendered = plain_template.render(username = winner["username"])
+    html_rendered = html_template.render(username = winner["username"])
+    subject = "Thank you from the SciCast team"
+    to_addr = helpers.get_email_from_username(all_users, winner["username"])
+    to_addr_check = helpers.get_email_from_userid(all_users, winner["user_id"])
+    if to_addr != to_addr_check:
+      print "error with address " + to_addr + ".... continuing"
       continue
-
-  if test_mode:
-    #now we want to send the tested emails through
-    for addr in test_send_to:
-      envelope = envelopes.Envelope(
-                                    from_addr=(test_send_from_addr),
-                                    to_addr=(addr),
-                                    subject = 'Test of Thank You Script',
-                                    text_body = test_email_body
-                                    )
-      #note that this needs to change for the test emails to go through
-      gmail = envelopes.GMailSMTP('', '')
-      gmail.send(envelope)
-
-    '''
-    msgroot = MIMEMultipart('related')
-    subject_text = "Thank you from the SciCast team"
+    from_addr = config["from"]
     if test_mode:
-        subject_text += " TESTING RUN"
-    msgroot['Subject'] = subject_text
-    msgroot['From'] = "Awards@scicast.org"
-    msgroot['Reply-to'] = "Awards@scicast.org"
-#            msgroot['To'] = user_email #insert email here
-    msgroot['To'] = '' #send to me for now
+      to_addr = test_send_to_addrs[0] #just grab the first
+    print "Sending email for " + winner["username"] + ' at address ' + to_addr + '.'
 
-    #part1 = MIMEText(html_text,'html')
-    part2 = MIMEText(plain_text,'plain')
-
-    msgroot.attach(sci_logo)
-    msgalternative.attach(part2)
-    msgalternative.attach(part1)
+    if not test_mode and to_addr != None and False:
+      helpers.send_email(to_addr, from_addr, subject, text_rendered, html_rendered, smtp_options, images)
 
 
+  if test_mode and False:
+    #now we want to send the tested emails through
+    subject = "Test of Thank You Script"
 
-    serverport = config["server"]+":" + config["port"]
-    server = smtplib.SMTP(serverport)
-    server.ehlo()
-    server.starttls()
-    server.login(emailuserpass[0],emailuserpass[1])
-    print str(userid)+" "+code+" "+email
-    print msgroot['Subject']
-    server.sendmail("Awards@scicast.org",[email],msgroot.as_string())
-    #server.sendmail("Awards@scicast.org",["ssmith@c4i.gmu.edu"],msgroot.as_string())
-    server.quit()
-    time.sleep(1)
-    '''
+    for addr in test_send_to_addrs:
+      helpers.send_email(addr, config["from"], subject, text_rendered, html_rendered, smtp_options, images)
 

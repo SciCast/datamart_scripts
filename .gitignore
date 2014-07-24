@@ -17,3 +17,6 @@
 /incentivizations_phase2/config/config
 /incentivizations_phase2/config/userpass
 /incentivizations_phase2/config/userpass.txt
+/incentivizations_phase2/data/codes/giftcards.csv
+/incentivizations_phase2/data/codes/used_giftcards.csv
+/incentivizations_phase2/data/winners_codes

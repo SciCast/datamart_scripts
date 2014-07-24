@@ -7,125 +7,99 @@ from email.mime.image import MIMEImage
 #Imports from files that I've defined
 import helpers
 
-NOBLE_GASSES = []
-
-def read_winner_data(data_full_path):
-  winner_list = []
-  with open(data_full_path,'r') as f:
-    next(f) #ignore the first header row
-    for line in f:
-      info = line.split(',')
-      user_info = {}
-      user_info['user_id'] = int(info[0])
-      user_info['date'] = time.strptime(info[1], '%Y-%m-%d')
-      user_info['username'] = info[2][1:-1] if info[2][0] == '"' else info[2]
-      user_info['number_of_new_merits'] = int(info[3])
-      user_info['number_of_total_merits'] = int(info[4])
-      user_info['change_in_badge_level'] = int(info[5])
-      user_info['new_badge_levels'] = [int(x) for x in info[5:10]]
-      user_info['merits_per_new_level'] = [int(x) for x in info[11:16]]
-      user_info['more_levels'] = int(info[17])
-      user_info['merits_until_next_level'] = int(info[18])
-      user_info['next_level'] = int(info[19])
-      winner_list.append(user_info)
-  return winner_list
-
-
 if __name__ == "__main__":
 
-  if len(sys.argv) < 2:
-      print "Usage: %s api_key" % (sys.argv[0])
-      sys.exit(1)
-
-  #grab the api key from command line
-  api_key = sys.argv[1]
-
   #are we in test mode or do we want to send the emails for real?
-  test_mode = True #default to testing. No accidents here
-  if test_mode: #setup the necessairy test information
-    test_send_from_addr = ''
-    test_send_to_addrs = [''] #array of email addresses that would get the test email
-    test_email_body = ''
+  test_mode = True#default to testing. No accidents here
 
   #grab the configuration from the config file
   config = helpers.get_config('config/config')
+  userpass = helpers.get_config('config/userpass')
+
+  #options for the smtp server
+  smtp_options = {}
+  smtp_options['server'] = config['server']
+  smtp_options['port'] = config['port']
+  smtp_options['username'] = userpass['smtp_username']
+  smtp_options['password'] = userpass['smtp_password']
+  smtp_options['from_addr'] = config['from']
 
   #paths to the data
-  data_directory = 'winners_thank_you'
-  data_filename = 'winners_2014_07_14.csv'
+  data_directory = 'winners_badges'
+  data_filename = 'Winners_2014-07-15.csv'
   data_full_path = 'data/' + data_directory + '/' + data_filename
-  winner_list = read_winner_data(data_full_path)
+  winner_list = helpers.read_code_winner_data(data_full_path)
 
   #paths to the templates
-  template_path = 'templates/badge_wednesday_friday'
-
-  query_params = {'api_key': api_key, 'format': 'json'}
-
-  #grab the text of the emails
+  template_path = 'templates/badges'
+  #now get just the badge templates....
   #template one first
   plain_filename = config['swagplain']
   html_filename = config['swaghtml']
+  #get plain file
   plain_text_file = open(template_path + '/' + plain_filename, 'r')
   plain_template = plain_text_file.read()
   plain_text_file.close()
-
+  #get html file
   html_file = open(template_path + '/' + html_filename, 'r')
-  html_template_text = html_file.read()
+  html_template = html_file.read()
   html_file.close()
+  #templates for codes emails
+  swag_plain_template = jinja2.Template(plain_template)
+  swag_html_template = jinja2.Template(html_template)
 
-  plain_template = jinja2.Template(plain_template)
-  html_template = jinja2.Template(html_template)
+  print "Getting All Users..."
+  all_users = helpers.get_data("https://scicast.org/users/index?role=None&traded_since=None", userpass['api_username'], userpass['api_password'])
 
+  current_codes = []
   for winner in winner_list:
-    #pick a random template for the thank you
-    context = {}
-    plain_text_rendered = plain_template.render(winner)
-    html_rendered = html_template.render(winner)
-    #TODO send the email!
 
-  if test_mode:
-    #now we want to send the tested emails through
-    for addr in test_send_to:
-      envelope = envelopes.Envelope(
-                                    from_addr=(test_send_from_addr),
-                                    to_addr=(addr),
-                                    subject = 'Test of Badge Script',
-                                    text_body = test_email_body
-                                    )
-      #note that this needs to change for the test emails to go through
-      gmail = envelopes.GMailSMTP('', '')
-      gmail.send(envelope)
+    #images that we need to send. Restart this ever time since it can change based on type
+    images = []
+    images.append(['images/scicast_logo.png', '<@sci_logo>'])
 
-    '''
-    msgroot = MIMEMultipart('related')
-    subject_text = "Thank you from the SciCast team"
-    if test_mode:
-        subject_text += " TESTING RUN"
-    msgroot['Subject'] = subject_text
-    msgroot['From'] = "Awards@scicast.org"
-    msgroot['Reply-to'] = "Awards@scicast.org"
-#            msgroot['To'] = user_email #insert email here
-    msgroot['To'] = '' #send to me for now
+    if winner['number_of_new_merits'] > 0: #just a sanity check
+      #we need to figure out which images to put in there. badgewise
+      subject = "You've won merits on SciCast.org!"
+      plain_template = swag_plain_template
+      html_template = swag_html_template
+      #we need to figure out which images to attach
+      if winner['new_badge_levels'][0]:
+        images.append(['images/swag_1_species.png', '<@swag_1_species>'])
+      if winner['new_badge_levels'][1]:
+        images.append(['images/swag_2_genus.png', '<@swag_2_genus>'])
+      if winner['new_badge_levels'][2]:
+        images.append(['images/swag_3_family.png', '<@swag_3_family>'])
+      if winner['new_badge_levels'][3]:
+        images.append(['images/swag_4_order.png', '<@swag_4_order>'])
+      if winner['new_badge_levels'][4]:
+        images.append(['images/swag_5_class.png', '<@swag_5_class>'])
+      if winner['new_badge_levels'][5]:
+        images.append(['images/swag_6_phylum.png', '<@swag_6_phylum>'])
+  #    if winner['new_badge_levels'][6]:
+  #      images.append(['images/swag_7_kingdom.png', '<@swag_7_kingdom>'])
 
-    #part1 = MIMEText(html_text,'html')
-    part2 = MIMEText(plain_text,'plain')
-
-    msgroot.attach(sci_logo)
-    msgalternative.attach(part2)
-    msgalternative.attach(part1)
-
-
-
-    serverport = config["server"]+":" + config["port"]
-    server = smtplib.SMTP(serverport)
-    server.ehlo()
-    server.starttls()
-    server.login(emailuserpass[0],emailuserpass[1])
-    print str(userid)+" "+code+" "+email
-    print msgroot['Subject']
-    server.sendmail("Awards@scicast.org",[email],msgroot.as_string())
-    #server.sendmail("Awards@scicast.org",["ssmith@c4i.gmu.edu"],msgroot.as_string())
-    server.quit()
-    time.sleep(1)
-    '''
+      text_rendered = plain_template.render(winner)
+      html_rendered = html_template.render(winner)
+      to_addr = helpers.get_email_from_username(all_users, winner["username"])
+      to_addr_check = helpers.get_email_from_userid(all_users, winner["user_id"])
+      if to_addr != to_addr_check or to_addr == None:
+        print "error with address " + to_addr + ".... continuing"
+        continue
+      #send the emails
+      if test_mode:
+        to_addr = 'jackschultz23@gmail.com'
+        subject += ' Test'
+        for index in range(0,len(winner['new_badge_levels'])):
+          if winner['new_badge_levels'][index] != 0:
+            print winner['date'].strftime("%x") + ', ' + winner["username"] + ', ' + to_addr + ',' + helpers.ANIMAL_CATEGORIES[index]
+        helpers.send_email(to_addr, smtp_options['from_addr'], subject, text_rendered, html_rendered, smtp_options, images)
+      elif to_addr != None:
+        print "AsdFASDFASFASFSD"
+        import pdb;pdb.set_trace()
+        to_addr += ".rpost.org"
+        for index in range(0,len(winner['new_badge_levels'])):
+          if winner['new_badge_levels'][index] != 0:
+            print winner['date'].strftime("%x") + ', ' + winner["username"] + ', ' + to_addr + ',' + helpers.ANIMAL_CATEGORIES[index]
+     #   helpers.send_email(to_addr, smtp_options['from_addr'], subject, text_rendered, html_rendered, smtp_options, images)
 

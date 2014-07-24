@@ -18,4 +18,3 @@ Inputs: newwinners.csv, file from above with winners, e-mail addresses, and real
 
 Outputs: emaillog.csv, postive confirmation the code executed, as well as tying code to email address/name; amazoncodes.csv, would add ",USED" after each code sent, immediately after code was sent.
 
-

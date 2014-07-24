@@ -4,27 +4,12 @@ import csv, requests, time, re, sys, random, smtplib, jinja2, envelopes
 #Imports from files that I've defined
 import helpers
 
-def read_winner_data(data_full_path):
-  winner_list = []
-  with open(data_full_path,'r') as f:
-    next(f) #ignore the first header row
-    for line in f:
-      info = line.split(',')
-      user_info = {}
-      user_info['user_id'] = int(info[0])
-      user_info['date'] = time.strptime(info[1], '%Y-%m-%d')
-      user_info['username'] = info[2][1:-1]
-      user_info['number_of_thanks'] = int(info[3])
-      winner_list.append(user_info)
-  return winner_list
-
-
 if __name__ == "__main__":
 
   #are we in test mode or do we want to send the emails for real?
   test_mode = True #default to testing. No accidents here
   if test_mode: #setup the necessairy test information
-    test_send_to_addrs = ['jackschultz23@gmail.com'] #array of email addresses that would get the test email
+    test_send_to_addrs = [''] #array of email addresses that would get the test email
 
   #grab the configuration from the config file
   config = helpers.get_config('config/config')
@@ -40,9 +25,9 @@ if __name__ == "__main__":
   #paths to the data
   date_string = time.strftime("%Y-%m-%d")
   data_directory = 'winners_thank_you'
-  data_filename = 'Winners_2014-07-21.csv' #+ date_string + '.csv'
+  #data_filename = 'Winners_2014-07-21.csv' #+ date_string + '.csv' #TODO this needs to change per day. or be dynamic
   data_full_path = 'data/' + data_directory + '/' + data_filename
-  winner_list = read_winner_data(data_full_path)
+  winner_list = helpers.read_thank_you_winner_data(data_full_path)
 
   #paths to the templates
   template_path = 'templates/thank_you_monday'

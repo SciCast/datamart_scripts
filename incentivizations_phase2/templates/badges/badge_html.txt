@@ -1,0 +1,46 @@
+<table width="100%">
+<tr>
+<td valign="middle" align="center"><img src="cid:@sci_logo" width="100" height="100" /></td>
+</tr>
+</table><br /><br />
+
+Dear {{username}},
+<br /><br />
+
+Congratulations!<br /><br />
+You've won {{number_of_new_merits}} merit{% if number_of_new_merits != 1 %}s{% endif %} for your activity on SciCast.org during Activity Badge Wednesday. This brings your activity merit total to {{number_of_total_merits}}.<br /><br />
+
+This qualifies you for a new badge or badges:<br /><br />
+
+{%if new_badge_levels[0]%}
+<img src="cid:@swag_1_species" width="100" height="100" /> SPECIES for earning {{merits_per_new_level[0]}} merit.<br /><br />
+{%endif%}
+{%if new_badge_levels[1]%}
+<img src="cid:@swag_2_genus" width="100" height="100" /> GENUS for earning {{merits_per_new_level[1]}} merits.<br /><br />
+{%endif%}
+{%if new_badge_levels[2]%}
+<img src="cid:@swag_3_family" width="100" height="100" /> FAMILY for earning {{merits_per_new_level[2]}} merits.<br /><br />
+{%endif%}
+{%if new_badge_levels[3]%}
+<img src="cid:@swag_4_order" width="100" height="100" /> ORDER for earning {{merits_per_new_level[3]}} merits.<br /><br />
+{%endif%}
+{%if new_badge_levels[4]%}
+<img src="cid:@swag_5_class" width="100" height="100" /> CLASS for earning {{merits_per_new_level[4]}} merits.<br /><br />
+{%endif%}
+{%if new_badge_levels[5]%}
+<img src="cid:@swag_6_phylum" width="100" height="100" /> PHYLUM for earning {{merits_per_new_level[5]}} merits.<br /><br />
+{%endif%}
+<br /><br />
+
+You need {{merits_until_next_level}} more activity merit{% if merits_until_next_level != 1 %}s{% endif %} to reach level {{next_level}}. Your newest badge appears on your profile. Log in to SciCast.org to see your winnings.<br /><br />
+
+If you have any questions, please contact us at <a href="mailto:contact@scicast.org">contact@scicast.org</a>.<br /><br />
+<br /><br />
+Best regards,<br />
+The SciCast Team<br />
+
+<a href="http://twitter.com/share?url=http://blog.scicast.org/2014/05/21/win-prizes-for-making-forecasts-on-scicast/&text=I just won <<TODAY>> merits for my activity on <<DAY>>!&via=scicasters">Tweet this</a>
+<a href="https://twitter.com/intent/user?screen_name=scicasters">Follow @scicasters on twitter</a>
+<a href="https://www.facebook.com/SciCast">Facebook</a>
+<a href="http://www.linkedin.com/groups/SciCast-5065196">LinkedIn</a>
+<a href="https://plus.google.com/110554548506496003756/posts">Google+</a>

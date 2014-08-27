@@ -1,0 +1,17 @@
+<table width="100%">
+<tr>
+<td valign="middle" align="center"><img src="cid:@sci_logo" width="100" height="100" /></td>
+</tr>
+</table><br /><br />
+Dear {{username}},<br /><br />
+
+We at SciCast appreciate the crowd of bright people who make our crowdsourcing of science and technology forecasts possible, but you stood out from the crowd yesterday. We estimate that you were one of our most accurate forecasters.<br />
+Thank you for participating in SciCast.org.<br /><br />
+
+Best regards,<br /><br />
+
+The SciCast Team<br />
+<a href="https://twitter.com/intent/user?screen_name=scicasters">Follow @scicasters on twitter</a>
+<a href="https://www.facebook.com/SciCast">Facebook</a>
+<a href="http://www.linkedin.com/groups/SciCast-5065196">LinkedIn</a>
+<a href="https://plus.google.com/110554548506496003756/posts">Google+</a>

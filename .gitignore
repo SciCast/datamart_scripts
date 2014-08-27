@@ -3,6 +3,7 @@
 *.pdf
 *.csv
 *.dot
+*.DS_Store
 *history
 .api_key.txt
 *api_key*
@@ -15,3 +16,9 @@
 /Incentivization\ Script/userpass
 /Incentivization\ Script/giftcards
 /datamart_testing/test.sh
+/incentivizations_phase2/config/config
+/incentivizations_phase2/config/userpass
+/incentivizations_phase2/config/userpass.txt
+/incentivizations_phase2/data/codes/giftcards.csv
+/incentivizations_phase2/data/codes/used_giftcards.csv
+/incentivizations_phase2/data/winners_codes

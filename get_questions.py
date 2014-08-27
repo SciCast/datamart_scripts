@@ -76,10 +76,11 @@ def get_links(json_Qs, dot=False, labels=False):
 # %s
 digraph {
 
-graph [label="SciCast Link Structure\n\n", labelloc=top, fontsize=40];
+graph [label="SciCast Link Structure\\n\\n", labelloc=top, fontsize=40];
 rankdir=LR; 
 ranksep=.3;
-node [style=filled, fillcolor="cornsilk:purple3", color=transparent];
+node [style=filled, fillcolor="cornsilk:purple3", color=transparent,
+      fixedsize=false, shape=box, width=17];
 
 subgraph LEGEND {
 	 label="Legend";
@@ -155,12 +156,15 @@ def get_shortnames(json_Qs, dot=False, linksonly=True, show_groups=False):
             except AttributeError:
                 pass
         if dot:
-            label = '%s: %s (%s)' % (q['question_id'], sname, groups[:20])
-            s += '%s [ label="%s"' % (q['question_id'], wrapper.fill(label))
+            label = '%s: %s' % (q['question_id'], sname)
+            if show_groups:
+                label += ' (%s)' % groups[:20]
+            label = '\\n\\n'.join(wrapper.wrap(label))
+            s += '%s [ label="%s"' % (q['question_id'], label)
             if 'Invalid' in groups:
                 s += ', shape=Mdiamond, style=dashed, color=gray '
             elif q['resolution_at'] != None:
-                s += ',style=dotted, color=gray '
+                s += ', style=dotted, color=gray '
             s += ']\n'
         else:
             s += "%s,%s,%s\n" % (q['question_id'], sname, groups)

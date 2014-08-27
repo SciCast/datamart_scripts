@@ -6,16 +6,26 @@
 #  All other rights reserved.
 #
 
-'''get_questions.py
 
-   Extends simple_question_query.py to get question link structure,
-   return it in either CSV or JSON format, and provide routines
-   for generating a .dot file suitable for passing to graphviz.
+'''get_activity.py
 
-   > python get_question.py <api-key>
-   > dot -Tpdf -olinks.pdf links.dot
+   Get daily trade activity and plot.
 
-   Then view links.pdf.
+    # Trades per day graph
+    cat <- as.POSIXct(th$traded_at)
+    start <- as.POSIXct("2013-11-25 01:00:00 EST")
+    #days <- seq(1,ceiling(as.double(Sys.time()-60*60*24 - start)),1)
+    label <- as.character(c(25:30,"Dec 1",2:31,"Jan 1",2:31,"Feb 1",2:28))
+    nt <- numeric()
+    for (d in 1:max(days)) {
+     nt[d] <- length(cat[cat>=start+(d-1)*60*60*24&cat<start+d*60*60*24])
+    }
+
+    png("TpD.png", width = 7200, height = 3600, pointsize = 18, res = 360)
+    par(mar=c(5,4,4,4))
+    plot(days,nt,type="l",lwd=3,xaxt="n",ylim=c(0,max(nt)*1.25),ylab="Trades per Day",xlab="Date")
+     par(las=2)
+     axis(1,at=days,lab=label[1:length(days)])
    
 '''
 
@@ -39,8 +49,8 @@ def validate(payload):
     except KeyError:
         raise DatamartRetrievalException()
 
-def get_questions(payload):
-    '''Get questions according to parameters in 'payload'.
+def get_tpd(payload):
+    '''Get trades per day according to parameters in 'payload'.
 
     @param payload -- key/value dict. eg: {'format': 'json', 'api_key': '96ae0f...'}
     
@@ -114,30 +124,24 @@ subgraph LEGEND {
         s += '}\n'
     return s
 
-def get_linkmask(json_Qs):
-    '''Return a boolean array L with L[id]=True iff Q. id has links.'''
-    has_links = zeros(len(json_Qs)+1, 'bool')
-    for q in json_Qs:
-        links = q['relationships']
-        if len(links) > 0:
-            has_links[q['question_id']] = True
-            for link in links:
-                has_links[link['destination_question_id']] = True
-    return has_links
-    
-def get_shortnames(json_Qs, dot=False, linksonly=True, show_groups=False):
+def get_shortnames(json_Qs, dot=False, linksonly=True):
     '''Return a list of IDs and ShortNames and Roles
     
     @param dot -- Set True to use dot notation rather than csv
                   Dot notation: id [label="id: Shortname"]
     @param linksonly -- Omit nodes without links
-    @param show_groups -- Set True to show groups a Q belongs to. Can get long.
 
     '''
 
     # Determine which questions are linked to others
     if linksonly:
-        has_links = get_linkmask(json_Qs)
+        has_links = zeros(len(json_Qs)+1, 'bool')
+        for q in json_Qs:
+            links = q['relationships']
+            if len(links) > 0:
+                has_links[q['question_id']] = True
+                for link in links:
+                    has_links[link['destination_question_id']] = True
 
     s = ''
     wrapper = textwrap.TextWrapper()
@@ -146,24 +150,22 @@ def get_shortnames(json_Qs, dot=False, linksonly=True, show_groups=False):
         if linksonly and not has_links[q['question_id']]:
             continue
         sname = q['short_name'].encode('ascii','replace').replace('"','')
-        groups = ''
-        if show_groups:
-            try:
-                groups = q['groups'].encode('ascii','replace')
-                if len(groups) > 20:
-                    groups = groups[:,17]+'...'
-            except AttributeError:
-                pass
+        try:
+            roles = q['groups'].encode('ascii','replace')
+        except AttributeError:
+            roles = ''
         if dot:
-            label = '%s: %s (%s)' % (q['question_id'], sname, groups[:20])
+            label = '%s: %s (%s)' % (q['question_id'], sname, roles[:20])
+            if len(roles) > 20:
+                label += '...'
             s += '%s [ label="%s"' % (q['question_id'], wrapper.fill(label))
-            if 'Invalid' in groups:
+            if 'Invalid' in roles:
                 s += ', shape=Mdiamond, style=dashed, color=gray '
             elif q['resolution_at'] != None:
                 s += ',style=dotted, color=gray '
             s += ']\n'
         else:
-            s += "%s,%s,%s\n" % (q['question_id'], sname, groups)
+            s += "%s,%s,%s\n" % (q['question_id'], sname, roles)
     return s
 
 def get_registrations(payload):
@@ -172,7 +174,6 @@ def get_registrations(payload):
 if __name__ == '__main__':
     if len(sys.argv) < 2:
         print "Usage: %s api_key [keywords]" % (sys.argv[0])
-        print __doc__
         sys.exit(1)
 
     api_key = sys.argv[1]
@@ -188,7 +189,7 @@ if __name__ == '__main__':
     print "# Total Questions   : %4d" % (len(json_data))
     print "# Resolved Questions: %4d" % (len(settled))
     print "# Invalid Questions : %4d" % (len(invalid))
-    #print 'Keys: ', json_data[0].keys()
+    print 'Keys: ', json_data[0].keys()
     with open('shortnames.csv','w') as f:
         f.write(get_shortnames(json_data))
     with open('links.dot','w') as f:

@@ -4,6 +4,8 @@
 *.csv
 *.dot
 *history
+.api_key.txt
+*api_key*
 /datamart_testing/submitRequest.py~
 /datamart_testing/api_key
 /Incentivization\ Script/notes

@@ -153,7 +153,7 @@ for (t in 1:length(tat)) {
  if (is.na(temp1[1])==F) {
   rvqt[t,1:length(temp1)] <- temp1
   if (mdt[t]>0) {
-   dflt <- (1-rst[t])/(length(temp1)-1); svt[t,1:length(temp1)] <- rep(dflt,length(temp1))
+   dflt <- (1-rst[t])/(length(temp1)-1); svt[t,1:length(temp1)] <- rep(dflt,length(temp1))				# Assume non-attended options have uniform distribution.
    svt[t,(cit[t]+1)] <- rst[t]
   }
   if (temp1[1]%%1==0) {													# Not mixture resolutions

@@ -29,12 +29,6 @@ for (i in 1:length(names)) {
 #
 # Removing admin accounts and activity
 pip <- pr$user_id; pus <- as.character(pr$username); cap <- as.POSIXct(pr$created_at); grps <- pr$groups; rip <-pr$referral_id
-adu <- c("amsiegel","BAE11","brnlsl","brobins","cedarskye","christinafreyman","ctwardy","daggre_admin","dquere","gbs_tester","Inkling","jessiejury","jlu_bae","kennyth0","klaskey","kmieke","manindune","Naveen Jay","pthomas524","Question_Admin","Question Mark","randazzese","RobinHanson","saqibtq","scicast_admin","slin8","ssmith","tlevitt","wsun")
-adi <- numeric()
-for (i in 1:length(adu)) {
- adi[i] <- pip[pus==adu[i]]
- cap[pip==adi[i]] <- NA
-}
 
 grp <- array(rep("a",length(pip)*20),c(length(pip),20)); igrp <- rep(0,length(pip))
 for (i in 1:length(pip)) {

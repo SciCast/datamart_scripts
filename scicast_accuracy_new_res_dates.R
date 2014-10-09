@@ -282,7 +282,7 @@ for (t in 1:length(tat)) {
 }
 good <- complete.cases(tat)
 sum(!good)
-tat<-tat[good]; pit<-pit[good]; qit<-qit[good]; nvt<-nvt[good]; ovt<-ovt[ord]; ovt<-ovt[good]; sas<-sas[good]; apot<-apot[good]
+tat<-tat[good]; pit<-pit[good]; qit<-qit[good]; nvt<-nvt[good]; ovt<-ovt[good]; sas<-sas[good]; apot<-apot[good]
 cit<-cit[good]; rst<-rst[good]; mdt<-mdt[good]
 
 ##############################################

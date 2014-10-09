@@ -269,8 +269,6 @@ raq <- as.POSIXct(raq)
 ls <- qn$relationships_source_question_id;
 ld <- qn$relationships_destination_question_id
 
-BIG TEST CHANGE RIGHT HERE BECAUSE GITHUB FAILED ME EARLIER TODAY!
-
 qiq <- qn$question_id; caq <- as.POSIXct(qn$created_at); grq <- as.character(qn$groups); saq <- as.character(qn$resolution_at); raq <- as.character(qn$pending_until)
 #qn$provisional_settled_at is start of comment period and qn$pending_until will be reused for event resolution (not question resolution)
 saq[saq=="None"] <- as.character(Sys.time()+365*60*60*24); saq <- as.POSIXct(saq)

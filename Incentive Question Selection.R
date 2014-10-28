@@ -4,7 +4,11 @@ setwd("C:/<YOURFAVORITEFOLDER>")
 setInternet2(use = TRUE)
 # Download and read file.
 download.file("http://datamart.scicast.org/question/?format=csv&api_key=<YOURKEYHERE>",destfile="question_report.csv")
+download.file("http://datamart.scicast.org/trade_history/?format=csv&api_key=<YOURKEYHERE>",destfile="trade_history_report.csv")
+download.file("http://datamart.scicast.org/person/?format=csv&api_key=<YOURKEYHERE>",destfile="person_report.csv")
  qn<-read.csv("question_report.csv")
+ th<-read.csv("trade_history_report.csv")
+ pr<-read.csv("person_report.csv")
 
 ##############
 # Setup
@@ -19,6 +23,64 @@ ls <- qn$relationships_source_question_id; ld <- qn$relationships_destination_qu
 ql <- qn$is_locked; qv <- qn$is_visible; qps <- qn$provisional_settled_at; pq <- qn$type
 tpq <- rep(0,length(qiq)); tpq[pq=="binary"] <- 2; tpq[pq=="multi"] <- 3
 ct <- qn$categories; orq <- qn$is_ordered; orq <- as.double(orq); rvq <- qn$resolution_value_array
+drq <- as.double(raq-caq)
+
+#
+# Removing admin accounts and activity
+pip <- pr$user_id; pus <- as.character(pr$username); cap <- as.POSIXct(pr$created_at); grps <- pr$groups; rip <-pr$referral_id
+
+#adu <- c("amsiegel","BAE11","brnlsl","brobins","cedarskye","christinafreyman","ctwardy","daggre_admin","dquere","gbs_tester","Inkling","jessiejury","jlu_bae","kennyth0","klaskey","kmieke","manindune","Naveen Jay","pthomas524","Question_Admin","Question Mark","randazzese","RobinHanson","saqibtq","scicast_admin","slin8","ssmith","tlevitt","wsun")
+#adi <- numeric()
+#for (i in 1:length(adu)) {
+# adi[i] <- pip[pus==adu[i]]
+# cap[pip==adi[i]] <- NA
+#}
+
+grp <- array(rep("a",length(pip)*20),c(length(pip),20)); igrp <- rep(0,length(pip))
+for (i in 1:length(pip)) {
+ temp <- as.vector(strsplit(as.character(grps[i]),",")[[1]])
+ grp[i,1:length(temp)] <- temp
+}
+adi <- numeric()
+for (i in 1:length(pip)) {
+ for (g in 1:20) {
+  if (grp[i,g]=="Admin"|grp[i,g]=="SuperAdmin"|grp[i,g]=="UserAdmin"|grp[i,g]=="BadgesAdmin"|grp[i,g]=="RolesAdmin"|grp[i,g]=="QuestionAdmin") {
+   cap[i] <- NA
+   adi <- c(adi,pip[i])
+  }
+  if (grp[i,g]=="Internal") {										# Keeping but noting internal accounts!
+   igrp[i] <- 1
+  }
+ }
+}
+adi <- unique(adi)
+
+good <- complete.cases(cap)
+sum(!good)     												# How many are not good?
+cap<-cap[good]; pus<-pus[good]; pip<-pip[good]; grp<-grp[good,]; rip<-rip[good]
+
+pit <- th$user_id; qit <- th$question_id; tat <- as.POSIXct(th$traded_at)
+
+for (i in 1:length(adi)) {
+ tat[pit==adi[i]] <- NA
+}
+good <- complete.cases(tat)
+sum(!good)     												# How many are not good?
+tat<-tat[good]; pit<-pit[good]; qit<-qit[good]
+
+#
+# Removing stuttered forecasts
+
+ord <- order(qit,tat)
+tat<-tat[ord]; pit<-pit[ord]; qit<-qit[ord]
+for (t in 1:(length(tat)-1)) {
+ if (pit[t]==pit[t+1]&qit[t]==qit[t+1]&((tat[t+1]-base)-(tat[t]-base))<=0.25) {
+  tat[t] <- NA
+ }
+}
+good <- complete.cases(tat)
+sum(!good)
+tat<-tat[good]; pit<-pit[good]; qit<-qit[good]
 
 ##############
 # Selecting Study questions

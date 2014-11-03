@@ -25,6 +25,14 @@ tpq <- rep(0,length(qiq)); tpq[pq=="binary"] <- 2; tpq[pq=="multi"] <- 3
 ct <- qn$categories; orq <- qn$is_ordered; orq <- as.double(orq); rvq <- qn$resolution_value_array
 drq <- as.double(raq-caq)
 
+# Creating a matrix of questions' groups
+gpq <- array(rep("a",length(qiq)*200),c(length(qiq),200)); pblk <- rep(0,length(qiq))
+for (q in 1:length(qiq)) {
+ temp <- as.vector(strsplit(grq[4],",")[[1]]); llt <- length(temp)
+ gpq[q,1:llt] <- temp
+ if ("Public"%in%temp) {pblk[q] <- 1}
+}
+
 #
 # Removing admin accounts and activity
 pip <- pr$user_id; pus <- as.character(pr$username); cap <- as.POSIXct(pr$created_at); grps <- pr$groups; rip <-pr$referral_id
@@ -86,7 +94,7 @@ tat<-tat[good]; pit<-pit[good]; qit<-qit[good]
 # Selecting Study questions
 ##############
 
-pisq <- qiq[grq=="Public"&ql=="False"&qv=="True"&saq==max(saq)&raq>as.POSIXct("2014-11-15 00:00:00 EST")&qps=="None"]
+pisq <- qiq[pblk==1&ql=="False"&qv=="True"&saq==max(saq)&raq>as.POSIXct("2014-11-15 00:00:00 EST")&qps=="None"]
 
 #sort by pending_until; take first 300
 ll <- min(length(pisq),300)
@@ -108,7 +116,7 @@ for (q in 1:length(qiq)) {
 }
 
 # Hierarchical sort on factors before splitting even and odd
-or <- order(tq[qiq%in%isq],cq[qiq%in%isq],raq[qiq%in%isq],ntq[qiq%in%isq])
+or <- order(tq[qiq%in%isq],raq[qiq%in%isq],ntq[qiq%in%isq],cq[qiq%in%isq])
 isq <- isq[or]
 sq1 <- seq(1,ll,2); sq2 <- seq(2,ll,2)
 isq1 <- isq[sq1]; isq2 <- isq[sq2]
